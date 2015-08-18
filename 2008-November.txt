@@ -1,0 +1,18 @@
+From chemoelectric at chemoelectric.org  Sun Nov 30 03:11:00 2008
+From: chemoelectric at chemoelectric.org (Barry Schwartz)
+Date: Sat, 29 Nov 2008 20:11:00 -0600
+Subject: [ant-devel] Esperanto hyphenation
+Message-ID: <20081130021100.GA24914@crud.crud.mn.org>
+
+A couple of years ago I adapted to ant the Esperanto hyphenation
+patterns for TeX. I don't know how copyright and licensing affect
+inclusion in ant, though the patterns could be provided in separate
+packaging.
+
+I've posted them here:
+
+http://home.comcast.net/~crudfactory/esperanto.hyphen
+http://home.comcast.net/~crudfactory/esperanto.hyphen.m4
+
+
+

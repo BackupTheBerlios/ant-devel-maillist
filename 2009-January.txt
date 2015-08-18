@@ -1,0 +1,46 @@
+From Barry.Schwartz at chemoelectric.org  Thu Jan 29 07:32:23 2009
+From: Barry.Schwartz at chemoelectric.org (Barry Schwartz)
+Date: Thu, 29 Jan 2009 00:32:23 -0600
+Subject: [ant-devel] LoadImage.ml bug
+Message-ID: <20090129063223.GA25856@crud.crud.mn.org>
+
+The following code in LoadImage.ml can do a divide by zero if dpi = 0:
+ 
+    let factor = if dpi >=/ num_zero then
+                   inch // dpi
+                 else
+                   inch // num_of_int 100;
+
+
+
+From blumensath at mathematik.tu-darmstadt.de  Thu Jan 29 08:16:46 2009
+From: blumensath at mathematik.tu-darmstadt.de (Achim Blumensath)
+Date: Thu, 29 Jan 2009 08:16:46 +0100
+Subject: [ant-devel] LoadImage.ml bug
+In-Reply-To: <20090129063223.GA25856@crud.crud.mn.org>
+References: <20090129063223.GA25856@crud.crud.mn.org>
+Message-ID: <20090129071646.GB21808@mathematik.tu-darmstadt.de>
+
+Hello,
+
+Barry Schwartz wrote:
+> The following code in LoadImage.ml can do a divide by zero if dpi = 0:
+
+Thanks, I've fixed the bug in CVS.
+
+Achim
+-- 
+________________________________________________________________________
+                                                              | \_____/ |
+   Achim Blumensath                                          \O/ \___/\ |
+   TU Darmstadt                                              =o=  \ /\ \|
+   www.mathematik.tu-darmstadt.de/~blumensath                /"\   o----|
+____________________________________________________________________\___|
+-------------- next part --------------
+A non-text attachment was scrubbed...
+Name: signature.asc
+Type: application/pgp-signature
+Size: 189 bytes
+Desc: Digital signature
+URL: <https://lists.berlios.de/pipermail/ant-devel/attachments/20090129/6e27a5de/attachment.pgp>
+

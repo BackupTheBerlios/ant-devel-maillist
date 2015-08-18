@@ -1,0 +1,98 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [ant-devel] How to use a postscript font?
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/ant-devel/2007-August/index.html" >
+   <LINK REL="made" HREF="mailto:ant-devel%40lists.berlios.de?Subject=Re%3A%20%5Bant-devel%5D%20How%20to%20use%20a%20postscript%20font%3F&In-Reply-To=%3Cm1abt8kd3k.fsf%40levana.de%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000010.html">
+   <LINK REL="Next"  HREF="000012.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[ant-devel] How to use a postscript font?</H1>
+    <B>Patrick Gundlach</B> 
+    <A HREF="mailto:ant-devel%40lists.berlios.de?Subject=Re%3A%20%5Bant-devel%5D%20How%20to%20use%20a%20postscript%20font%3F&In-Reply-To=%3Cm1abt8kd3k.fsf%40levana.de%3E"
+       TITLE="[ant-devel] How to use a postscript font?">ant at contextgarden.net
+       </A><BR>
+    <I>Fri Aug  3 15:02:56 CEST 2007</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000010.html">[ant-devel] How to use a postscript font?
+</A></li>
+        <LI>Next message: <A HREF="000012.html">[ant-devel] How to use a postscript font?
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#11">[ date ]</a>
+              <a href="thread.html#11">[ thread ]</a>
+              <a href="subject.html#11">[ subject ]</a>
+              <a href="author.html#11">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Hello,
+
+just in case somebody else has beginner's problems. Here is a small
+file that creates a simple paragraph with the helvetica clone from urw:
+
+
+\newpagelayout{pgpaper}{12cm}{8cm}
+\newpagearea{bar}{10mm}{10mm}{18cm}{26cm}{10pt}{3pt}{galley}{ name = foo }
+\include{fonts.ant}
+\setparameter{font}{ family = Helvetica; series = medium; shape = normal }
+\definecommand\FontFamilySans{Helvetica}
+\sffamily
+\setparameter{paragraph}{ par-indent = 15bp }
+\newgalley{foo}{220bp}
+\begingalley{foo}
+In olden times when wishing still helped one, there lived a king whose
+daughters were all beautiful, but the youngest was so beautiful that
+the sun itself, which has seen so much, was astonished whenever it
+shone in her face. Close by the king's castle lay a great dark
+forest, and under an old lime-tree in the for est was a well, and
+when the day was very warm, the king's child went out into the forest
+and sat down by the side of the cool fountain, and when she
+was bored she took a golden ball, and threw it up on high and caught
+it, and this ball was her favorite plaything.
+\endgalley
+\shipoutpages{pgpaper}{pgpaper}
+
+
+and fonts.ant is the one from the manual with two lines added:
+
+133:    hel  := &quot;Helvetica&quot;;
+164:    ps_declare_font &quot;n019003l.pfb&quot;    hel  med  nor  ( 0, 20) { };
+
+
+No idea if this is 'the way to go' or not, but it works.
+
+Patrick
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000010.html">[ant-devel] How to use a postscript font?
+</A></li>
+	<LI>Next message: <A HREF="000012.html">[ant-devel] How to use a postscript font?
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#11">[ date ]</a>
+              <a href="thread.html#11">[ thread ]</a>
+              <a href="subject.html#11">[ subject ]</a>
+              <a href="author.html#11">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/ant-devel">More information about the ant-devel
+mailing list</a><br>
+</body></html>

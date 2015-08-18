@@ -1,0 +1,223 @@
+From ant at contextgarden.net  Wed Aug  1 14:03:44 2007
+From: ant at contextgarden.net (Patrick Gundlach)
+Date: Wed, 01 Aug 2007 14:03:44 +0200
+Subject: [ant-devel] small example hello world file?
+Message-ID: <m1vebzjwbj.fsf@levana.de>
+
+Hi,
+
+could anybody send me an example 'hello world' file? I have gone
+through the manual, but didn't succeed. I have found an older thread
+on this, but that one was only about a small rule, I didn't succeed in
+extending it.
+
+Sorry for being so clueless,
+
+Patrick
+
+
+From ant at contextgarden.net  Thu Aug  2 08:51:33 2007
+From: ant at contextgarden.net (Patrick Gundlach)
+Date: Thu, 02 Aug 2007 08:51:33 +0200
+Subject: [ant-devel] small example hello world file?
+In-Reply-To: <m1vebzjwbj.fsf@levana.de> (Patrick Gundlach's message of "Wed,
+	01 Aug 2007 14:03:44 +0200")
+References: <m1vebzjwbj.fsf@levana.de>
+Message-ID: <m1myxajuoa.fsf@levana.de>
+
+Hello again,
+
+> could anybody send me an example 'hello world' file? I have gone
+> through the manual, but didn't succeed. I have found an older thread
+> on this, but that one was only about a small rule, I didn't succeed in
+> extending it.
+>
+> Sorry for being so clueless,
+
+
+I'd be really happy for a small example to play with!
+
+Patrick
+
+
+From ant at contextgarden.net  Thu Aug  2 12:34:49 2007
+From: ant at contextgarden.net (Patrick Gundlach)
+Date: Thu, 02 Aug 2007 12:34:49 +0200
+Subject: [ant-devel] How to use a postscript font?
+Message-ID: <m1ir7yjkc6.fsf@levana.de>
+
+Hi,
+
+I had success in creating a small 'hello world' file. But now I'd like
+to get hello world with a type1 palatino to work. I've copied the font
+file to the local directory, but which commands should I use to switch
+to the right font?
+
+Patrick
+
+
+From ant at contextgarden.net  Fri Aug  3 15:02:56 2007
+From: ant at contextgarden.net (Patrick Gundlach)
+Date: Fri, 03 Aug 2007 15:02:56 +0200
+Subject: [ant-devel] How to use a postscript font?
+In-Reply-To: <m1ir7yjkc6.fsf@levana.de> (Patrick Gundlach's message of "Thu,
+	02 Aug 2007 12:34:49 +0200")
+References: <m1ir7yjkc6.fsf@levana.de>
+Message-ID: <m1abt8kd3k.fsf@levana.de>
+
+Hello,
+
+just in case somebody else has beginner's problems. Here is a small
+file that creates a simple paragraph with the helvetica clone from urw:
+
+
+\newpagelayout{pgpaper}{12cm}{8cm}
+\newpagearea{bar}{10mm}{10mm}{18cm}{26cm}{10pt}{3pt}{galley}{ name = foo }
+\include{fonts.ant}
+\setparameter{font}{ family = Helvetica; series = medium; shape = normal }
+\definecommand\FontFamilySans{Helvetica}
+\sffamily
+\setparameter{paragraph}{ par-indent = 15bp }
+\newgalley{foo}{220bp}
+\begingalley{foo}
+In olden times when wishing still helped one, there lived a king whose
+daughters were all beautiful, but the youngest was so beautiful that
+the sun itself, which has seen so much, was astonished whenever it
+shone in her face. Close by the king's castle lay a great dark
+forest, and under an old lime-tree in the for est was a well, and
+when the day was very warm, the king's child went out into the forest
+and sat down by the side of the cool fountain, and when she
+was bored she took a golden ball, and threw it up on high and caught
+it, and this ball was her favorite plaything.
+\endgalley
+\shipoutpages{pgpaper}{pgpaper}
+
+
+and fonts.ant is the one from the manual with two lines added:
+
+133:    hel  := "Helvetica";
+164:    ps_declare_font "n019003l.pfb"    hel  med  nor  ( 0, 20) { };
+
+
+No idea if this is 'the way to go' or not, but it works.
+
+Patrick
+
+
+From blumensath at mathematik.tu-darmstadt.de  Mon Aug  6 08:14:10 2007
+From: blumensath at mathematik.tu-darmstadt.de (Achim Blumensath)
+Date: Mon, 6 Aug 2007 08:14:10 +0200
+Subject: [ant-devel] How to use a postscript font?
+In-Reply-To: <m1abt8kd3k.fsf@levana.de>
+References: <m1ir7yjkc6.fsf@levana.de> <m1abt8kd3k.fsf@levana.de>
+Message-ID: <20070806061410.GC21920@mathematik.tu-darmstadt.de>
+
+Hello,
+
+Patrick Gundlach wrote:
+> just in case somebody else has beginner's problems. Here is a small
+> file that creates a simple paragraph with the helvetica clone from urw:
+> 
+> \newpagelayout{pgpaper}{12cm}{8cm}
+> \newpagearea{bar}{10mm}{10mm}{18cm}{26cm}{10pt}{3pt}{galley}{ name = foo }
+> \include{fonts.ant}
+> \setparameter{font}{ family = Helvetica; series = medium; shape = normal }
+
+You can omit these lines:
+
+> \definecommand\FontFamilySans{Helvetica}
+> \sffamily
+
+The have the same effect as the \setparameter{font} command.
+
+> \setparameter{paragraph}{ par-indent = 15bp }
+> \newgalley{foo}{220bp}
+> \begingalley{foo}
+> In olden times when wishing still helped one, there lived a king whose
+> daughters were all beautiful, but the youngest was so beautiful that
+> the sun itself, which has seen so much, was astonished whenever it
+> shone in her face. Close by the king's castle lay a great dark
+> forest, and under an old lime-tree in the for est was a well, and
+> when the day was very warm, the king's child went out into the forest
+> and sat down by the side of the cool fountain, and when she
+> was bored she took a golden ball, and threw it up on high and caught
+> it, and this ball was her favorite plaything.
+> \endgalley
+> \shipoutpages{pgpaper}{pgpaper}
+> 
+> 
+> and fonts.ant is the one from the manual with two lines added:
+> 
+> 133:    hel  := "Helvetica";
+> 164:    ps_declare_font "n019003l.pfb"    hel  med  nor  ( 0, 20) { };
+> 
+> 
+> No idea if this is 'the way to go' or not, but it works.
+
+Yes, this looks fine. (Although you limit the size of the font to 20
+points.) You could also insert the lines
+
+  \ALcommand{
+    ps_declare_font "n019003l.pfb" "Helvetica" "medium" "normal" (0,0) { }
+  }
+
+directly into your document.
+
+Achim
+-- 
+________________________________________________________________________
+                                                              | \_____/ |
+   Achim Blumensath                                          \O/ \___/\ |
+   TU Darmstadt                                              =o=  \ /\ \|
+   www.mathematik.tu-darmstadt.de/~blumensath                /"\   o----|
+____________________________________________________________________\___|
+-------------- next part --------------
+A non-text attachment was scrubbed...
+Name: not available
+Type: application/pgp-signature
+Size: 240 bytes
+Desc: not available
+URL: <https://lists.berlios.de/pipermail/ant-devel/attachments/20070806/f3c3ec99/attachment.pgp>
+
+From blumensath at mathematik.tu-darmstadt.de  Mon Aug  6 08:08:11 2007
+From: blumensath at mathematik.tu-darmstadt.de (Achim Blumensath)
+Date: Mon, 6 Aug 2007 08:08:11 +0200
+Subject: [ant-devel] small example hello world file?
+In-Reply-To: <m1vebzjwbj.fsf@levana.de>
+References: <m1vebzjwbj.fsf@levana.de>
+Message-ID: <20070806060811.GB21920@mathematik.tu-darmstadt.de>
+
+Hello,
+
+sorry for the late reply. I was on vacation.
+
+Patrick Gundlach wrote:
+> could anybody send me an example 'hello world' file? I have gone
+> through the manual, but didn't succeed. I have found an older thread
+> on this, but that one was only about a small rule, I didn't succeed in
+> extending it.
+
+Are you using version 0.7 or the current development version?
+
+For the latter there is a minimal example in the Example directory.
+I don't think it will work with version 0.7 though. Did you take a look
+at the documents in the Example directory? newspaper.ant is rather
+minimal (You probably need to change the fonts though since it uses
+the GhostScript fonts).
+
+Achim
+-- 
+________________________________________________________________________
+                                                              | \_____/ |
+   Achim Blumensath                                          \O/ \___/\ |
+   TU Darmstadt                                              =o=  \ /\ \|
+   www.mathematik.tu-darmstadt.de/~blumensath                /"\   o----|
+____________________________________________________________________\___|
+-------------- next part --------------
+A non-text attachment was scrubbed...
+Name: not available
+Type: application/pgp-signature
+Size: 240 bytes
+Desc: not available
+URL: <https://lists.berlios.de/pipermail/ant-devel/attachments/20070806/9de11a0c/attachment.pgp>
+

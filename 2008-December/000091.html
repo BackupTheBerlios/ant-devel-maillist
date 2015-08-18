@@ -1,0 +1,109 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [ant-devel] Building on Ubuntu 8.10 intrepid
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/ant-devel/2008-December/index.html" >
+   <LINK REL="made" HREF="mailto:ant-devel%40lists.berlios.de?Subject=Re%3A%20%5Bant-devel%5D%20Building%20on%20Ubuntu%208.10%20intrepid&In-Reply-To=%3C20081209070527.GA14841%40mathematik.tu-darmstadt.de%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000089.html">
+   <LINK REL="Next"  HREF="000092.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[ant-devel] Building on Ubuntu 8.10 intrepid</H1>
+    <B>Achim Blumensath</B> 
+    <A HREF="mailto:ant-devel%40lists.berlios.de?Subject=Re%3A%20%5Bant-devel%5D%20Building%20on%20Ubuntu%208.10%20intrepid&In-Reply-To=%3C20081209070527.GA14841%40mathematik.tu-darmstadt.de%3E"
+       TITLE="[ant-devel] Building on Ubuntu 8.10 intrepid">blumensath at mathematik.tu-darmstadt.de
+       </A><BR>
+    <I>Tue Dec  9 08:05:27 CET 2008</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000089.html">[ant-devel] Building on Ubuntu 8.10 intrepid
+</A></li>
+        <LI>Next message: <A HREF="000092.html">[ant-devel] Building on Ubuntu 8.10 intrepid
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#91">[ date ]</a>
+              <a href="thread.html#91">[ thread ]</a>
+              <a href="subject.html#91">[ subject ]</a>
+              <a href="author.html#91">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Hello,
+
+Mohamed O Bana wrote:
+&gt;<i> I can't even get ant-support-0.8.tar.bz2 to compile.
+</I>&gt;<i> prefix the command with sudo.
+</I>&gt;<i> 
+</I>&gt;<i> Output: <A HREF="http://pastebin.com/m30ca6f0d">http://pastebin.com/m30ca6f0d</A>
+</I>&gt;<i> 
+</I>&gt;<i> $ ./make.sh &gt; file 2&gt;&amp;1
+</I>&gt;<i> 
+</I>&gt;<i> conversions.c:68: warning: ignoring #pragma inline
+</I>&gt;<i> conversions.c:92: warning: ignoring #pragma inline
+</I>&gt;<i> conversions.c:121: error: expected &#8216;=&#8217;, &#8216;,&#8217;,
+</I>&gt;<i> &#8216;;&#8217;, &#8216;asm&#8217; or &#8216;__attribute__&#8217; before
+</I>&gt;<i> &#8216;*&#8217; token
+</I>&gt;<i> conversions.c:126: error: expected &#8216;=&#8217;, &#8216;,&#8217;,
+</I>&gt;<i> &#8216;;&#8217;, &#8216;asm&#8217; or &#8216;__attribute__&#8217; before
+</I>&gt;<i> &#8216;Mode_val&#8217;
+</I>&gt;<i> conversions.c: In function &#8216;alloc_mpfr&#8217;:
+</I>&gt;<i> conversions.c:134: error: &#8216;mpfr_t&#8217; undeclared (first use in
+</I>&gt;<i> this function)
+</I>&gt;<i> conversions.c:134: error: (Each undeclared identifier is reported only once
+</I>&gt;<i> conversions.c:134: error: for each function it appears in.)
+</I>&gt;<i> conversions.c: In function &#8216;alloc_init_mpfr&#8217;:
+</I>&gt;<i> conversions.c:142: warning: implicit declaration of function
+</I>&gt;<i> &#8216;mpfr_init2&#8217;
+</I>&gt;<i> conversions.c:142: warning: implicit declaration of function
+</I>&gt;<i> &#8216;mpfr_val&#8217;
+</I>&gt;<i> conversions.c:142: error: invalid type argument of &#8216;unary *&#8217;
+</I>&gt;<i> (have &#8216;int&#8217;)
+</I>&gt;<i> make: *** [mlgmp_z.o] Error 1
+</I>
+Looks like you don't have the mpfr library installed.
+
+Achim
+-- 
+________________________________________________________________________
+                                                              | \_____/ |
+   Achim Blumensath                                          \O/ \___/\ |
+   TU Darmstadt                                              =o=  \ /\ \|
+   www.mathematik.tu-darmstadt.de/~blumensath                /&quot;\   o----|
+____________________________________________________________________\___|
+-------------- next part --------------
+A non-text attachment was scrubbed...
+Name: signature.asc
+Type: application/pgp-signature
+Size: 189 bytes
+Desc: Digital signature
+URL: &lt;<A HREF="https://lists.berlios.de/pipermail/ant-devel/attachments/20081209/e0e419ff/attachment.pgp">https://lists.berlios.de/pipermail/ant-devel/attachments/20081209/e0e419ff/attachment.pgp</A>&gt;
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000089.html">[ant-devel] Building on Ubuntu 8.10 intrepid
+</A></li>
+	<LI>Next message: <A HREF="000092.html">[ant-devel] Building on Ubuntu 8.10 intrepid
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#91">[ date ]</a>
+              <a href="thread.html#91">[ thread ]</a>
+              <a href="subject.html#91">[ subject ]</a>
+              <a href="author.html#91">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/ant-devel">More information about the ant-devel
+mailing list</a><br>
+</body></html>

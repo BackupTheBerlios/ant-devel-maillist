@@ -1,0 +1,142 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [ant-devel] Building camlimages-2.2 as Ant 0.8 prerequisite
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/ant-devel/2009-August/index.html" >
+   <LINK REL="made" HREF="mailto:ant-devel%40lists.berlios.de?Subject=Re%3A%20%5Bant-devel%5D%20Building%20camlimages-2.2%20as%20Ant%200.8%20prerequisite&In-Reply-To=%3C1251305654.3788.145.camel%40pc118.cs.york.ac.uk%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   
+   <LINK REL="Next"  HREF="000124.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[ant-devel] Building camlimages-2.2 as Ant 0.8 prerequisite</H1>
+    <B>John Murdie</B> 
+    <A HREF="mailto:ant-devel%40lists.berlios.de?Subject=Re%3A%20%5Bant-devel%5D%20Building%20camlimages-2.2%20as%20Ant%200.8%20prerequisite&In-Reply-To=%3C1251305654.3788.145.camel%40pc118.cs.york.ac.uk%3E"
+       TITLE="[ant-devel] Building camlimages-2.2 as Ant 0.8 prerequisite">john at cs.york.ac.uk
+       </A><BR>
+    <I>Wed Aug 26 18:54:14 CEST 2009</I>
+    <P><UL>
+        
+        <LI>Next message: <A HREF="000124.html">[ant-devel] Building camlimages-2.2 as Ant 0.8 prerequisite
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#123">[ date ]</a>
+              <a href="thread.html#123">[ thread ]</a>
+              <a href="subject.html#123">[ subject ]</a>
+              <a href="author.html#123">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Having built Ant 0.7 some time ago, and feeling I should really get back
+to using Ant, I decided to build 0.8 - on Slackware Linux 12.1. The
+prerequisite list from the README file is:
+
+Package		Need:	I have:
+OCaml		3.10	3.10.2
+OMake		0.9.8.1	0.9.8.5
+kpathsea	3.2	3.5.7
+FreeType	2	2.3.5
+CamlImages	2.2	  -
+mlgmp (opt)	0.13	  -
+
+I hoped that the slight variations in version number of the things I did
+have were not important, but saw I was missing CamlImages. So, I set off
+to build version 2.2. I saw:
+
+&gt;<i> ...
+</I>&gt;<i> &#65279;ocamlc.opt  -ccopt &quot;-I.. -g -O2&quot; -c tiffread.c 
+</I>&gt;<i> tiffread.c:24:1: warning: &quot;int16&quot; redefined
+</I>&gt;<i> In file included from /usr/lib/ocaml/caml/mlvalues.h:20,
+</I>&gt;<i>                  from tiffread.c:16:
+</I>&gt;<i> /usr/lib/ocaml/caml/compatibility.h:312:1: warning: this is the
+</I>&gt;<i> location of the previous definition
+</I>&gt;<i> tiffread.c:25:1: warning: &quot;uint16&quot; redefined
+</I>&gt;<i> /usr/lib/ocaml/caml/compatibility.h:313:1: warning: this is the
+</I>&gt;<i> location of the previous definition
+</I>&gt;<i> tiffread.c: In function &#8216;open_tiff_file_for_read&#8217;:
+</I>&gt;<i> tiffread.c:54: error: &#8216;uint16&#8217; undeclared (first use in this function)
+</I>&gt;<i> tiffread.c:54: error: (Each undeclared identifier is reported only
+</I>&gt;<i> once
+</I>&gt;<i> tiffread.c:54: error: for each function it appears in.)
+</I>&gt;<i> tiffread.c:54: error: expected &#8216;;&#8217; before &#8216;imagesample&#8217;
+</I>&gt;<i> tiffread.c:55: error: expected &#8216;;&#8217; before &#8216;imagebits&#8217;
+</I>&gt;<i> tiffread.c:58: error: expected &#8216;;&#8217; before &#8216;runit&#8217;
+</I>&gt;<i> tiffread.c:60: error: expected &#8216;;&#8217; before &#8216;photometric&#8217;
+</I>&gt;<i> tiffread.c:64: error: &#8216;imagebits&#8217; undeclared (first use in this
+</I>&gt;<i> function)
+</I>&gt;<i> tiffread.c:65: error: &#8216;imagesample&#8217; undeclared (first use in this
+</I>&gt;<i> function)
+</I>&gt;<i> tiffread.c:66: error: &#8216;runit&#8217; undeclared (first use in this function)
+</I>&gt;<i> tiffread.c:69: error: &#8216;photometric&#8217; undeclared (first use in this
+</I>&gt;<i> function)
+</I>&gt;<i> make[1]: *** [tiffread.o] Error 2
+</I>
+I googled for this error, and found some mention of it but no ideal
+solution. This, the latest version of CamlImages, dates from as long ago
+as 2004.
+
+An ad hoc fix was to edit camlimages/tiff/tiffread.c:
+
+31,34c31,34
+&lt; #undef int16
+&lt; #undef uint16
+&lt; #undef int32
+&lt; #undef uint32
+---
+&gt;<i> /*#undef int16	*/
+</I>&gt;<i> /*#undef uint16 */
+</I>&gt;<i> /*#undef int32	*/
+</I>&gt;<i> /*#undef uint32	*/
+</I>
+and then try the make again, but then I got:
+
+&gt;<i> ...
+</I>&gt;<i> &#65279;ocamlc.opt  -I ../corelib
+</I>&gt;<i> -I /usr/local/pkg/lablgtk-2.12.0-i686-1/lib/lablgtk2 -c ximage.mli
+</I>&gt;<i> File &quot;ximage.mli&quot;, line 40, characters 16-31:
+</I>&gt;<i> Unbound type constructor Gdk.drawable
+</I>&gt;<i> make[1]: *** [ximage.cmi] Error 2
+</I>
+We have lablgtk version 2.12.0, if that needs to be known.
+
+I'm surprised that this problem hasn't been reported to the Ant mailing
+list before now - I've read through the titles of the mails, and can't
+see any such report.
+
+I'll press on tomorrow, but any idea how to get camlimages installed as
+a prerequisite for Ant 0.8?
+
+John A. Murdie
+Department of Computer Science
+University of York
+UK
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	
+	<LI>Next message: <A HREF="000124.html">[ant-devel] Building camlimages-2.2 as Ant 0.8 prerequisite
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#123">[ date ]</a>
+              <a href="thread.html#123">[ thread ]</a>
+              <a href="subject.html#123">[ subject ]</a>
+              <a href="author.html#123">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/ant-devel">More information about the ant-devel
+mailing list</a><br>
+</body></html>

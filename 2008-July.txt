@@ -1,0 +1,326 @@
+From buliabyak at gmail.com  Thu Jul 10 23:59:29 2008
+From: buliabyak at gmail.com (bulia byak)
+Date: Thu, 10 Jul 2008 17:59:29 -0400
+Subject: [ant-devel] How-to questions
+Message-ID: <3c78ff030807101459x2ab58eb1i8df56eebb91abf04@mail.gmail.com>
+
+Hi,
+
+First of all, huge thanks to Achim and other Ant developers! I haven't
+used it much yet, but from I see it has huge potential. It is a dream
+come true to finally be able to raise over the clumsiness and
+limitations of TeX which have been torturing us for decades, and at
+the same time to not lose the best things that TeX pioneered, such as
+paragraph-at-once optimal linebreaking. The simple and intuitive idea
+of pageareas and galleys (similar to XSL-FO) is especially nice.
+
+However, there are several things that I still don't understand how to
+do even after reading the manual, or that I understand to be
+impossible currently and would like to inquire as to whether they are
+being worked on and how I could help to implement them.
+
+1. Getting rid of the fixed width of galleys - and more generally,
+typesetting the galley material not before it is cut into areas but
+after that. Also, being able to use pageareas of different width and
+non-rectangular ones in any mix for a single galley. From the archived
+discussions on this list I get that this is not yet possible, but is
+planned. I think this is one of the most disappointing vestiges of the
+TeX model that Ant has to break in order to become an all-powerful
+typesetter.
+
+2. Probably related to the previous point, in some books and
+magazines, the first line of the first paragraph of a chapter is often
+set in a different font. I can't do that automatically in TeX; is this
+possible in Ant by some trick? Ideally I want to be able to set each
+line of a paragraph, counting from top or from bottom, in a different
+font.
+
+3. Marginal notes that cut into the main text - i.e. indent into e.g.
+3 lines at this height
+
+4. A way to insert inline notes, such as "(continied)", into the text
+flow right after a page break or pagearea break
+
+5. A way to specify parshape counting from bottom, as already
+discussed on this list - it was suggested that it's possible via some
+AL trickery with double processing, but I could not figure this out -
+can anyone please give an example code?
+
+Thanks for any suggestions!
+
+-- 
+bulia byak
+Inkscape. Draw Freely.
+http://www.inkscape.org
+
+
+From blumensath at mathematik.tu-darmstadt.de  Fri Jul 11 08:28:57 2008
+From: blumensath at mathematik.tu-darmstadt.de (Achim Blumensath)
+Date: Fri, 11 Jul 2008 08:28:57 +0200
+Subject: [ant-devel] How-to questions
+In-Reply-To: <3c78ff030807101459x2ab58eb1i8df56eebb91abf04@mail.gmail.com>
+References: <3c78ff030807101459x2ab58eb1i8df56eebb91abf04@mail.gmail.com>
+Message-ID: <20080711062857.GB27897@mathematik.tu-darmstadt.de>
+
+Hello,
+
+> 1. Getting rid of the fixed width of galleys - and more generally,
+> typesetting the galley material not before it is cut into areas but
+> after that. Also, being able to use pageareas of different width and
+> non-rectangular ones in any mix for a single galley.
+
+This is currently not possible. It requires a major restructuring of the
+layout algorithms.
+
+> 2. Probably related to the previous point, in some books and
+> magazines, the first line of the first paragraph of a chapter is often
+> set in a different font. I can't do that automatically in TeX; is this
+> possible in Ant by some trick? Ideally I want to be able to set each
+> line of a paragraph, counting from top or from bottom, in a different
+> font.
+
+This is not possible and I have no idea how such a feature could be
+implemented (without making everything unbearable slow).
+
+> 3. Marginal notes that cut into the main text - i.e. indent into e.g.
+> 3 lines at this height
+
+This should be possible with some scripting. Basically what you have to
+do is to run ant once to get the line number where the note appears
+and then to run it a second time to change the par-shape accordingly.
+
+> 4. A way to insert inline notes, such as "(continied)", into the text
+> flow right after a page break or pagearea break
+
+This is also currently not possible, but it could probably be added
+after the rewrite of the galley code.
+
+> 5. A way to specify parshape counting from bottom, as already
+> discussed on this list - it was suggested that it's possible via some
+> AL trickery with double processing, but I could not figure this out -
+> can anyone please give an example code?
+
+At the top of manual.ant there is a commented out section with some
+scripting commands which might be helpful. There you can see how to
+change the par-shape depending on the number of lines of the paragraph.
+
+Achim
+-- 
+________________________________________________________________________
+                                                              | \_____/ |
+   Achim Blumensath                                          \O/ \___/\ |
+   TU Darmstadt                                              =o=  \ /\ \|
+   www.mathematik.tu-darmstadt.de/~blumensath                /"\   o----|
+____________________________________________________________________\___|
+-------------- next part --------------
+A non-text attachment was scrubbed...
+Name: not available
+Type: application/pgp-signature
+Size: 240 bytes
+Desc: not available
+URL: <https://lists.berlios.de/pipermail/ant-devel/attachments/20080711/9b709edd/attachment.pgp>
+
+From buliabyak at gmail.com  Fri Jul 11 22:32:52 2008
+From: buliabyak at gmail.com (bulia byak)
+Date: Fri, 11 Jul 2008 17:32:52 -0300
+Subject: [ant-devel] How-to questions
+In-Reply-To: <20080711062857.GB27897@mathematik.tu-darmstadt.de>
+References: <3c78ff030807101459x2ab58eb1i8df56eebb91abf04@mail.gmail.com>
+	<20080711062857.GB27897@mathematik.tu-darmstadt.de>
+Message-ID: <3c78ff030807111332g59865170kd30a18c577ec19fe@mail.gmail.com>
+
+On Fri, Jul 11, 2008 at 3:28 AM, Achim Blumensath
+<blumensath at mathematik.tu-darmstadt.de> wrote:
+> Hello,
+>
+>> 1. Getting rid of the fixed width of galleys - and more generally,
+>> typesetting the galley material not before it is cut into areas but
+>> after that. Also, being able to use pageareas of different width and
+>> non-rectangular ones in any mix for a single galley.
+>
+> This is currently not possible. It requires a major restructuring of the
+> layout algorithms.
+
+I understand that - but my question here is, is such restructuring in
+the plans at all? Can I help it to happen, in any way? (I can code and
+I know TeX, but have almost no knowledge of CAML or Haskell)
+
+>> 2. Probably related to the previous point, in some books and
+>> magazines, the first line of the first paragraph of a chapter is often
+>> set in a different font. I can't do that automatically in TeX; is this
+>> possible in Ant by some trick? Ideally I want to be able to set each
+>> line of a paragraph, counting from top or from bottom, in a different
+>> font.
+>
+> This is not possible and I have no idea how such a feature could be
+> implemented (without making everything unbearable slow).
+
+Well, if you have a command that returns the line number and
+coordinates (from a previous run), why not add a command that would
+return the start/end of the source text stream for each line number,
+also from a previous run? If it would then allow to make a group for
+this fragment and insert style command into it, the problem is solved
+- after at most several runs it should converge and only that line
+will be styled. It's just a vague idea of course - but do you think it
+might work?
+
+The only problem I see with this approach is the style of the hyphen
+or the ff->f/ff type breaks if that styled line happens to end on a
+word break. But then, the command might return not only start/end
+boundaries of the line but its final text along with the line break
+hyphen, and the script would then simply replace the source group with
+this saved text, making sure it is all in the same style.
+
+In general, why this fixation on speed? It won't take hours - or even
+minutes - to produce a page no matter what, and anything less is
+acceptable as a starting point for further optimization if necessary.
+I think the first priority should be to make a program _correct_ and
+_complete_, and only then think about speed. Look at TeX - on modern
+hardware it's almost instantaneous, but what good is that, given its
+numerous unfixable problems?
+
+>> 3. Marginal notes that cut into the main text - i.e. indent into e.g.
+>> 3 lines at this height
+>
+> This should be possible with some scripting. Basically what you have to
+> do is to run ant once to get the line number where the note appears
+> and then to run it a second time to change the par-shape accordingly.
+
+Thanks, I thought this should be the approach to use, but I couldn't
+make it work. I will experiment some more.
+
+>> 4. A way to insert inline notes, such as "(continied)", into the text
+>> flow right after a page break or pagearea break
+>
+> This is also currently not possible, but it could probably be added
+> after the rewrite of the galley code.
+
+Again, if you add commands to return the boundaries of not only lines
+but also of pageareas in a galley, a command would then be able to
+expand into "(continued)" at the start of each such group except
+first.
+
+>> 5. A way to specify parshape counting from bottom, as already
+>> discussed on this list - it was suggested that it's possible via some
+>> AL trickery with double processing, but I could not figure this out -
+>> can anyone please give an example code?
+>
+> At the top of manual.ant there is a commented out section with some
+> scripting commands which might be helpful. There you can see how to
+> change the par-shape depending on the number of lines of the paragraph.
+
+Thanks, I will look into this.
+
+-- 
+bulia byak
+Inkscape. Draw Freely.
+http://www.inkscape.org
+
+
+From blumensath at mathematik.tu-darmstadt.de  Mon Jul 14 10:09:04 2008
+From: blumensath at mathematik.tu-darmstadt.de (Achim Blumensath)
+Date: Mon, 14 Jul 2008 10:09:04 +0200
+Subject: [ant-devel] How-to questions
+In-Reply-To: <3c78ff030807111332g59865170kd30a18c577ec19fe@mail.gmail.com>
+References: <3c78ff030807101459x2ab58eb1i8df56eebb91abf04@mail.gmail.com>
+	<20080711062857.GB27897@mathematik.tu-darmstadt.de>
+	<3c78ff030807111332g59865170kd30a18c577ec19fe@mail.gmail.com>
+Message-ID: <20080714080904.GB24112@mathematik.tu-darmstadt.de>
+
+Hello,
+
+bulia byak wrote:
+> On Fri, Jul 11, 2008 at 3:28 AM, Achim Blumensath
+> <blumensath at mathematik.tu-darmstadt.de> wrote:
+> >> 1. Getting rid of the fixed width of galleys - and more generally,
+> >> typesetting the galley material not before it is cut into areas but
+> >> after that. Also, being able to use pageareas of different width
+> >> and non-rectangular ones in any mix for a single galley.
+> >
+> > This is currently not possible. It requires a major restructuring of
+> > the layout algorithms.
+> 
+> I understand that - but my question here is, is such restructuring in
+> the plans at all? Can I help it to happen, in any way? (I can code and
+> I know TeX, but have almost no knowledge of CAML or Haskell)
+
+It is planned. But development of ant is currently stopped due to lack
+of time on my part. Of course, you could try to implement it yourself,
+but it would require some familiarity with the internals of ant.
+
+> >> 2. Probably related to the previous point, in some books and
+> >> magazines, the first line of the first paragraph of a chapter is
+> >> often set in a different font. I can't do that automatically in
+> >> TeX; is this possible in Ant by some trick? Ideally I want to be
+> >> able to set each line of a paragraph, counting from top or from
+> >> bottom, in a different font.
+> >
+> > This is not possible and I have no idea how such a feature could be
+> > implemented (without making everything unbearable slow).
+> 
+> Well, if you have a command that returns the line number and
+> coordinates (from a previous run), why not add a command that would
+> return the start/end of the source text stream for each line number,
+> also from a previous run? If it would then allow to make a group for
+> this fragment and insert style command into it, the problem is solved
+> - after at most several runs it should converge and only that line
+> will be styled. It's just a vague idea of course - but do you think it
+> might work?
+
+This would basically mean that I had to annotate every box with this
+information. This would at least double the memory requirements. I could
+do this, but I don't think it would solve your problem: How do you use
+this information to insert the appropriate type-setting commands at the
+correct place?
+
+> The only problem I see with this approach is the style of the hyphen
+> or the ff->f/ff type breaks if that styled line happens to end on a
+> word break. But then, the command might return not only start/end
+> boundaries of the line but its final text along with the line break
+> hyphen, and the script would then simply replace the source group with
+> this saved text, making sure it is all in the same style.
+
+This information is not available anymore at typesetting time. When
+ligatures and kerning is resolved all you have is a list of boxes.
+There is no way to change the font, in particular, since the new font
+might have different kinds of ligatures.
+
+> In general, why this fixation on speed? It won't take hours - or even
+> minutes - to produce a page no matter what,
+
+I'm afraid this is not true. Sophisticated page layout algorithms
+actually do require something like a minute per page.
+
+> and anything less is acceptable as a starting point for further
+> optimization if necessary.
+
+Not everything can be sped up by optimisation. If you have a
+sophisticated algorithm there is just so much work you have to do that
+you cannot simply avoid with some clever tricks. After all, optimal page
+layout is an NP-hard problem.
+
+> I think the first priority should be to make a program _correct_ and
+> _complete_, and only then think about speed. Look at TeX - on modern
+> hardware it's almost instantaneous, but what good is that, given its
+> numerous unfixable problems?
+
+Why did you get the impression that speed was the main concern for the
+development of ant? After all, it is several orders of magnitude slower
+than TeX.
+
+Achim
+-- 
+________________________________________________________________________
+                                                              | \_____/ |
+   Achim Blumensath                                          \O/ \___/\ |
+   TU Darmstadt                                              =o=  \ /\ \|
+   www.mathematik.tu-darmstadt.de/~blumensath                /"\   o----|
+____________________________________________________________________\___|
+-------------- next part --------------
+A non-text attachment was scrubbed...
+Name: not available
+Type: application/pgp-signature
+Size: 240 bytes
+Desc: not available
+URL: <https://lists.berlios.de/pipermail/ant-devel/attachments/20080714/bbdba487/attachment.pgp>
+

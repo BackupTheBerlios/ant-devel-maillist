@@ -1,0 +1,111 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [ant-devel] First impressions / 2 problems(?)
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/ant-devel/2008-September/index.html" >
+   <LINK REL="made" HREF="mailto:ant-devel%40lists.berlios.de?Subject=Re%3A%20%5Bant-devel%5D%20First%20impressions%20/%202%20problems%28%3F%29&In-Reply-To=%3C1330987086%40web.de%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   
+   <LINK REL="Next"  HREF="000071.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[ant-devel] First impressions / 2 problems(?)</H1>
+    <B>Ralf Gawlista</B> 
+    <A HREF="mailto:ant-devel%40lists.berlios.de?Subject=Re%3A%20%5Bant-devel%5D%20First%20impressions%20/%202%20problems%28%3F%29&In-Reply-To=%3C1330987086%40web.de%3E"
+       TITLE="[ant-devel] First impressions / 2 problems(?)">knoepfchendreher at web.de
+       </A><BR>
+    <I>Thu Sep 18 10:12:08 CEST 2008</I>
+    <P><UL>
+        
+        <LI>Next message: <A HREF="000071.html">[ant-devel] First impressions / 2 problems(?)
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#70">[ date ]</a>
+              <a href="thread.html#70">[ thread ]</a>
+              <a href="subject.html#70">[ subject ]</a>
+              <a href="author.html#70">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Hi,
+
+since I am new to ant in general, and to this mailing-list in particular, I might have done things wrong.
+But the following occured to me when first trying to get ant ready to use:
+
+[1] Compilation hangs at the generation of hyphenation tables, generating about 90% CPU-load for ever. 
+At least on my system(s) (&quot;Sidux&quot;, which is a Debian-based Linux-distro).
+I was not able to find a reason for this.
+The only way to get past this was to interrupt the omake, then manually enter the command
+
+./Util/GenHyphTable ../data/hyphen/british.hyphen ../data/hyphen/us.hyphen ../data/hyphen/deutsch-neu.hyphen &gt; ./Engine/HyphenTable.ml
+
+then delete the corresponding commands from the OMakefile:
+
+$ diff ./Engine/OMakefile_orig ./Engine/OMakefile
+32,33c32
+&lt; HyphenTable.ml: ../Util/GenHyphTable :value: $(HYPHEN_FILES)
+&lt;       ../Util/GenHyphTable $(HYPHEN_FILES) &gt;$@
+---
+&gt;<i> HyphenTable.ml: 
+</I>
+After this, the omake finished without further problems.
+
+[2] The resulting ant executable seems to have a strange problem with TTF font files: 
+I used the minimal.ant example file, but altered the ps_declare_font in it to use different font files (which I had simply copied into the same directory). For example:
+
+    ps_declare_font &quot;LinLibertine_BI-2.8.0.ttf&quot; &quot;MyNormFont&quot; &quot;medium&quot; &quot;normal&quot; (0,0) {};
+
+(Of course, the line referencing this font must be changed, too, to reference family = {MyNormFont}, instead of the original family = {Latin Modern}.)
+Then always the glyph, which appears first after the \begingalley{main galley} it omitted completely throughout the whole text.
+(In particular, with the &quot;the quick brown fox...&quot; example line, the lowercase &quot;t&quot; is omitted in the resulting PDF. So, this is not only true of the very first &quot;t&quot;, but also all the other &quot;t&quot; glyphs!)
+This seems not to happen whenever I use an OTF font file. (I even tried fonts, which I had both as OTF and TTF: The resulting PDF was ok with the OTF, but omitted glyphs with the TTF.) (And: I did not try PS font files at all, so I cannot talk of them.)
+
+(Oh, but, on the other hand, ant refused to load LinLibertine_Re-2.8.14.otf (with message &quot;Warning: Cannot load font file `LinLibertine_Re-2.8.14.otf'!&quot;, which is probably another story, since this could also be some internal error in the font file...?)
+
+[3] The &quot;Arial Unicode&quot; ARIALUNI.TTF (from that rather well-known company ;) even seems to overload ant: When I use the minimal.ant (again with the modified minimal.ant, i.e. only one sentence of actual text!) with it, it seems to hang (interrupted it after 5 minutes), generating over 98% CPU load. With the &quot;Arial Italic&quot; ariali.ttf font, for example, everything goes o.k. (except for the missing glyphs as described above). This is probably due to the fact that ARIALUNI.TTF is the biggest font file I've ever seen (over 23 MB), but nevertheless, issuing an error message would still be better than simply freezing...
+
+[4] It might be useful if ant messages included the line number(s). If, for example, ant issues the message 
+
+Warning: Overfull hbox (badness infinite)!
+den Herrschaften, was du Sch&#246;nes
+
+then it is possible, of course, to do a text search for the cited word, but it would be more useful to also have the corresponding line number.
+
+O.k., this for my first impressions. I hope that my remarks are not due to my wrong understanding/usage of ant... (Then I'd be eager to learn more about correctly using it! :)
+
+Regards, Ralf.
+
+_____________________________________________________________________
+Der WEB.DE SmartSurfer hilft bis zu 70% Ihrer Onlinekosten zu sparen!
+<A HREF="http://smartsurfer.web.de/?mc=100071&amp;distributionid=000000000066">http://smartsurfer.web.de/?mc=100071&amp;distributionid=000000000066</A>
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	
+	<LI>Next message: <A HREF="000071.html">[ant-devel] First impressions / 2 problems(?)
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#70">[ date ]</a>
+              <a href="thread.html#70">[ thread ]</a>
+              <a href="subject.html#70">[ subject ]</a>
+              <a href="author.html#70">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/ant-devel">More information about the ant-devel
+mailing list</a><br>
+</body></html>

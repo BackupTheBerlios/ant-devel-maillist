@@ -1,0 +1,55 @@
+From chemoelectric at chemoelectric.org  Fri Apr  3 17:12:55 2009
+From: chemoelectric at chemoelectric.org (Barry Schwartz)
+Date: Fri, 3 Apr 2009 10:12:55 -0500
+Subject: [ant-devel] setcmykcolour problem
+Message-ID: <20090403151255.GA351@crud.chemoelectric.org>
+
+\\setcmykcolour is misspelled as \\setcymkcolour in
+Markups/Primitives.ml.
+
+
+
+From blumensath at mathematik.tu-darmstadt.de  Mon Apr  6 10:08:27 2009
+From: blumensath at mathematik.tu-darmstadt.de (Achim Blumensath)
+Date: Mon, 6 Apr 2009 10:08:27 +0200
+Subject: [ant-devel] setcmykcolour problem
+In-Reply-To: <20090403151255.GA351@crud.chemoelectric.org>
+References: <20090403151255.GA351@crud.chemoelectric.org>
+Message-ID: <20090406080827.GB16552@mathematik.tu-darmstadt.de>
+
+Hello,
+
+Barry Schwartz wrote:
+> \\setcmykcolour is misspelled as \\setcymkcolour in
+> Markups/Primitives.ml.
+
+Thanks, fixed in CVS.
+
+Achim
+-- 
+________________________________________________________________________
+                                                              | \_____/ |
+   Achim Blumensath                                          \O/ \___/\ |
+   TU Darmstadt                                              =o=  \ /\ \|
+   www.mathematik.tu-darmstadt.de/~blumensath                /"\   o----|
+____________________________________________________________________\___|
+-------------- next part --------------
+A non-text attachment was scrubbed...
+Name: signature.asc
+Type: application/pgp-signature
+Size: 189 bytes
+Desc: Digital signature
+URL: <https://lists.berlios.de/pipermail/ant-devel/attachments/20090406/f39591f8/attachment.pgp>
+
+From chemoelectric at chemoelectric.org  Mon Apr 20 18:44:22 2009
+From: chemoelectric at chemoelectric.org (Barry Schwartz)
+Date: Mon, 20 Apr 2009 11:44:22 -0500
+Subject: [ant-devel] bugs in FontFT.ml
+Message-ID: <20090420164422.GA15644@crud.chemoelectric.org>
+
+In FontFT.ml I think the code point for "x" should be "120" instead of
+"102", and the gm_height should be used instead of the gm_width. I
+think what the current code does is give the width of an "f".
+
+
+

@@ -1,0 +1,127 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [ant-devel] Conversion between characters and unicode value
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/ant-devel/2008-March/index.html" >
+   <LINK REL="made" HREF="mailto:ant-devel%40lists.berlios.de?Subject=Re%3A%20%5Bant-devel%5D%20Conversion%20between%20characters%20and%20unicode%20value&In-Reply-To=%3C20080331095809.GC25496%40mathematik.tu-darmstadt.de%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000055.html">
+   <LINK REL="Next"  HREF="000057.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[ant-devel] Conversion between characters and unicode value</H1>
+    <B>Achim Blumensath</B> 
+    <A HREF="mailto:ant-devel%40lists.berlios.de?Subject=Re%3A%20%5Bant-devel%5D%20Conversion%20between%20characters%20and%20unicode%20value&In-Reply-To=%3C20080331095809.GC25496%40mathematik.tu-darmstadt.de%3E"
+       TITLE="[ant-devel] Conversion between characters and unicode value">blumensath at mathematik.tu-darmstadt.de
+       </A><BR>
+    <I>Mon Mar 31 11:58:09 CEST 2008</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000055.html">[ant-devel] Conversion between characters and unicode value
+</A></li>
+        <LI>Next message: <A HREF="000057.html">[ant-devel] Conversion between characters and unicode value
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#56">[ date ]</a>
+              <a href="thread.html#56">[ thread ]</a>
+              <a href="subject.html#56">[ subject ]</a>
+              <a href="author.html#56">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Hello,
+
+&gt;<i> &gt;&gt; 8. Named float queues. When I define a float area, I specify a
+</I>&gt;<i> &gt;&gt; queue name (similar to Galley). When I place a float, I also
+</I>&gt;<i> &gt;&gt; specify the name of float queue to which the current float is
+</I>&gt;<i> &gt;&gt; appended. I hope to use this feature to implement multi-column
+</I>&gt;<i> &gt;&gt; figure/equation, and  floats in margin.
+</I>&gt;<i> &gt;
+</I>&gt;<i> &gt; What is your question? Float areas already have a name. Support for
+</I>&gt;<i> &gt; margin notes is planned. I just didn't get around to implementing
+</I>&gt;<i> &gt; them yet.
+</I>&gt;<i> 
+</I>&gt;<i> I was thinking of this:
+</I>&gt;<i> 
+</I>&gt;<i> ps_new_area &quot;float&quot; ...... {Name := &quot;TwoColumnFloat&quot; | ...};
+</I>&gt;<i> ps_new_area &quot;float&quot; ...... {Name := &quot;SingleColumnFloat&quot; | ...};  ;;  
+</I>&gt;<i> for left column
+</I>&gt;<i> ps_new_area &quot;float&quot; ...... {Name := &quot;SingleColumnFloat&quot; | ...};  ;;  
+</I>&gt;<i> for right column
+</I>&gt;<i> ...
+</I>&gt;<i> \floatbox{TwoColumnFloat}{ \hbox{Figure1} }
+</I>&gt;<i> \floatbox{SingleColumnFloat}{ \hbox{Figure2} }
+</I>&gt;<i> \floatbox{TwoColumnFloat}{ \hbox{Figure3} }
+</I>&gt;<i> \floatbox{SingleColumnFloat}{ \hbox{Figure4} }
+</I>
+You can do
+
+  ps_new_area &quot;float 1&quot; ...
+  ps_new_area &quot;float 2&quot; ...
+
+and
+
+  \floatbox{float 1}{...}
+  \floatbox{float 2}{...}
+
+&gt;<i> Right now I just want to focus on the small macro package for maths,  
+</I>&gt;<i> while learning more about Ant.
+</I>
+I'm looking forward to seeing your package.
+
+&gt;<i> Further, I was trying to implement matrix in mathmode. I realize that  
+</I>&gt;<i> there is no equivalents to \setbox. I can't read and set the dimension  
+</I>&gt;<i> of boxes either. Vertically centering a matrix seems impossible now.
+</I>
+Perhaps I have to add some commands to do this. Did you try to add the
+matrix as \mathord? If I remember correctly that should do vertical
+centering.
+
+&gt;<i> BTW, would you recommend to implement matrix with a table?
+</I>
+Yes, tables are meant for all array-like typesetting.
+
+Achim
+-- 
+________________________________________________________________________
+                                                              | \_____/ |
+   Achim Blumensath                                          \O/ \___/\ |
+   TU Darmstadt                                              =o=  \ /\ \|
+   www.mathematik.tu-darmstadt.de/~blumensath                /&quot;\   o----|
+____________________________________________________________________\___|
+-------------- next part --------------
+A non-text attachment was scrubbed...
+Name: not available
+Type: application/pgp-signature
+Size: 240 bytes
+Desc: not available
+URL: &lt;<A HREF="https://lists.berlios.de/pipermail/ant-devel/attachments/20080331/4c984dc0/attachment.pgp">https://lists.berlios.de/pipermail/ant-devel/attachments/20080331/4c984dc0/attachment.pgp</A>&gt;
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000055.html">[ant-devel] Conversion between characters and unicode value
+</A></li>
+	<LI>Next message: <A HREF="000057.html">[ant-devel] Conversion between characters and unicode value
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#56">[ date ]</a>
+              <a href="thread.html#56">[ thread ]</a>
+              <a href="subject.html#56">[ subject ]</a>
+              <a href="author.html#56">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/ant-devel">More information about the ant-devel
+mailing list</a><br>
+</body></html>

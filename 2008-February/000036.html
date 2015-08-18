@@ -1,0 +1,121 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [ant-devel] compile error
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/ant-devel/2008-February/index.html" >
+   <LINK REL="made" HREF="mailto:ant-devel%40lists.berlios.de?Subject=Re%3A%20%5Bant-devel%5D%20compile%20error&In-Reply-To=%3CC3EDCE05.14C4A%25ShenChen%40nus.edu.sg%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000035.html">
+   <LINK REL="Next"  HREF="000038.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[ant-devel] compile error</H1>
+    <B>Shen Chen</B> 
+    <A HREF="mailto:ant-devel%40lists.berlios.de?Subject=Re%3A%20%5Bant-devel%5D%20compile%20error&In-Reply-To=%3CC3EDCE05.14C4A%25ShenChen%40nus.edu.sg%3E"
+       TITLE="[ant-devel] compile error">ShenChen at nus.edu.sg
+       </A><BR>
+    <I>Fri Feb 29 07:58:13 CET 2008</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000035.html">[ant-devel] compile error
+</A></li>
+        <LI>Next message: <A HREF="000038.html">[ant-devel] compile error
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#36">[ date ]</a>
+              <a href="thread.html#36">[ thread ]</a>
+              <a href="subject.html#36">[ subject ]</a>
+              <a href="author.html#36">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Hi 
+
+I encounter the same problem last time. And below is the answer from Achim :
+
+--quote
+ant is written in the revised syntax of ocaml. To compile it you need to
+use a preprocessor (option &quot;-pp camlp4rf&quot;).
+--end quote
+
+After installing camlp4rf, the compile runs fine.
+
+shenchen
+
+
+
+On 2/29/08 4:47 AM, &quot;Roman Cheplyaka&quot; &lt;<A HREF="https://lists.berlios.de/mailman/listinfo/ant-devel">roma at ro-che.info</A>&gt; wrote:
+
+&gt;<i> Hi.
+</I>&gt;<i> I tried to compile ant on Debian sid and got an error not yet
+</I>&gt;<i> discussed. I must mention that I set CAMLP4=camlp4r.opt (camlp4rf is
+</I>&gt;<i> absent on my system). OCaml is 3.10.1, omake is 0.9.8.5.
+</I>&gt;<i> 
+</I>&gt;<i> crematorium:~/source/ant-0.8% omake
+</I>&gt;<i> *** omake: reading OMakefiles
+</I>&gt;<i> *** omake: finished reading OMakefiles (0.12 sec)
+</I>&gt;<i> - build Tools zlib-stubs.o
+</I>&gt;<i> + ocamlc.opt -c -o zlib-stubs.o zlib-stubs.c
+</I>&gt;<i> zlib-stubs.c: In function &#140;zlib_compress&#185;:
+</I>&gt;<i> zlib-stubs.c:189: warning: pointer targets in passing argument 1 of &#140;compress&#185;
+</I>&gt;<i> differ in signedness
+</I>&gt;<i> zlib-stubs.c:189: warning: pointer targets in passing argument 3 of &#140;compress&#185;
+</I>&gt;<i> differ in signedness
+</I>&gt;<i> zlib-stubs.c: In function &#140;zlib_compress2&#185;:
+</I>&gt;<i> zlib-stubs.c:200: warning: pointer targets in passing argument 1 of
+</I>&gt;<i> &#140;compress2&#185; differ in signedness
+</I>&gt;<i> zlib-stubs.c:200: warning: pointer targets in passing argument 3 of
+</I>&gt;<i> &#140;compress2&#185; differ in signedness
+</I>&gt;<i> zlib-stubs.c: In function &#140;zlib_uncompress&#185;:
+</I>&gt;<i> zlib-stubs.c:211: warning: pointer targets in passing argument 1 of
+</I>&gt;<i> &#140;uncompress&#185; differ in signedness
+</I>&gt;<i> zlib-stubs.c:211: warning: pointer targets in passing argument 3 of
+</I>&gt;<i> &#140;uncompress&#185; differ in signedness
+</I>&gt;<i> zlib-stubs.c: In function &#140;zlib_adler32&#185;:
+</I>&gt;<i> zlib-stubs.c:221: warning: pointer targets in passing argument 2 of &#140;adler32&#185;
+</I>&gt;<i> differ in signedness
+</I>&gt;<i> zlib-stubs.c: In function &#140;zlib_crc32&#185;:
+</I>&gt;<i> zlib-stubs.c:228: warning: pointer targets in passing argument 2 of &#140;crc32&#185;
+</I>&gt;<i> differ in signedness
+</I>&gt;<i> - scan PreProc scan-ocaml-pa_Num.ml
+</I>&gt;<i> + ocamldep -pp camlp4r.opt -I /usr/lib/ocaml/3.10.1/camlp4 -modules pa_Num.ml
+</I>&gt;<i>      | Shell.ocamldep-postproc()
+</I>&gt;<i> File &quot;pa_Num.ml&quot;, line 13, characters 4-10:
+</I>&gt;<i> Parse error: [semi] expected after [str_item] (in [str_items])
+</I>&gt;<i> Preprocessing error on file pa_Num.ml
+</I>&gt;<i> *** omake: 128/938 targets are up to date
+</I>&gt;<i> *** omake: failed (0.44 sec, 1/2 scans, 2/2 rules, 2/427 digests)
+</I>&gt;<i> *** omake: targets were not rebuilt because of errors:
+</I>&gt;<i>    &lt;scanner PreProc/scan-ocaml-pa_Num.ml&gt;
+</I>&gt;<i>       depends on: PreProc/pa_Num.ml
+</I>
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000035.html">[ant-devel] compile error
+</A></li>
+	<LI>Next message: <A HREF="000038.html">[ant-devel] compile error
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#36">[ date ]</a>
+              <a href="thread.html#36">[ thread ]</a>
+              <a href="subject.html#36">[ subject ]</a>
+              <a href="author.html#36">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/ant-devel">More information about the ant-devel
+mailing list</a><br>
+</body></html>

@@ -1,0 +1,221 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [ant-devel] Conversion between characters and unicode value
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/ant-devel/2008-March/index.html" >
+   <LINK REL="made" HREF="mailto:ant-devel%40lists.berlios.de?Subject=Re%3A%20%5Bant-devel%5D%20Conversion%20between%20characters%20and%20unicode%20value&In-Reply-To=%3C429A56EF-56AE-4F10-8201-B62ED9ACE573%40nus.edu.sg%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000054.html">
+   <LINK REL="Next"  HREF="000056.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[ant-devel] Conversion between characters and unicode value</H1>
+    <B>Shen Chen</B> 
+    <A HREF="mailto:ant-devel%40lists.berlios.de?Subject=Re%3A%20%5Bant-devel%5D%20Conversion%20between%20characters%20and%20unicode%20value&In-Reply-To=%3C429A56EF-56AE-4F10-8201-B62ED9ACE573%40nus.edu.sg%3E"
+       TITLE="[ant-devel] Conversion between characters and unicode value">shenchen at nus.edu.sg
+       </A><BR>
+    <I>Mon Mar 31 11:26:08 CEST 2008</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000054.html">[ant-devel] Conversion between characters and unicode value
+</A></li>
+        <LI>Next message: <A HREF="000056.html">[ant-devel] Conversion between characters and unicode value
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#55">[ date ]</a>
+              <a href="thread.html#55">[ thread ]</a>
+              <a href="subject.html#55">[ subject ]</a>
+              <a href="author.html#55">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Hello,
+
+&gt;<i> Hello,
+</I>&gt;<i>
+</I>&gt;&gt;<i> 1. unicode &lt;-&gt; character conversion function
+</I>&gt;<i>
+</I>&gt;<i> were just added to CVS.
+</I>
+I'll check out from CVS and try it. Thank you very much. I hope by  
+doing a diff I can learn how to code ps_log_string myself.
+
+&gt;&gt;<i> 2. ps_log_string that writes to the log file.
+</I>&gt;<i>
+</I>&gt;<i> You mean like ps_warning, just without the text &quot;WARNING&quot;?
+</I>&gt;<i> I can do that.
+</I>Yes.
+
+
+
+&gt;&gt;<i> 4. \ifdef and it's ps_xxxx equivalence.
+</I>&gt;<i>
+</I>&gt;<i> I can add a ps_if_defined, but I won't add any conditionals to the
+</I>&gt;<i> markup language. Everything requiring them should be implemented in  
+</I>&gt;<i> AL.
+</I>Yes that makes perfect sense.
+
+
+&gt;&gt;<i> 5. ps_xxxx equivalents to \setparameter{} and \setmathfont{}. I can't
+</I>&gt;&gt;<i> figure out how to use set_math_font which returns a function of type
+</I>&gt;&gt;<i> environment. May be it should be used to construct nodes?
+</I>&gt;<i>
+</I>&gt;<i> Those were planned for a long time, but I didn't find the time.
+</I>&gt;<i> Currently, you can use
+</I>&gt;<i>
+</I>&gt;<i>  ps_set_par_params dict ps :=
+</I>&gt;<i>    ps_add_node (Command, set_par_params dict) ps;
+</I>Thanks. It should be good enough for the time being.
+
+
+&gt;&gt;<i> 6. helper functions to construct nodes. I saw a (commented out)
+</I>&gt;&gt;<i> example of using ps_add_node.  Node.ml seem to contain most of the
+</I>&gt;&gt;<i> definitions, but I am not exactly sure how to do the translation.
+</I>&gt;<i>
+</I>&gt;<i> You can take a look at Markup/ALNodes.ml for the coding. Anyway, I  
+</I>&gt;<i> plan
+</I>&gt;<i> to add AL commands for all markup commands (like hbox, vbox, etc.)
+</I>&gt;<i> So in most cases it should become unnecessary to construct nodes  
+</I>&gt;<i> directly.
+</I>I will try.
+
+
+&gt;&gt;<i> 7. I would prefer math_char definition local to the current group.
+</I>&gt;&gt;<i> Actually I wonder why macros are made global.
+</I>&gt;<i>
+</I>&gt;<i> Why would you need local definitions? I have a hard time imagining  
+</I>&gt;<i> cases
+</I>&gt;<i> where local definitions of macros are useful.
+</I>Maybe I just need some more time to get used to it.
+
+&gt;&gt;<i> 8. Named float queues. When I define a float area, I specify a queue
+</I>&gt;&gt;<i> name (similar to Galley). When I place a float, I also specify the
+</I>&gt;&gt;<i> name of float queue to which the current float is appended. I hope to
+</I>&gt;&gt;<i> use this feature to implement multi-column figure/equation, and  
+</I>&gt;&gt;<i> floats
+</I>&gt;&gt;<i> in margin.
+</I>&gt;<i>
+</I>&gt;<i> What is your question? Float areas already have a name. Support for
+</I>&gt;<i> margin notes is planned. I just didn't get around to implementing them
+</I>&gt;<i> yet.
+</I>
+I was thinking of this:
+
+ps_new_area &quot;float&quot; ...... {Name := &quot;TwoColumnFloat&quot; | ...};
+ps_new_area &quot;float&quot; ...... {Name := &quot;SingleColumnFloat&quot; | ...};  ;;  
+for left column
+ps_new_area &quot;float&quot; ...... {Name := &quot;SingleColumnFloat&quot; | ...};  ;;  
+for right column
+...
+\floatbox{TwoColumnFloat}{ \hbox{Figure1} }
+\floatbox{SingleColumnFloat}{ \hbox{Figure2} }
+\floatbox{TwoColumnFloat}{ \hbox{Figure3} }
+\floatbox{SingleColumnFloat}{ \hbox{Figure4} }
+
+In this way, Single-column figures and double-column figures can co- 
+exist in one page, and the double-column ones have higher priority.
+----
+
+On the other hand, if I do this:
+ps_new_area &quot;float&quot; ...... { ...};  ;; for left column
+ps_new_area &quot;float&quot; ...... { ...};  ;; for right column
+ps_new_area &quot;float&quot; ...... { ...};  ;; double column
+
+Single column figures will occupy the best position (top of the left  
+column) first, leaving double column figures at awkward positions.
+
+
+&gt;&gt;<i> I haven't read much Ant source code yet. I haven't used functional
+</I>&gt;&gt;<i> programming language before, so my code reading is slow. Writing AL
+</I>&gt;&gt;<i> scripts was a pain at first, but I think I am slowly picking up.
+</I>&gt;&gt;<i> Some of the items in the wish list may not be necessary, or better
+</I>&gt;&gt;<i> alternatives are available. Refernece.ant and manual.sty has been
+</I>&gt;&gt;<i> enormously helpful to my macro writing so far. I certainly hope to  
+</I>&gt;&gt;<i> see
+</I>&gt;&gt;<i> more examples, if possible.
+</I>&gt;<i>
+</I>&gt;<i> If you have any concrete suggestions of how to improve the manual I
+</I>&gt;<i> would be grateful.
+</I>
+A complete manual is a huge task for a single person, but the Ant  
+community is too small...
+
+When I mentioned Ant to my friends, there are always three reasons  
+that prevents them from investigating further:
+1. No macro package for users. That's what I started working on,  
+though it will only be a tiny one compared to LaTeX/ConTeXt.
+2. Much fewer programmers know OCaml or other functional language.  
+This makes the learning curve steeper. It requires more motivation for  
+people to take the steep learning curve. Luatex, in comparison, is  
+much easier to learn, and has a much larger community.
+A Gallery demonstrating the capabilities of Ant would help attract  
+people to learn Ant, hopefully.
+
+Right now I just want to focus on the small macro package for maths,  
+while learning more about Ant.
+
+&gt;<i>
+</I>&gt;<i>
+</I>&gt;&gt;<i> I tried loading a Chinese TTF font in ant. Correct result was
+</I>&gt;&gt;<i> generated, but it takes two minutes or so to load the font (on core 2
+</I>&gt;&gt;<i> duo). I wonder if this would be a fundamental limitation to ant, or
+</I>&gt;&gt;<i> there is definite solutions to this problem. I don't need Chinese
+</I>&gt;&gt;<i> typesetting at this moment, but it's definitely something we need in
+</I>&gt;&gt;<i> future.
+</I>&gt;<i>
+</I>&gt;<i> How many glyphs did this font contain? I'm using ant with the  
+</I>&gt;<i> MinionPro
+</I>&gt;<i> font which has about 1500 glyphs and I didn't notice any slowdown.
+</I>&gt;<i> Can you you point me to some free Chinese font where the problem  
+</I>&gt;<i> occurs?
+</I>
+I was using the Chinese font ( STSong ) coming with Mac OS X. I don't  
+have the count of glyphs, but it's certainly more than 20,000. If you  
+don't have this font I can try some GPL/APL fonts from the following  
+website:
+<A HREF="http://www.unifont.org/fontguide/">http://www.unifont.org/fontguide/</A>
+
+
+----------
+Further, I was trying to implement matrix in mathmode. I realize that  
+there is no equivalents to \setbox. I can't read and set the dimension  
+of boxes either. Vertically centering a matrix seems impossible now.
+BTW, would you recommend to implement matrix with a table?
+
+Thank you very much.
+
+
+regards,
+ShenChen
+
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000054.html">[ant-devel] Conversion between characters and unicode value
+</A></li>
+	<LI>Next message: <A HREF="000056.html">[ant-devel] Conversion between characters and unicode value
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#55">[ date ]</a>
+              <a href="thread.html#55">[ thread ]</a>
+              <a href="subject.html#55">[ subject ]</a>
+              <a href="author.html#55">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/ant-devel">More information about the ant-devel
+mailing list</a><br>
+</body></html>

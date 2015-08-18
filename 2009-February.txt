@@ -1,0 +1,208 @@
+From info at alexraasch.de  Tue Feb  3 04:37:54 2009
+From: info at alexraasch.de (Alexander Raasch)
+Date: Tue, 3 Feb 2009 04:37:54 +0100
+Subject: [ant-devel] Wrapping figures question
+Message-ID: <4987BC12.5020801@alexraasch.de>
+
+Hello,
+
+I'm really excited to learn about ANT.
+However, before immersing into its details I would like to know 2 things:
+
+Can ANT do wrapping figures in two-column settings, where the figure is 
+in the middle of the page and the text flows around it. LaTeX cannot do 
+it, except with some manual intervention using the wrapfig package.
+
+The second question might be somewhat stupid since as I understand ANT 
+is not compatible with TeX and frieds. I really like TikZ and Beamer to 
+create graphics and presentations and I would really like to continue 
+using these. Is it at all possible to do that with ANT?
+
+Thanks.
+
+
+
+From Barry.Schwartz at chemoelectric.org  Tue Feb  3 08:43:36 2009
+From: Barry.Schwartz at chemoelectric.org (Barry Schwartz)
+Date: Tue, 3 Feb 2009 01:43:36 -0600
+Subject: [ant-devel] Checksum code
+Message-ID: <20090203074336.GA10163@crud.crud.mn.org>
+
+
+OpenType.ml has a line
+
+       !chk = Int32.add !chk (check_sum p);
+
+that looks as if it ought to be
+
+        chk := Int32.add !chk (check_sum p);
+
+In any case, ocamlopt gave me a warning about it.
+
+
+
+
+
+From blumensath at mathematik.tu-darmstadt.de  Tue Feb  3 09:39:26 2009
+From: blumensath at mathematik.tu-darmstadt.de (Achim Blumensath)
+Date: Tue, 3 Feb 2009 09:39:26 +0100
+Subject: [ant-devel] Checksum code
+In-Reply-To: <20090203074336.GA10163@crud.crud.mn.org>
+References: <20090203074336.GA10163@crud.crud.mn.org>
+Message-ID: <20090203083926.GC3836@mathematik.tu-darmstadt.de>
+
+Hello,
+
+Barry Schwartz wrote:
+> OpenType.ml has a line
+> 
+>        !chk = Int32.add !chk (check_sum p);
+
+Thanks. I've fixed it in CVS.
+
+Achim
+-- 
+________________________________________________________________________
+                                                              | \_____/ |
+   Achim Blumensath                                          \O/ \___/\ |
+   TU Darmstadt                                              =o=  \ /\ \|
+   www.mathematik.tu-darmstadt.de/~blumensath                /"\   o----|
+____________________________________________________________________\___|
+-------------- next part --------------
+A non-text attachment was scrubbed...
+Name: signature.asc
+Type: application/pgp-signature
+Size: 189 bytes
+Desc: Digital signature
+URL: <https://lists.berlios.de/pipermail/ant-devel/attachments/20090203/cd25b1f1/attachment.pgp>
+
+From blumensath at mathematik.tu-darmstadt.de  Tue Feb  3 09:42:38 2009
+From: blumensath at mathematik.tu-darmstadt.de (Achim Blumensath)
+Date: Tue, 3 Feb 2009 09:42:38 +0100
+Subject: [ant-devel] Wrapping figures question
+In-Reply-To: <4987BC12.5020801@alexraasch.de>
+References: <4987BC12.5020801@alexraasch.de>
+Message-ID: <20090203084238.GD3836@mathematik.tu-darmstadt.de>
+
+Hello,
+
+Alexander Raasch wrote:
+> Can ANT do wrapping figures in two-column settings, where the figure is 
+> in the middle of the page and the text flows around it.
+
+Not really. Perhaps, you could implement it using the scripting
+language, but it would be rather fragile.
+
+> The second question might be somewhat stupid since as I understand ANT 
+> is not compatible with TeX and frieds. I really like TikZ and Beamer to 
+> create graphics and presentations and I would really like to continue 
+> using these. Is it at all possible to do that with ANT?
+
+You cannot use LaTeX packages with ant. Currently there are no ant
+packages for graphics and presentations.
+
+PS: Note that, due to lack of time on my part, the development of ant
+is currently stopped.
+
+Achim
+-- 
+________________________________________________________________________
+                                                              | \_____/ |
+   Achim Blumensath                                          \O/ \___/\ |
+   TU Darmstadt                                              =o=  \ /\ \|
+   www.mathematik.tu-darmstadt.de/~blumensath                /"\   o----|
+____________________________________________________________________\___|
+-------------- next part --------------
+A non-text attachment was scrubbed...
+Name: signature.asc
+Type: application/pgp-signature
+Size: 189 bytes
+Desc: Digital signature
+URL: <https://lists.berlios.de/pipermail/ant-devel/attachments/20090203/3f2247d9/attachment.pgp>
+
+From info at alexraasch.de  Wed Feb  4 21:33:31 2009
+From: info at alexraasch.de (Alexander Raasch)
+Date: Wed, 4 Feb 2009 21:33:31 +0100
+Subject: [ant-devel] Wrapping figures question
+In-Reply-To: <20090203084238.GD3836@mathematik.tu-darmstadt.de>
+References: <4987BC12.5020801@alexraasch.de>
+	<20090203084238.GD3836@mathematik.tu-darmstadt.de>
+Message-ID: <4989FB9B.4030100@alexraasch.de>
+
+
+So what is the prospective on ant development? Will it be stalled 
+forever or do you see any chance of continuing the project?
+
+Achim Blumensath wrote:
+> Hello,
+>
+> Alexander Raasch wrote:
+>   
+>> Can ANT do wrapping figures in two-column settings, where the figure is 
+>> in the middle of the page and the text flows around it.
+>>     
+>
+> Not really. Perhaps, you could implement it using the scripting
+> language, but it would be rather fragile.
+>
+>   
+>> The second question might be somewhat stupid since as I understand ANT 
+>> is not compatible with TeX and frieds. I really like TikZ and Beamer to 
+>> create graphics and presentations and I would really like to continue 
+>> using these. Is it at all possible to do that with ANT?
+>>     
+>
+> You cannot use LaTeX packages with ant. Currently there are no ant
+> packages for graphics and presentations.
+>
+> PS: Note that, due to lack of time on my part, the development of ant
+> is currently stopped.
+>
+> Achim
+>   
+> ------------------------------------------------------------------------
+>
+> _______________________________________________
+> ant-devel mailing list
+> ant-devel at lists.berlios.de
+> https://lists.berlios.de/mailman/listinfo/ant-devel
+>   
+
+
+
+From blumensath at mathematik.tu-darmstadt.de  Thu Feb  5 10:04:00 2009
+From: blumensath at mathematik.tu-darmstadt.de (Achim Blumensath)
+Date: Thu, 5 Feb 2009 10:04:00 +0100
+Subject: [ant-devel] Wrapping figures question
+In-Reply-To: <4989FB9B.4030100@alexraasch.de>
+References: <4987BC12.5020801@alexraasch.de>
+	<20090203084238.GD3836@mathematik.tu-darmstadt.de>
+	<4989FB9B.4030100@alexraasch.de>
+Message-ID: <20090205090400.GA6147@mathematik.tu-darmstadt.de>
+
+Hello,
+
+Alexander Raasch wrote:
+> So what is the prospective on ant development? Will it be stalled 
+> forever or do you see any chance of continuing the project?
+
+I have no idea whether I will find the time to start working again on
+ant. There were several people who expressed interest in contributing,
+but I have never heard of them again.
+
+Achim
+-- 
+________________________________________________________________________
+                                                              | \_____/ |
+   Achim Blumensath                                          \O/ \___/\ |
+   TU Darmstadt                                              =o=  \ /\ \|
+   www.mathematik.tu-darmstadt.de/~blumensath                /"\   o----|
+____________________________________________________________________\___|
+-------------- next part --------------
+A non-text attachment was scrubbed...
+Name: signature.asc
+Type: application/pgp-signature
+Size: 189 bytes
+Desc: Digital signature
+URL: <https://lists.berlios.de/pipermail/ant-devel/attachments/20090205/3b443490/attachment.pgp>
+

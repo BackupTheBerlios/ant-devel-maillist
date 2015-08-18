@@ -1,0 +1,136 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [ant-devel] First impressions / 2 problems(?)
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/ant-devel/2008-September/index.html" >
+   <LINK REL="made" HREF="mailto:ant-devel%40lists.berlios.de?Subject=Re%3A%20%5Bant-devel%5D%20First%20impressions%20/%202%20problems%28%3F%29&In-Reply-To=%3C1332650555%40web.de%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000071.html">
+   <LINK REL="Next"  HREF="000073.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[ant-devel] First impressions / 2 problems(?)</H1>
+    <B>knoepfchendreher at web.de</B> 
+    <A HREF="mailto:ant-devel%40lists.berlios.de?Subject=Re%3A%20%5Bant-devel%5D%20First%20impressions%20/%202%20problems%28%3F%29&In-Reply-To=%3C1332650555%40web.de%3E"
+       TITLE="[ant-devel] First impressions / 2 problems(?)">knoepfchendreher at web.de
+       </A><BR>
+    <I>Fri Sep 19 09:42:22 CEST 2008</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000071.html">[ant-devel] First impressions / 2 problems(?)
+</A></li>
+        <LI>Next message: <A HREF="000073.html">[ant-devel] First impressions / 2 problems(?)
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#72">[ date ]</a>
+              <a href="thread.html#72">[ thread ]</a>
+              <a href="subject.html#72">[ subject ]</a>
+              <a href="author.html#72">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>
+&gt;<i> &gt; [1] Compilation hangs at the generation of hyphenation tables,
+</I>&gt;<i> &gt; generating about 90% CPU-load for ever. 
+</I>
+&gt;<i> Did you run out of memory? Was the system thrashing? That's the only
+</I>&gt;<i> explanation I can come up with for this behaviour.
+</I>
+O.k., I did an &quot;omake distclean&quot;, then I added the -verbose option to OCAMLFLAGS etc, so that the commands are printed,
+then restarted the omake. The last two printed commands before this &quot;looping&quot; are:
+
++ as -o '/tmp/camlstartup1d6f90.o' '/tmp/camlstartup13ea57.s'
++ gcc   -o 'GenHyphTable.opt' -I'/usr/lib/ocaml/3.10.2' -LNONE '/tmp/camlstartup1d6f90.o' '/usr/lib/ocaml/3.10.2/std_exit.o' 'GenHyphTable.o' '../lib/Runtime.a' '../lib/Unicode.a' '../Tools/Tools.a' '/usr/lib/ocaml/3.10.2/camlimages/ci_ps.a' '/usr/lib/ocaml/3.10.2/camlimages/ci_xpm.a' '/usr/lib/ocaml/3.10.2/camlimages/ci_xvthumb.a' '/usr/lib/ocaml/3.10.2/camlimages/ci_png.a' '/usr/lib/ocaml/3.10.2/camlimages/ci_ppm.a' '/usr/lib/ocaml/3.10.2/camlimages/ci_bmp.a' '/usr/lib/ocaml/3.10.2/camlimages/ci_tiff.a' '/usr/lib/ocaml/3.10.2/camlimages/ci_jpeg.a' '/usr/lib/ocaml/3.10.2/camlimages/ci_gif.a' '/usr/lib/ocaml/3.10.2/camlimages/ci_freetype.a' '/usr/lib/ocaml/3.10.2/camlimages/ci_core.a' '/usr/lib/ocaml/3.10.2/stdlib.a'  '-L../Tools' '-L../lib' '-L.' '-L.' '-L/usr/lib/ocaml/3.10.2/camlimages' '-L/usr/lib/ocaml/3.10.2' '-lkpathsea' '-lfreetype' '-lz' '-lgif' '-ljpeg' '-ltiff' '-lfreetype' '-lpng' '-lXpm' '-lstdc++' '/home/gawl/Programme/Ant_Is_Not_Tex/ant-0.8/Runtime/kpathsea-stubs.o' '/home/gawl/Programme/Ant_Is_Not_Tex/ant-0.8/Runtime/freetype-stubs.o' '-lkpathsea' '-lfreetype' '-lz' '-lgif' '-ljpeg' '-ltiff' '-lfreetype' '-lpng' '-lXpm' '-lstdc++' '/home/gawl/Programme/Ant_Is_Not_Tex/ant-0.8/Unicode/Tables.o' '-lkpathsea' '-lfreetype' '-lz' '-lgif' '-ljpeg' '-ltiff' '-lfreetype' '-lpng' '-lXpm' '-lstdc++' '/home/gawl/Programme/Ant_Is_Not_Tex/ant-0.8/Tools/zlib-stubs.o' '-lci_xpm' '-lXpm' '-lci_png' '-lpng' '-lz' '-lci_tiff' '-ltiff' '-lci_jpeg' '-ljpeg' '-lci_gif' '-lgif' '-lci_freetype' '-lfreetype' '-lz' '-L//lib' '-L/usr/lib/X11' '/usr/lib/ocaml/3.10.2/libasmrun.a' -lm  -ldl
+
+During this &quot;looping&quot; the Unix command &quot;top&quot; says:
+
+Tasks:  72 total,   2 running,  70 sleeping,   0 stopped,   0 zombie
+Cpu(s): 99.7%us,  0.3%sy,  0.0%ni,  0.0%id,  0.0%wa,  0.0%hi,  0.0%si,  0.0%st
+Mem:    482416k total,   377544k used,   104872k free,    21240k buffers
+Swap:  1004052k total,        0k used,  1004052k free,   279568k cached
+
+  PID USER      PR  NI  VIRT  RES  SHR S %CPU %MEM    TIME+  COMMAND
+ 7956 gawl      25   0  9824 4536 1608 R 99.9  0.9   4:18.06 GenHyphTable
+    1 root      15   0  1984  696  596 S  0.0  0.1   0:01.20 init
+[...]
+
+So, I'd say from this that it is some close loop, consuming CPU cycles, but almost no memory.
+This candidate &quot;GenHyphTable&quot; in the process list (&quot;ps -ef&quot;):
+
+UID        PID  PPID  C STIME TTY          TIME CMD
+gawl      7956  6964 99 09:08 pts/0    00:07:43 /home/gawl/Programme/Ant_Is_Not_Tex/ant-0.8/Util/GenHyphTable ../data/hyphen/british.hyphen ../data/hyphen/us.hyphen ../data/hyphen/de
+
+But, as I already wrote in my first posting, if I interrupt the omake and execute this &quot;GenHyphTable&quot; command manually, it finishes without problems within a few seconds! So, I must admit that I have no idea where the problem lies.
+Maybe some effect in the particular software versions that I have installed?
+So, just for info: For compiling ant I installed:
+gcc                                   4:4.3.2-1
+omake                                 0.9.8.5-3-3+b2
+ocaml                                 3.10.2-3
+camlp4                                3.10.2-3
+camlp4-extra                          3.10.2-3
+libfreetype6-dev                      2.3.7-2
+libkpathsea-dev                       2007.dfsg.2-3
+libgif-dev                            4.1.6-5
+libjpeg62-dev                         6b-14
+libtiff4-dev                          3.8.2-11
+libpng12-dev                          1.2.27-1
+libxpm-dev                            1:3.5.7-1
+
+ 
+ 
+&gt;<i> &gt; [3] The &quot;Arial Unicode&quot; ARIALUNI.TTF [...]
+</I>
+&gt;<i> How many glyphs does Arial Unicode have? Probably it's the loading of
+</I>&gt;<i> kerning pairs, which is quite inefficient for TrueTypes fonts at the
+</I>&gt;<i> moment. Or is Arial Unicode an OpenType font?
+</I>
+Unix command &quot;file&quot; says, that it is a TrueType font.
+I do not know how to count glyphs using FontForge, so I exported it to an SVG font and counted the &quot;&lt;glyph &gt;&quot; tags there, using &quot;grep&quot; and &quot;wc&quot;.
+It seems that ARIALUNI.TTF consists of 50377 glyphs.
+But, FontForge does not want to display the usual view of kerning pairs, I cannot say whether this means that there are no kerning pairs in this font.
+(Viewing the kerning pairs goes fine for, e.g., the arial.ttf.)
+
+
+
+Regards, Ralf.
+
+________________________________________________________________________
+Schon geh&#246;rt? Bei WEB.DE gibt' s viele kostenlose Spiele:
+<A HREF="http://games.entertainment.web.de/de/entertainment/games/free/index.html">http://games.entertainment.web.de/de/entertainment/games/free/index.html</A>
+
+-------------- next part --------------
+A non-text attachment was scrubbed...
+Name: signature.asc
+Type: application/pgp-signature
+Size: 190 bytes
+Desc: not available
+URL: &lt;<A HREF="https://lists.berlios.de/pipermail/ant-devel/attachments/20080919/4c2f2588/attachment.pgp">https://lists.berlios.de/pipermail/ant-devel/attachments/20080919/4c2f2588/attachment.pgp</A>&gt;
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000071.html">[ant-devel] First impressions / 2 problems(?)
+</A></li>
+	<LI>Next message: <A HREF="000073.html">[ant-devel] First impressions / 2 problems(?)
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#72">[ date ]</a>
+              <a href="thread.html#72">[ thread ]</a>
+              <a href="subject.html#72">[ subject ]</a>
+              <a href="author.html#72">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/ant-devel">More information about the ant-devel
+mailing list</a><br>
+</body></html>

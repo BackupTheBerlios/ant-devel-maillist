@@ -1,0 +1,97 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [ant-devel] Compilation problem
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/ant-devel/2009-June/index.html" >
+   <LINK REL="made" HREF="mailto:ant-devel%40lists.berlios.de?Subject=Re%3A%20%5Bant-devel%5D%20Compilation%20problem&In-Reply-To=%3C4462979B-6E39-4B64-8D37-232C0AE9E1E5%40gmail.com%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000110.html">
+   <LINK REL="Next"  HREF="000112.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[ant-devel] Compilation problem</H1>
+    <B>Vincent Aravantinos</B> 
+    <A HREF="mailto:ant-devel%40lists.berlios.de?Subject=Re%3A%20%5Bant-devel%5D%20Compilation%20problem&In-Reply-To=%3C4462979B-6E39-4B64-8D37-232C0AE9E1E5%40gmail.com%3E"
+       TITLE="[ant-devel] Compilation problem">vincent.aravantinos at gmail.com
+       </A><BR>
+    <I>Fri Jun 12 14:35:02 CEST 2009</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000110.html">[ant-devel] Compilation problem
+</A></li>
+        <LI>Next message: <A HREF="000112.html">[ant-devel] Compilation problem
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#111">[ date ]</a>
+              <a href="thread.html#111">[ thread ]</a>
+              <a href="subject.html#111">[ subject ]</a>
+              <a href="author.html#111">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Hi,
+
+Le 12 juin 09 &#224; 14:31, Achim Blumensath a &#233;crit :
+
+&gt;<i> Which version of ant is this? If you have ant 0.8 you can give the
+</I>&gt;<i> current development version a try. There was a bug with the makefiles
+</I>&gt;<i> which is fixed in CVS.
+</I>
+With the CVS version I get another error:
+
+$omake
+*** omake: reading OMakefiles
+--- Checking for ocamlfind... (found /opt/godi/bin/ocamlfind)
+--- Checking for ocamlc.opt... (found /opt/godi/bin/ocamlc.opt)
+--- Checking for ocamlopt.opt... (found /opt/godi/bin/ocamlopt.opt)
+--- Checking whether ocamlc understands the &quot;z&quot; warnings... (yes)
+--- Checking if ocamldep understands -modules... (yes)
+*** omake: finished reading OMakefiles (0.37 sec)
+*** omake: 38/66 targets are up to date
+*** omake: failed (0.38 sec, 0/0 scans, 0/0 rules, 23/149 digests)
+*** omake error:
+    File /opt/godi/lib/omake/build/OCaml.om: line 933, characters 10-73
+    Do not know how to build &quot;lib&quot; required for &quot;lib/Runtime.cmi&quot;
+
+Seems to be an omake error.
+
+$omake --version
+OMake 0.9.8.5 (release 3):
+	build [Fri Jun 12 09:08:19 2009]
+	on macbook-de-vincent-aravantinos.local
+
+Default library directory : /opt/godi/lib/omake
+
+Seems to be the one indicated in the README, isn't it?
+
+Cheers,
+Vincent
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000110.html">[ant-devel] Compilation problem
+</A></li>
+	<LI>Next message: <A HREF="000112.html">[ant-devel] Compilation problem
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#111">[ date ]</a>
+              <a href="thread.html#111">[ thread ]</a>
+              <a href="subject.html#111">[ subject ]</a>
+              <a href="author.html#111">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/ant-devel">More information about the ant-devel
+mailing list</a><br>
+</body></html>

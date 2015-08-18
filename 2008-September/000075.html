@@ -1,0 +1,114 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [ant-devel] First impressions / 2 problems(?)
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/ant-devel/2008-September/index.html" >
+   <LINK REL="made" HREF="mailto:ant-devel%40lists.berlios.de?Subject=Re%3A%20%5Bant-devel%5D%20First%20impressions%20/%202%20problems%28%3F%29&In-Reply-To=%3C20080919132257.GD1945%40mathematik.tu-darmstadt.de%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000074.html">
+   <LINK REL="Next"  HREF="000076.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[ant-devel] First impressions / 2 problems(?)</H1>
+    <B>Achim Blumensath</B> 
+    <A HREF="mailto:ant-devel%40lists.berlios.de?Subject=Re%3A%20%5Bant-devel%5D%20First%20impressions%20/%202%20problems%28%3F%29&In-Reply-To=%3C20080919132257.GD1945%40mathematik.tu-darmstadt.de%3E"
+       TITLE="[ant-devel] First impressions / 2 problems(?)">blumensath at mathematik.tu-darmstadt.de
+       </A><BR>
+    <I>Fri Sep 19 15:22:57 CEST 2008</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000074.html">[ant-devel] First impressions / 2 problems(?)
+</A></li>
+        <LI>Next message: <A HREF="000076.html">[ant-devel] Solution for the 'hanging'/freezing during	compilation(!?) :)
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#75">[ date ]</a>
+              <a href="thread.html#75">[ thread ]</a>
+              <a href="subject.html#75">[ subject ]</a>
+              <a href="author.html#75">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Hello,
+
+Ralf Gawlista wrote:
+&gt;<i> &gt; Do you have the lcdf typetools installed? It would be interesting to see
+</I>&gt;<i> &gt; what
+</I>&gt;<i> &gt; 
+</I>&gt;<i> &gt;   otfinfo -f ARIALUNI.TTF
+</I>&gt;<i> &gt;
+</I>&gt;<i> &gt; says. 
+</I>&gt;<i> 
+</I>&gt;<i> But, &quot;otfinfo -f ARIALUNI.TTF&quot; does not output anything at all,
+</I>
+Sorry, the -f should have been -t.
+
+&gt;<i> Then, &quot;otfinfo -t ARIALUNI.TTF&quot; print more:
+</I>&gt;<i>    6796 DSIG
+</I>&gt;<i>    4132 GDEF
+</I>&gt;<i>    8008 GPOS
+</I>&gt;<i>   66612 GSUB
+</I>&gt;<i>   50381 LTSH
+</I>&gt;<i>      86 OS/2
+</I>&gt;<i>    2508 cmap
+</I>&gt;<i>    3192 cvt
+</I>&gt;<i>    1898 fpgm
+</I>&gt;<i>      16 gasp
+</I>&gt;<i> 22410874 glyf
+</I>&gt;<i>  302288 hdmx
+</I>&gt;<i>      54 head
+</I>&gt;<i>      36 hhea
+</I>&gt;<i>  201508 hmtx
+</I>&gt;<i>  201512 loca
+</I>&gt;<i>      32 maxp
+</I>&gt;<i>    6101 name
+</I>&gt;<i>      32 post
+</I>&gt;<i>    9397 prep
+</I>
+Thanks. So it really is an OpenType font.
+That means that my OpenType loading routines are also inefficient.
+
+Achim
+-- 
+________________________________________________________________________
+                                                              | \_____/ |
+   Achim Blumensath                                          \O/ \___/\ |
+   TU Darmstadt                                              =o=  \ /\ \|
+   www.mathematik.tu-darmstadt.de/~blumensath                /&quot;\   o----|
+____________________________________________________________________\___|
+-------------- next part --------------
+A non-text attachment was scrubbed...
+Name: signature.asc
+Type: application/pgp-signature
+Size: 189 bytes
+Desc: Digital signature
+URL: &lt;<A HREF="https://lists.berlios.de/pipermail/ant-devel/attachments/20080919/0c1b8173/attachment.pgp">https://lists.berlios.de/pipermail/ant-devel/attachments/20080919/0c1b8173/attachment.pgp</A>&gt;
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000074.html">[ant-devel] First impressions / 2 problems(?)
+</A></li>
+	<LI>Next message: <A HREF="000076.html">[ant-devel] Solution for the 'hanging'/freezing during	compilation(!?) :)
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#75">[ date ]</a>
+              <a href="thread.html#75">[ thread ]</a>
+              <a href="subject.html#75">[ subject ]</a>
+              <a href="author.html#75">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/ant-devel">More information about the ant-devel
+mailing list</a><br>
+</body></html>

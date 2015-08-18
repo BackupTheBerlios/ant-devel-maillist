@@ -1,0 +1,37 @@
+From blumensath at mathematik.tu-darmstadt.de  Wed May 13 11:40:41 2009
+From: blumensath at mathematik.tu-darmstadt.de (Achim Blumensath)
+Date: Wed, 13 May 2009 11:40:41 +0200
+Subject: [ant-devel] bugs in FontFT.ml
+In-Reply-To: <20090420164422.GA15644@crud.chemoelectric.org>
+References: <20090420164422.GA15644@crud.chemoelectric.org>
+Message-ID: <20090513094041.GE17699@mathematik.tu-darmstadt.de>
+
+Hello,
+
+sorry for the late reply, I'm quite busy at the moment.
+
+Barry Schwartz wrote:
+> In FontFT.ml I think the code point for "x" should be "120" instead of
+> "102", and the gm_height should be used instead of the gm_width. I
+> think what the current code does is give the width of an "f".
+
+Thanks. Fixed in CVS.
+
+By the way, would you like to have an CVS account for ant?
+
+Achim
+-- 
+________________________________________________________________________
+                                                              | \_____/ |
+   Achim Blumensath                                          \O/ \___/\ |
+   TU Darmstadt                                              =o=  \ /\ \|
+   www.mathematik.tu-darmstadt.de/~blumensath                /"\   o----|
+____________________________________________________________________\___|
+-------------- next part --------------
+A non-text attachment was scrubbed...
+Name: signature.asc
+Type: application/pgp-signature
+Size: 189 bytes
+Desc: Digital signature
+URL: <https://lists.berlios.de/pipermail/ant-devel/attachments/20090513/894ee510/attachment.pgp>
+

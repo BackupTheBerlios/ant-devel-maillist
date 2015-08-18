@@ -1,0 +1,103 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [ant-devel] Problem in compiling ant-0.8
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/ant-devel/2008-January/index.html" >
+   <LINK REL="made" HREF="mailto:ant-devel%40lists.berlios.de?Subject=Re%3A%20%5Bant-devel%5D%20Problem%20in%20compiling%20ant-0.8&In-Reply-To=%3CC3A16892.11473%25ShenChen%40nus.edu.sg%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000019.html">
+   <LINK REL="Next"  HREF="000022.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[ant-devel] Problem in compiling ant-0.8</H1>
+    <B>Shen Chen</B> 
+    <A HREF="mailto:ant-devel%40lists.berlios.de?Subject=Re%3A%20%5Bant-devel%5D%20Problem%20in%20compiling%20ant-0.8&In-Reply-To=%3CC3A16892.11473%25ShenChen%40nus.edu.sg%3E"
+       TITLE="[ant-devel] Problem in compiling ant-0.8">ShenChen at nus.edu.sg
+       </A><BR>
+    <I>Wed Jan  2 09:13:06 CET 2008</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000019.html">[ant-devel] Problem in compiling ant-0.8
+</A></li>
+        <LI>Next message: <A HREF="000022.html">[ant-devel] Problem in compiling ant-0.8
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#21">[ date ]</a>
+              <a href="thread.html#21">[ thread ]</a>
+              <a href="subject.html#21">[ subject ]</a>
+              <a href="author.html#21">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Hi Achim,
+
+README says that &quot;OMake version 0.9.8.1 is required&quot;.
+I am using &quot;OMake 0.9.8.5 (release 3)&quot;. There is a prelease of 0.9.9
+available, but that would require a manual compile.
+May I know what your omake version is? Thank you very much.
+
+Regards,
+shenchen
+
+
+
+On 1/2/08 4:05 PM, &quot;Achim Blumensath&quot;
+&lt;<A HREF="https://lists.berlios.de/mailman/listinfo/ant-devel">blumensath at mathematik.tu-darmstadt.de</A>&gt; wrote:
+
+&gt;<i> Hello,
+</I>&gt;<i> 
+</I>&gt;&gt;<i> As I tried to build ant with omake, the following error message appears.
+</I>&gt;&gt;<i> 
+</I>&gt;&gt;<i> -------------------------------
+</I>&gt;&gt;<i> *** omake: reading OMakefiles
+</I>&gt;&gt;<i> *** omake: finished reading OMakefiles (0.7 sec)
+</I>&gt;&gt;<i> - scan PreProc scan-ocaml-pa_extensions.ml
+</I>&gt;&gt;<i> + ocamldep -modules pa_extensions.ml | Shell.ocamldep-postproc()
+</I>&gt;&gt;<i> File &quot;pa_extensions.ml&quot;, line 1, characters 11-12:
+</I>&gt;&gt;<i> Syntax error
+</I>&gt;&gt;<i> *** omake: 144/945 targets are up to date
+</I>&gt;&gt;<i> *** omake: failed (1.3 sec, 1/2 scans, 0/2 rules, 0/480 digests)
+</I>&gt;&gt;<i> *** omake: targets were not rebuilt because of errors:
+</I>&gt;&gt;<i>    &lt;scanner PreProc/scan-ocaml-pa_extensions.ml&gt;
+</I>&gt;&gt;<i>       depends on: PreProc/pa_extensions.ml
+</I>&gt;&gt;<i> -------------------------------
+</I>&gt;&gt;<i> 
+</I>&gt;&gt;<i> I am using ocaml3.10.0 and omake0.9.8.4 on MacOSX10.4. Reading the .ml
+</I>&gt;&gt;<i> source code I realize that &quot;;&quot; is used where &quot;;;&quot; is usually expected. Is
+</I>&gt;&gt;<i> there anything special to the ocaml source code here?
+</I>&gt;<i> 
+</I>&gt;<i> It looks like omake fails to pass the preprocessor options to ocaml.
+</I>&gt;<i> Could you try with a more recent version of omake?
+</I>&gt;<i> 
+</I>&gt;<i> Achim
+</I>
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000019.html">[ant-devel] Problem in compiling ant-0.8
+</A></li>
+	<LI>Next message: <A HREF="000022.html">[ant-devel] Problem in compiling ant-0.8
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#21">[ date ]</a>
+              <a href="thread.html#21">[ thread ]</a>
+              <a href="subject.html#21">[ subject ]</a>
+              <a href="author.html#21">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/ant-devel">More information about the ant-devel
+mailing list</a><br>
+</body></html>

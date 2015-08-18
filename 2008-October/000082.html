@@ -1,0 +1,99 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [ant-devel] compilation problems
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/ant-devel/2008-October/index.html" >
+   <LINK REL="made" HREF="mailto:ant-devel%40lists.berlios.de?Subject=Re%3A%20%5Bant-devel%5D%20compilation%20problems&In-Reply-To=%3C20081006073701.GD13171%40mathematik.tu-darmstadt.de%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000080.html">
+   <LINK REL="Next"  HREF="000081.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[ant-devel] compilation problems</H1>
+    <B>Achim Blumensath</B> 
+    <A HREF="mailto:ant-devel%40lists.berlios.de?Subject=Re%3A%20%5Bant-devel%5D%20compilation%20problems&In-Reply-To=%3C20081006073701.GD13171%40mathematik.tu-darmstadt.de%3E"
+       TITLE="[ant-devel] compilation problems">blumensath at mathematik.tu-darmstadt.de
+       </A><BR>
+    <I>Mon Oct  6 09:37:01 CEST 2008</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000080.html">[ant-devel] ant-devel broken?
+</A></li>
+        <LI>Next message: <A HREF="000081.html">[ant-devel] [PATCH] Fixes for Unicode/OMakefile:
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#82">[ date ]</a>
+              <a href="thread.html#82">[ thread ]</a>
+              <a href="subject.html#82">[ subject ]</a>
+              <a href="author.html#82">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Hello,
+
+Han-Wen Nienhuys wrote:
+&gt;<i> it appears that OMake is not using the freetype-config --cflags when
+</I>&gt;<i> generating the dependency files.
+</I>
+I have updated the OMakefiles. But I didn't have the time yet to check
+whether it works. Could you give it a try?
+
+&gt;<i> Onto the next error:
+</I>&gt;<i> 
+</I>[...]
+&gt;<i> Cannot find file /usr/lib/ocaml/camlimages/ci_tiff.cmxa
+</I>
+Do you have camlimages installed? Which of the image formats does your
+installation contain? Perhaps it is enough to remove the line containing
+ci_tiff.cmxa.
+
+I have also applied your other OMakefile patch. Except that I commented
+out the automatic download of the unicode data. One should be able to
+build ant without internet connection.
+
+Thanks for all the feedback.
+
+Achim
+-- 
+________________________________________________________________________
+                                                              | \_____/ |
+   Achim Blumensath                                          \O/ \___/\ |
+   TU Darmstadt                                              =o=  \ /\ \|
+   www.mathematik.tu-darmstadt.de/~blumensath                /&quot;\   o----|
+____________________________________________________________________\___|
+-------------- next part --------------
+A non-text attachment was scrubbed...
+Name: signature.asc
+Type: application/pgp-signature
+Size: 189 bytes
+Desc: Digital signature
+URL: &lt;<A HREF="https://lists.berlios.de/pipermail/ant-devel/attachments/20081006/41e52167/attachment.pgp">https://lists.berlios.de/pipermail/ant-devel/attachments/20081006/41e52167/attachment.pgp</A>&gt;
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000080.html">[ant-devel] ant-devel broken?
+</A></li>
+	<LI>Next message: <A HREF="000081.html">[ant-devel] [PATCH] Fixes for Unicode/OMakefile:
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#82">[ date ]</a>
+              <a href="thread.html#82">[ thread ]</a>
+              <a href="subject.html#82">[ subject ]</a>
+              <a href="author.html#82">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/ant-devel">More information about the ant-devel
+mailing list</a><br>
+</body></html>

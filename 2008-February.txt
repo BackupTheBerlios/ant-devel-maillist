@@ -1,0 +1,273 @@
+From roma at ro-che.info  Thu Feb 28 21:47:17 2008
+From: roma at ro-che.info (Roman Cheplyaka)
+Date: Thu, 28 Feb 2008 22:47:17 +0200
+Subject: [ant-devel] compile error
+Message-ID: <20080228204717.GA14252@home.ro-che.info>
+
+Hi.
+I tried to compile ant on Debian sid and got an error not yet
+discussed. I must mention that I set CAMLP4=camlp4r.opt (camlp4rf is
+absent on my system). OCaml is 3.10.1, omake is 0.9.8.5.
+
+crematorium:~/source/ant-0.8% omake
+*** omake: reading OMakefiles
+*** omake: finished reading OMakefiles (0.12 sec)
+- build Tools zlib-stubs.o
++ ocamlc.opt -c -o zlib-stubs.o zlib-stubs.c
+zlib-stubs.c: In function ?zlib_compress?:
+zlib-stubs.c:189: warning: pointer targets in passing argument 1 of ?compress? differ in signedness
+zlib-stubs.c:189: warning: pointer targets in passing argument 3 of ?compress? differ in signedness
+zlib-stubs.c: In function ?zlib_compress2?:
+zlib-stubs.c:200: warning: pointer targets in passing argument 1 of ?compress2? differ in signedness
+zlib-stubs.c:200: warning: pointer targets in passing argument 3 of ?compress2? differ in signedness
+zlib-stubs.c: In function ?zlib_uncompress?:
+zlib-stubs.c:211: warning: pointer targets in passing argument 1 of ?uncompress? differ in signedness
+zlib-stubs.c:211: warning: pointer targets in passing argument 3 of ?uncompress? differ in signedness
+zlib-stubs.c: In function ?zlib_adler32?:
+zlib-stubs.c:221: warning: pointer targets in passing argument 2 of ?adler32? differ in signedness
+zlib-stubs.c: In function ?zlib_crc32?:
+zlib-stubs.c:228: warning: pointer targets in passing argument 2 of ?crc32? differ in signedness
+- scan PreProc scan-ocaml-pa_Num.ml
++ ocamldep -pp camlp4r.opt -I /usr/lib/ocaml/3.10.1/camlp4 -modules pa_Num.ml
+     | Shell.ocamldep-postproc()
+File "pa_Num.ml", line 13, characters 4-10:
+Parse error: [semi] expected after [str_item] (in [str_items])
+Preprocessing error on file pa_Num.ml
+*** omake: 128/938 targets are up to date
+*** omake: failed (0.44 sec, 1/2 scans, 2/2 rules, 2/427 digests)
+*** omake: targets were not rebuilt because of errors:
+   <scanner PreProc/scan-ocaml-pa_Num.ml>
+      depends on: PreProc/pa_Num.ml
+
+-- 
+Roman I. Cheplyaka :: http://ro-che.info/
+...being in love is totally punk rock...
+-------------- next part --------------
+A non-text attachment was scrubbed...
+Name: signature.asc
+Type: application/pgp-signature
+Size: 307 bytes
+Desc: Digital signature
+URL: <https://lists.berlios.de/pipermail/ant-devel/attachments/20080228/8336a765/attachment.pgp>
+
+From ShenChen at nus.edu.sg  Fri Feb 29 07:58:13 2008
+From: ShenChen at nus.edu.sg (Shen Chen)
+Date: Fri, 29 Feb 2008 14:58:13 +0800
+Subject: [ant-devel] compile error
+In-Reply-To: <20080228204717.GA14252@home.ro-che.info>
+Message-ID: <C3EDCE05.14C4A%ShenChen@nus.edu.sg>
+
+Hi 
+
+I encounter the same problem last time. And below is the answer from Achim :
+
+--quote
+ant is written in the revised syntax of ocaml. To compile it you need to
+use a preprocessor (option "-pp camlp4rf").
+--end quote
+
+After installing camlp4rf, the compile runs fine.
+
+shenchen
+
+
+
+On 2/29/08 4:47 AM, "Roman Cheplyaka" <roma at ro-che.info> wrote:
+
+> Hi.
+> I tried to compile ant on Debian sid and got an error not yet
+> discussed. I must mention that I set CAMLP4=camlp4r.opt (camlp4rf is
+> absent on my system). OCaml is 3.10.1, omake is 0.9.8.5.
+> 
+> crematorium:~/source/ant-0.8% omake
+> *** omake: reading OMakefiles
+> *** omake: finished reading OMakefiles (0.12 sec)
+> - build Tools zlib-stubs.o
+> + ocamlc.opt -c -o zlib-stubs.o zlib-stubs.c
+> zlib-stubs.c: In function ?zlib_compress?:
+> zlib-stubs.c:189: warning: pointer targets in passing argument 1 of ?compress?
+> differ in signedness
+> zlib-stubs.c:189: warning: pointer targets in passing argument 3 of ?compress?
+> differ in signedness
+> zlib-stubs.c: In function ?zlib_compress2?:
+> zlib-stubs.c:200: warning: pointer targets in passing argument 1 of
+> ?compress2? differ in signedness
+> zlib-stubs.c:200: warning: pointer targets in passing argument 3 of
+> ?compress2? differ in signedness
+> zlib-stubs.c: In function ?zlib_uncompress?:
+> zlib-stubs.c:211: warning: pointer targets in passing argument 1 of
+> ?uncompress? differ in signedness
+> zlib-stubs.c:211: warning: pointer targets in passing argument 3 of
+> ?uncompress? differ in signedness
+> zlib-stubs.c: In function ?zlib_adler32?:
+> zlib-stubs.c:221: warning: pointer targets in passing argument 2 of ?adler32?
+> differ in signedness
+> zlib-stubs.c: In function ?zlib_crc32?:
+> zlib-stubs.c:228: warning: pointer targets in passing argument 2 of ?crc32?
+> differ in signedness
+> - scan PreProc scan-ocaml-pa_Num.ml
+> + ocamldep -pp camlp4r.opt -I /usr/lib/ocaml/3.10.1/camlp4 -modules pa_Num.ml
+>      | Shell.ocamldep-postproc()
+> File "pa_Num.ml", line 13, characters 4-10:
+> Parse error: [semi] expected after [str_item] (in [str_items])
+> Preprocessing error on file pa_Num.ml
+> *** omake: 128/938 targets are up to date
+> *** omake: failed (0.44 sec, 1/2 scans, 2/2 rules, 2/427 digests)
+> *** omake: targets were not rebuilt because of errors:
+>    <scanner PreProc/scan-ocaml-pa_Num.ml>
+>       depends on: PreProc/pa_Num.ml
+
+
+
+From blumensath at mathematik.tu-darmstadt.de  Fri Feb 29 08:23:42 2008
+From: blumensath at mathematik.tu-darmstadt.de (Achim Blumensath)
+Date: Fri, 29 Feb 2008 08:23:42 +0100
+Subject: [ant-devel] compile error
+In-Reply-To: <20080228204717.GA14252@home.ro-che.info>
+References: <20080228204717.GA14252@home.ro-che.info>
+Message-ID: <20080229072342.GA29438@mathematik.tu-darmstadt.de>
+
+Hello,
+
+> I tried to compile ant on Debian sid and got an error not yet
+> discussed. I must mention that I set CAMLP4=camlp4r.opt (camlp4rf is
+> absent on my system). OCaml is 3.10.1, omake is 0.9.8.5.
+
+When using camlp4r you need to load some additional modules.
+Unfortunately, there is no documentation of camlp4r. According to some
+website I found, you should use
+
+  CAMLP4="camlp4r.opt -parser Camlp4QuotationExpander"
+
+If that does not work, try to also add the options
+
+  -parser Camlp4GrammarParser
+  -parser Camlp4ListComprenhsion
+  -parser Camlp4MacroParser
+
+Achim
+-- 
+________________________________________________________________________
+                                                              | \_____/ |
+   Achim Blumensath                                          \O/ \___/\ |
+   TU Darmstadt                                              =o=  \ /\ \|
+   www.mathematik.tu-darmstadt.de/~blumensath                /"\   o----|
+____________________________________________________________________\___|
+-------------- next part --------------
+A non-text attachment was scrubbed...
+Name: not available
+Type: application/pgp-signature
+Size: 240 bytes
+Desc: not available
+URL: <https://lists.berlios.de/pipermail/ant-devel/attachments/20080229/b03e59b2/attachment.pgp>
+
+From roma at ro-che.info  Fri Feb 29 09:07:06 2008
+From: roma at ro-che.info (Roman Cheplyaka)
+Date: Fri, 29 Feb 2008 10:07:06 +0200
+Subject: [ant-devel] compile error
+In-Reply-To: <C3EDCE05.14C4A%ShenChen@nus.edu.sg>
+References: <20080228204717.GA14252@home.ro-che.info>
+	<C3EDCE05.14C4A%ShenChen@nus.edu.sg>
+Message-ID: <20080229080706.GA7287@home.ro-che.info>
+
+* Shen Chen <ShenChen at nus.edu.sg> [2008-02-29 14:58:13+0800]
+> Hi 
+> 
+> I encounter the same problem last time. And below is the answer from Achim :
+> 
+> --quote
+> ant is written in the revised syntax of ocaml. To compile it you need to
+> use a preprocessor (option "-pp camlp4rf").
+> --end quote
+> 
+> After installing camlp4rf, the compile runs fine.
+
+Thanks for reply!
+I know (a bit) about revised syntax, and I thought that camlp4r (as
+opposed to camlp4) uses just it. Finally I've found camlp4r in
+camlp4-extra package, and it worked.
+
+-- 
+Roman I. Cheplyaka :: http://ro-che.info/
+...being in love is totally punk rock...
+-------------- next part --------------
+A non-text attachment was scrubbed...
+Name: signature.asc
+Type: application/pgp-signature
+Size: 307 bytes
+Desc: Digital signature
+URL: <https://lists.berlios.de/pipermail/ant-devel/attachments/20080229/c7fbad7b/attachment.pgp>
+
+From roma at ro-che.info  Fri Feb 29 10:26:33 2008
+From: roma at ro-che.info (Roman Cheplyaka)
+Date: Fri, 29 Feb 2008 11:26:33 +0200
+Subject: [ant-devel] improving ant during Google Summer of Code
+Message-ID: <20080229092633.GA10352@home.ro-che.info>
+
+Achim,
+
+I really like ideas behind ant and believe that it can successfully
+replace TeX.
+
+Although you have done a lot, obviously it's hard for one man to compete
+with wide community. And to make ant usable for almost every TeX user
+there are still a lot of features and packages to be implemented.
+
+Would you consider applying as a mentor for Google Summer of Code
+programme[1]? This would give you developers who devote (at least) their
+summer holidays to ant development. Particularly, I will be happy to
+work on ant.
+
+  1. http://code.google.com/soc/2008/
+-- 
+Roman I. Cheplyaka :: http://ro-che.info/
+...being in love is totally punk rock...
+-------------- next part --------------
+A non-text attachment was scrubbed...
+Name: signature.asc
+Type: application/pgp-signature
+Size: 307 bytes
+Desc: Digital signature
+URL: <https://lists.berlios.de/pipermail/ant-devel/attachments/20080229/56342468/attachment.pgp>
+
+From blumensath at mathematik.tu-darmstadt.de  Fri Feb 29 14:22:02 2008
+From: blumensath at mathematik.tu-darmstadt.de (Achim Blumensath)
+Date: Fri, 29 Feb 2008 14:22:02 +0100
+Subject: [ant-devel] improving ant during Google Summer of Code
+In-Reply-To: <20080229092633.GA10352@home.ro-che.info>
+References: <20080229092633.GA10352@home.ro-che.info>
+Message-ID: <20080229132202.GE29438@mathematik.tu-darmstadt.de>
+
+Hello,
+
+> Would you consider applying as a mentor for Google Summer of Code
+> programme[1]? This would give you developers who devote (at least)
+> their summer holidays to ant development. Particularly, I will be
+> happy to work on ant.
+
+I could act as a mentor for GSoC, but only as part of some other
+project. I won't submit an "ant project" since I don't think such a
+project would have much chance of being accepted.
+
+So, if there is some TeX related project willing to include work on ant,
+I would volunteer as a mentor.
+
+Supposing that there is such a project, which part of ant would you be
+interested in working on?
+
+Achim
+-- 
+________________________________________________________________________
+                                                              | \_____/ |
+   Achim Blumensath                                          \O/ \___/\ |
+   TU Darmstadt                                              =o=  \ /\ \|
+   www.mathematik.tu-darmstadt.de/~blumensath                /"\   o----|
+____________________________________________________________________\___|
+-------------- next part --------------
+A non-text attachment was scrubbed...
+Name: not available
+Type: application/pgp-signature
+Size: 240 bytes
+Desc: not available
+URL: <https://lists.berlios.de/pipermail/ant-devel/attachments/20080229/61e99216/attachment.pgp>
+

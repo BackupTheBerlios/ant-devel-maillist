@@ -1,0 +1,91 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [ant-devel] Using ant with xdvipdfmx
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/ant-devel/2007-March/index.html" >
+   <LINK REL="made" HREF="mailto:ant-devel%40lists.berlios.de?Subject=Re%3A%20%5Bant-devel%5D%20Using%20ant%20with%20xdvipdfmx&In-Reply-To=%3C20070312084926.GA6272%40crud.crud.mn.org%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000005.html">
+   <LINK REL="Next"  HREF="000007.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[ant-devel] Using ant with xdvipdfmx</H1>
+    <B>Barry.SCHWARTZ at chemoelectric.org</B> 
+    <A HREF="mailto:ant-devel%40lists.berlios.de?Subject=Re%3A%20%5Bant-devel%5D%20Using%20ant%20with%20xdvipdfmx&In-Reply-To=%3C20070312084926.GA6272%40crud.crud.mn.org%3E"
+       TITLE="[ant-devel] Using ant with xdvipdfmx">Barry.SCHWARTZ at chemoelectric.org
+       </A><BR>
+    <I>Mon Mar 12 09:49:26 CET 2007</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000005.html">[ant-devel] Using ant with xdvipdfmx
+</A></li>
+        <LI>Next message: <A HREF="000007.html">[ant-devel] Using ant with xdvipdfmx
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#6">[ date ]</a>
+              <a href="thread.html#6">[ thread ]</a>
+              <a href="subject.html#6">[ subject ]</a>
+              <a href="author.html#6">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Achim Blumensath &lt;<A HREF="https://lists.berlios.de/mailman/listinfo/ant-devel">blumensath at mathematik.tu-darmstadt.de</A>&gt; skribis:
+&gt;<i> I had a look once at fontconfig but I gave up when I couldn't find any
+</I>&gt;<i> documentation. (The man pages do not count.)
+</I>
+On my Gentoo system there are HTML developer docs installed (probably from one
+of Gentoo&#8217;s servers); I&#8217;m sure a Google search could find them. The
+user documentation is the manpage, and it isn&#8217;t very instructive, but
+I&#8217;ve figured out much of it through hard effort. Once you know what
+fontconfig is doing, that&#8217;s when things start really looking bad.
+
+Let&#8217;s suppose, for instance, that a font has the Preferred Name
+'MyFont' and Preferred Style 'Boldish', but also it has the less
+preferred name and style 'MyFont Boldish', 'Regular'. Then fontconfig
+will infer that 'MyFont', 'Regular' is another name referring to this
+font, so guess what can happen when you ask for the real 'MyFont',
+'Regular'.
+
+It gets even worse when an application also uses Pango, which for
+example thinks 'Regular' and 'Medium' are the same thing.
+
+If one is going to use fontconfig and write config files for it, a
+recent version that supports scan patterns is essential, and I
+actually use a system of m4 macros to write those config files, so I
+can actually use my fonts with GIMP, Inkscape, etc., and have it all
+work. In fact I have multiple configurations because what works with
+GIMP and Inkscape doesn&#8217;t work well with XeTeX.
+
+Adding fontconfig support wouldn&#8217;t be too difficult, and I wouldn&#8217;t
+mind having it, but fontconfig isn&#8217;t even doing the right thing, while
+kpathsearch is.
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000005.html">[ant-devel] Using ant with xdvipdfmx
+</A></li>
+	<LI>Next message: <A HREF="000007.html">[ant-devel] Using ant with xdvipdfmx
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#6">[ date ]</a>
+              <a href="thread.html#6">[ thread ]</a>
+              <a href="subject.html#6">[ subject ]</a>
+              <a href="author.html#6">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/ant-devel">More information about the ant-devel
+mailing list</a><br>
+</body></html>

@@ -1,0 +1,451 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [ant-devel] Using ant with xdvipdfmx
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/ant-devel/2007-March/index.html" >
+   <LINK REL="made" HREF="mailto:ant-devel%40lists.berlios.de?Subject=Re%3A%20%5Bant-devel%5D%20Using%20ant%20with%20xdvipdfmx&In-Reply-To=%3C20070306152126.GA2750%40crud.crud.mn.org%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   
+   <LINK REL="Next"  HREF="000001.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[ant-devel] Using ant with xdvipdfmx</H1>
+    <B>Barry.SCHWARTZ at chemoelectric.org</B> 
+    <A HREF="mailto:ant-devel%40lists.berlios.de?Subject=Re%3A%20%5Bant-devel%5D%20Using%20ant%20with%20xdvipdfmx&In-Reply-To=%3C20070306152126.GA2750%40crud.crud.mn.org%3E"
+       TITLE="[ant-devel] Using ant with xdvipdfmx">Barry.SCHWARTZ at chemoelectric.org
+       </A><BR>
+    <I>Tue Mar  6 16:21:26 CET 2007</I>
+    <P><UL>
+        
+        <LI>Next message: <A HREF="000001.html">[ant-devel] Using ant with xdvipdfmx
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#0">[ date ]</a>
+              <a href="thread.html#0">[ thread ]</a>
+              <a href="subject.html#0">[ subject ]</a>
+              <a href="author.html#0">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Someone might find useful the attached little patches for ant CVS. The
+first patch adds support for XDV, the extended DVI format that is
+outputted by XeTeX and which can be converted to PDF with xdvipdfmx,
+letting you use native system fonts, including OpenType. To use
+--format=xdv just write the code the way you would for
+--format=pdf. Making sure that xdvipdfmx and f*ntc*nfig find the same
+fonts as ant is left as an exercise for the user.
+
+The XDV code outputted by the patched ant might be much larger than
+what XeTeX would output, but with modern computers that shouldn't
+matter much, and probably the size of the PDF is unaffected.
+
+The second patch adds \special{...} support, to take advantage of the
+specials recognized by xdvipdfmx and thus give the first patch a
+reason to exist. :)
+
+-------------- next part --------------
+--- ant/Engine/Job.ml	2006-06-01 07:49:39.000000000 +0000
++++ ant-work/Engine/Job.ml	2007-03-05 00:53:55.000000000 +0000
+@@ -2,7 +2,7 @@
+ open Runtime;
+ open Logging;
+ 
+-type output_format = [ DVI | PDF | PS | SVG ];
++type output_format = [ DVI | XDV | PDF | PS | SVG ];
+ 
+ value time             = Unix.localtime (Unix.time ());
+ value argv             = Sys.argv;
+@@ -34,6 +34,7 @@
+ 
+   match !output_format with
+   [ DVI -&gt; !output_file := basename ^ &quot;.dvi&quot;
++  | XDV -&gt; !output_file := basename ^ &quot;.xdv&quot;
+   | PDF -&gt; do
+     {
+       !output_file := basename ^ &quot;.pdf&quot;;
+--- ant/Engine/Job.mli	2006-05-29 06:42:58.000000000 +0000
++++ ant-work/Engine/Job.mli	2007-03-05 00:51:40.000000000 +0000
+@@ -1,5 +1,5 @@
+ 
+-type output_format = [ DVI | PDF | PS | SVG ];
++type output_format = [ DVI | XDV | PDF | PS | SVG ];
+ 
+ value time             : Unix.tm;
+ value argv             : array string;
+--- ant/Engine/Output.ml	2006-05-04 06:59:11.000000000 +0000
++++ ant-work/Engine/Output.ml	2007-03-05 02:12:03.000000000 +0000
+@@ -20,6 +20,7 @@
+ 
+     match format with
+     [ Job.DVI -&gt; GenerateDVI.write_dvi_file               !Job.output_file comment pages
++    | Job.XDV -&gt; GenerateDVI.write_xdv_file               !Job.output_file comment pages
+     | Job.PDF -&gt; GeneratePDF.write_pdf_file               !Job.output_file comment pages
+     | Job.PS  -&gt; GeneratePostScript.write_postscript_file !Job.output_file comment pages
+     | Job.SVG -&gt; GenerateSVG.write_svg_file               !Job.output_file comment pages
+--- ant/Main/Main.ml	2006-06-01 07:49:39.000000000 +0000
++++ ant-work/Main/Main.ml	2007-03-05 02:11:18.000000000 +0000
+@@ -10,7 +10,7 @@
+   print_string &quot;This is ant, version 0.8.\n\n&quot;;
+   print_string &quot;USAGE: ant [options] &lt;input-file&gt;\n\n&quot;;
+   print_string &quot;Supported options are:\n\n&quot;;
+-  print_string &quot;--format=&lt;fmt&gt;    where &lt;fmt&gt; is either \&quot;dvi\&quot;, \&quot;ps\&quot;, \&quot;pdf\&quot;, or \&quot;svg\&quot;\n&quot;;
++  print_string &quot;--format=&lt;fmt&gt;    where &lt;fmt&gt; is \&quot;dvi\&quot;, \&quot;xdv\&quot;, \&quot;ps\&quot;, \&quot;pdf\&quot;, or \&quot;svg\&quot;\n&quot;;
+   print_string &quot;--src-specials    enables the generation of source specials\n&quot;;
+   print_string &quot;--debug=&lt;flags&gt;   where &lt;flags&gt; may contain the following letters:\n&quot;;
+   print_string &quot;                    e   engine\n&quot;;
+@@ -63,6 +63,11 @@
+             !Job.output_format := Job.DVI;
+             process_options file args
+           }
++        | &quot;xdv&quot; -&gt; do
++          {
++            !Job.output_format := Job.XDV;
++            process_options file args
++          }
+         | &quot;pdf&quot; -&gt; do
+           {
+             !Job.output_format := Job.PDF;
+--- ant/Runtime/FontFT.ml	2006-05-29 06:42:58.000000000 +0000
++++ ant-work/Runtime/FontFT.ml	2007-03-05 08:48:39.000000000 +0000
+@@ -804,6 +804,8 @@
+   {
+     name                = name;
+     ps_name             = ft_get_postscript_name face;
++    family_name         = ft_get_family_name face;
++    style_name          = ft_get_style_name face;
+     file_name           = file;
+     font_type           = font_type;
+     first_glyph         = 1;
+--- ant/Runtime/FontMetric.ml	2006-06-16 07:28:30.000000000 +0000
++++ ant-work/Runtime/FontMetric.ml	2007-03-05 08:39:18.000000000 +0000
+@@ -56,6 +56,8 @@
+ {
+   name                : string;
+   ps_name             : string;
++  family_name         : string;
++  style_name          : string;
+   file_name           : string;
+   font_type           : font_type;
+   first_glyph         : int;
+@@ -521,6 +523,8 @@
+ {
+   name                = &quot;&lt;null&gt;&quot;;
+   ps_name             = &quot;&quot;;
++  family_name         = &quot;&quot;;
++  style_name          = &quot;&quot;;
+   file_name           = &quot;&lt;internal&gt;&quot;;
+   font_type           = Other;
+   first_glyph         = 0;
+--- ant/Runtime/FontMetric.mli	2006-06-16 07:28:30.000000000 +0000
++++ ant-work/Runtime/FontMetric.mli	2007-03-05 08:38:05.000000000 +0000
+@@ -56,6 +56,8 @@
+ {
+   name                : string;
+   ps_name             : string;
++  family_name         : string;
++  style_name          : string;
+   file_name           : string;
+   font_type           : font_type;
+   first_glyph         : int;
+--- ant/Runtime/FontTFM.ml	2006-05-26 06:19:45.000000000 +0000
++++ ant-work/Runtime/FontTFM.ml	2007-03-05 08:40:04.000000000 +0000
+@@ -391,6 +391,8 @@
+   {
+     name                = name;
+     ps_name             = name;
++    family_name         = &quot;&quot;;
++    style_name          = &quot;&quot;;
+     file_name           = file;
+     font_type           = Other;
+     first_glyph         = first_glyph;
+--- ant/Runtime/FontVirtual.ml	2006-05-26 06:19:45.000000000 +0000
++++ ant-work/Runtime/FontVirtual.ml	2007-03-05 08:42:00.000000000 +0000
+@@ -53,6 +53,8 @@
+   {
+     name                = name;
+     ps_name             = name;
++    family_name         = &quot;&quot;;
++    style_name          = &quot;&quot;;
+     file_name           = &quot;&quot;;
+     font_type           = Other;
+     first_glyph         = 0;
+--- ant/Runtime/FreeType.ml	2006-05-17 08:15:25.000000000 +0000
++++ ant-work/Runtime/FreeType.ml	2007-03-05 08:36:09.000000000 +0000
+@@ -14,6 +14,8 @@
+ external ft_load_glyph            : face -&gt; int -&gt; int -&gt; unit                  = &quot;Wrapper_FT_Load_Glyph&quot;;
+ external ft_get_kerning           : face -&gt; int -&gt; int -&gt; int -&gt; (int * int)    = &quot;Wrapper_FT_Get_Kerning&quot;;
+ external ft_get_postscript_name   : face -&gt; string                              = &quot;Wrapper_FT_Get_Postscript_Name&quot;;
++external ft_get_family_name       : face -&gt; string                              = &quot;Wrapper_FT_Get_Family_Name&quot;;
++external ft_get_style_name        : face -&gt; string                              = &quot;Wrapper_FT_Get_Style_Name&quot;;
+ external face_num_glyphs          : face -&gt; int                                 = &quot;face_num_glyphs&quot;;
+ external face_glyph               : face -&gt; glyph_slot                          = &quot;face_glyph&quot;;
+ external face_metrics             : face -&gt; (int * int * int * int * int * int) = &quot;face_metrics&quot;;
+--- ant/Runtime/FreeType.mli	2006-05-17 08:15:25.000000000 +0000
++++ ant-work/Runtime/FreeType.mli	2007-03-05 08:35:11.000000000 +0000
+@@ -13,6 +13,8 @@
+ external ft_load_glyph          : face -&gt; int -&gt; int -&gt; unit                  = &quot;Wrapper_FT_Load_Glyph&quot;;
+ external ft_get_kerning         : face -&gt; int -&gt; int -&gt; int -&gt; (int * int)    = &quot;Wrapper_FT_Get_Kerning&quot;;
+ external ft_get_postscript_name : face -&gt; string                              = &quot;Wrapper_FT_Get_Postscript_Name&quot;;
++external ft_get_family_name     : face -&gt; string                              = &quot;Wrapper_FT_Get_Family_Name&quot;;
++external ft_get_style_name      : face -&gt; string                              = &quot;Wrapper_FT_Get_Style_Name&quot;;
+ external face_num_glyphs        : face -&gt; int                                 = &quot;face_num_glyphs&quot;;
+ external face_glyph             : face -&gt; glyph_slot                          = &quot;face_glyph&quot;;
+ external face_metrics           : face -&gt; (int * int * int * int * int * int) = &quot;face_metrics&quot;;
+--- ant/Runtime/GenerateDVI.ml	2006-06-16 07:28:30.000000000 +0000
++++ ant-work/Runtime/GenerateDVI.ml	2007-03-06 04:41:47.000000000 +0000
+@@ -82,10 +82,10 @@
+   }
+ };
+ 
+-value write_preamble state comment = do
++value write_preamble format state comment = do
+ {
+   IO.write_be_u8  state.os 247;
+-  IO.write_be_u8  state.os 2;
++  IO.write_be_u8  state.os format;
+   IO.write_be_u32 state.os (num_of_int 25400000);
+   IO.write_be_u32 state.os (num_of_int 473628672);
+   IO.write_be_u32 state.os (num_of_int 1000);
+@@ -95,7 +95,7 @@
+ 
+ (* |load_font &lt;channel&gt; &lt;font&gt; &lt;font-index&gt;| outputs the DVI-commands to load the given font. *)
+ 
+-value load_font state font idx = do
++value load_tex_font state font idx = do
+ {
+   if idx &lt; 0x100 then do
+   {
+@@ -121,16 +121,39 @@
+   IO.write_string state.os font.name
+ };
+ 
+-value rec write_font_defs state font_defs = match font_defs with
++value load_native_font state font idx = do
++{
++  let layout_engine_flag = 2
++  in
++    IO.write_be_u8 state.os 252;
++    IO.write_be_u32 state.os (num_of_int idx);
++    write_rat       state.os font.at_size;
++    IO.write_be_u16 state.os layout_engine_flag;
++    IO.write_be_u8  state.os (String.length font.ps_name);
++    IO.write_be_u8  state.os (String.length font.family_name);
++    IO.write_be_u8  state.os (String.length font.style_name);
++    IO.write_string state.os font.ps_name;
++    IO.write_string state.os font.family_name;
++    IO.write_string state.os font.style_name;
++};
++
++value load_font format state font idx =
++  if format = 5 &amp;&amp; font.font_type &lt;&gt; Other then
++    load_native_font state font idx
++  else
++    load_tex_font state font idx
++;
++
++value rec write_font_defs format state font_defs = match font_defs with
+ [ []      -&gt; ()
+ | [(f,i)::fs] -&gt; do
+   {
+-    load_font state f i;
+-    write_font_defs state fs
++    load_font format state f i;
++    write_font_defs format state fs
+   }
+ ];
+ 
+-value write_postamble state = do
++value write_postamble format state = do
+ {
+   let pos = IO.bytes_written state.os in
+ 
+@@ -144,11 +167,11 @@
+   IO.write_be_u16 state.os state.data.max_stack;
+   IO.write_be_u16 state.os (List.length state.data.page_lengths);
+ 
+-  write_font_defs state state.data.font_defs;
++  write_font_defs format state state.data.font_defs;
+ 
+   IO.write_be_u8  state.os 249;
+   IO.write_be_u32 state.os (num_of_int pos);
+-  IO.write_be_u8  state.os 2;
++  IO.write_be_u8  state.os format;
+   IO.write_be_u8  state.os 223;
+   IO.write_be_u8  state.os 223;
+   IO.write_be_u8  state.os 223;
+@@ -193,7 +216,7 @@
+   }
+ };
+ 
+-value rec write_pages state pages = do
++value rec write_pages format state pages = do
+ {
+   let rec write_boxes box box_h box_v state = match box with
+   [ Empty           -&gt; clear_stack state
+@@ -217,7 +240,7 @@
+       {
+         let idx = List.length loaded_fonts in
+ 
+-        load_font state font idx;
++        load_font format state font idx;
+ 
+         choose_font font [(font, idx) :: loaded_fonts]
+       }
+@@ -272,6 +295,16 @@
+ 
+       write_boxes_char char font box_h box_v state
+     }
++    else if format = 5 &amp;&amp; font.font_type &lt;&gt; Other then do
++    {
++      IO.write_be_u8 state.os 254;
++      IO.write_be_u32 state.os delta_h;
++      IO.write_be_u16 state.os 1;
++      IO.write_be_u32 state.os (num_of_int 0);
++      IO.write_be_u16 state.os char;
++      state.data := { (state.data) with pos_h = state.data.pos_h +/ delta_h;
++                                        stack_depth = 0 }
++    }
+     else if char &lt; 0x80 then do
+     {
+       IO.write_be_u8 state.os char;
+@@ -583,12 +616,12 @@
+                       max_stack    = max state.data.max_stack  draw_state.data.stack_depth
+                     };
+ 
+-      write_pages state ps
++      write_pages format state ps
+     }
+   ]
+ };
+ 
+-value write_dvi_file name comment pages = do
++value write_dvi_like_file format name comment pages = do
+ {
+   let state =
+   {
+@@ -604,12 +637,21 @@
+   }
+   in
+ 
+-  write_preamble state comment;
++  write_preamble format state comment;
+ 
+-  write_pages state pages;
++  write_pages format state pages;
+ 
+-  write_postamble state;
++  write_postamble format state;
+ 
+   IO.free state.os
+ };
+ 
++value write_dvi_file name comment pages = do
++{
++  write_dvi_like_file 2 name comment pages
++};
++
++value write_xdv_file name comment pages = do
++{
++  write_dvi_like_file 5 name comment pages
++};
+--- ant/Runtime/GenerateDVI.mli	2006-05-04 06:59:17.000000000 +0000
++++ ant-work/Runtime/GenerateDVI.mli	2007-03-05 02:13:17.000000000 +0000
+@@ -1,4 +1,5 @@
+ 
+ value write_dvi_file : string -&gt; string -&gt; list FontMetric.page -&gt; unit;
++value write_xdv_file : string -&gt; string -&gt; list FontMetric.page -&gt; unit;
+ value write_special  : #IO.ostream -&gt; string -&gt; unit;
+ 
+--- ant/Runtime/freetype-stubs.c	2006-05-17 08:15:25.000000000 +0000
++++ ant-work/Runtime/freetype-stubs.c	2007-03-05 08:47:02.000000000 +0000
+@@ -172,6 +172,26 @@
+   CAMLreturn(copy_string(FT_Get_Postscript_Name(f)));
+ };
+ 
++CAMLprim value Wrapper_FT_Get_Family_Name(value face)
++{
++  CAMLparam1(face);
++  FT_Face f;
++
++  f = *(FT_Face *)Data_custom_val(face);
++
++  CAMLreturn(copy_string(f-&gt;family_name));
++};
++
++CAMLprim value Wrapper_FT_Get_Style_Name(value face)
++{
++  CAMLparam1(face);
++  FT_Face f;
++
++  f = *(FT_Face *)Data_custom_val(face);
++
++  CAMLreturn(copy_string(f-&gt;style_name));
++};
++
+ CAMLprim value face_num_glyphs(value face)
+ {
+   CAMLparam1(face);
+-------------- next part --------------
+--- ant.ORIG/Markup/Primitives.ml	2005-12-19 10:03:23.000000000 +0000
++++ ant/Markup/Primitives.ml	2006-02-07 08:54:31.000000000 +0000
+@@ -1384,6 +1384,20 @@
+   }
+ };
+ 
++(* specials *)
++value add_special ps cmd = do
++{
++  add_node ps (Node.CommandBox (location ps) (`Special (`DVI_Special cmd)))
++};
++
++(* |\special {arg}| *)
++
++value special ps = do
++{
++  let arg = Macro.expand_string ps (Parser.read_argument ps.input_stream) in
++    add_special ps (UString.to_string arg)
++};
++
+ (* counters *)
+ 
+ value new_counter ps = do
+@@ -2745,6 +2759,10 @@
+   def_unexpandable_cmd &quot;\\indent&quot;            indent;
+   def_unexpandable_cmd &quot;\\ensurevskip&quot;       ensure_vskip;
+ 
++  (* specials *)
++
++  def_unexpandable_cmd &quot;\\special&quot;           special;
++
+   (* control *)
+ 
+   def_expandable_cmd   &quot;\\relax&quot;               relax expand_relax;
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	
+	<LI>Next message: <A HREF="000001.html">[ant-devel] Using ant with xdvipdfmx
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#0">[ date ]</a>
+              <a href="thread.html#0">[ thread ]</a>
+              <a href="subject.html#0">[ subject ]</a>
+              <a href="author.html#0">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/ant-devel">More information about the ant-devel
+mailing list</a><br>
+</body></html>

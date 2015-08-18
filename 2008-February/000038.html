@@ -1,0 +1,87 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [ant-devel] compile error
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/ant-devel/2008-February/index.html" >
+   <LINK REL="made" HREF="mailto:ant-devel%40lists.berlios.de?Subject=Re%3A%20%5Bant-devel%5D%20compile%20error&In-Reply-To=%3C20080229080706.GA7287%40home.ro-che.info%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000036.html">
+   <LINK REL="Next"  HREF="000037.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[ant-devel] compile error</H1>
+    <B>Roman Cheplyaka</B> 
+    <A HREF="mailto:ant-devel%40lists.berlios.de?Subject=Re%3A%20%5Bant-devel%5D%20compile%20error&In-Reply-To=%3C20080229080706.GA7287%40home.ro-che.info%3E"
+       TITLE="[ant-devel] compile error">roma at ro-che.info
+       </A><BR>
+    <I>Fri Feb 29 09:07:06 CET 2008</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000036.html">[ant-devel] compile error
+</A></li>
+        <LI>Next message: <A HREF="000037.html">[ant-devel] compile error
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#38">[ date ]</a>
+              <a href="thread.html#38">[ thread ]</a>
+              <a href="subject.html#38">[ subject ]</a>
+              <a href="author.html#38">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>* Shen Chen &lt;<A HREF="https://lists.berlios.de/mailman/listinfo/ant-devel">ShenChen at nus.edu.sg</A>&gt; [2008-02-29 14:58:13+0800]
+&gt;<i> Hi 
+</I>&gt;<i> 
+</I>&gt;<i> I encounter the same problem last time. And below is the answer from Achim :
+</I>&gt;<i> 
+</I>&gt;<i> --quote
+</I>&gt;<i> ant is written in the revised syntax of ocaml. To compile it you need to
+</I>&gt;<i> use a preprocessor (option &quot;-pp camlp4rf&quot;).
+</I>&gt;<i> --end quote
+</I>&gt;<i> 
+</I>&gt;<i> After installing camlp4rf, the compile runs fine.
+</I>
+Thanks for reply!
+I know (a bit) about revised syntax, and I thought that camlp4r (as
+opposed to camlp4) uses just it. Finally I've found camlp4r in
+camlp4-extra package, and it worked.
+
+-- 
+Roman I. Cheplyaka :: <A HREF="http://ro-che.info/">http://ro-che.info/</A>
+...being in love is totally punk rock...
+-------------- next part --------------
+A non-text attachment was scrubbed...
+Name: signature.asc
+Type: application/pgp-signature
+Size: 307 bytes
+Desc: Digital signature
+URL: &lt;<A HREF="https://lists.berlios.de/pipermail/ant-devel/attachments/20080229/c7fbad7b/attachment.pgp">https://lists.berlios.de/pipermail/ant-devel/attachments/20080229/c7fbad7b/attachment.pgp</A>&gt;
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000036.html">[ant-devel] compile error
+</A></li>
+	<LI>Next message: <A HREF="000037.html">[ant-devel] compile error
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#38">[ date ]</a>
+              <a href="thread.html#38">[ thread ]</a>
+              <a href="subject.html#38">[ subject ]</a>
+              <a href="author.html#38">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/ant-devel">More information about the ant-devel
+mailing list</a><br>
+</body></html>

@@ -1,0 +1,110 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [ant-devel] bug in Dim.dim_max | table layout.
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/ant-devel/2008-April/index.html" >
+   <LINK REL="made" HREF="mailto:ant-devel%40lists.berlios.de?Subject=Re%3A%20%5Bant-devel%5D%20bug%20in%20Dim.dim_max%20%7C%20table%20layout.&In-Reply-To=%3C20080403065325.GB19309%40mathematik.tu-darmstadt.de%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000060.html">
+   <LINK REL="Next"  HREF="000063.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[ant-devel] bug in Dim.dim_max | table layout.</H1>
+    <B>Achim Blumensath</B> 
+    <A HREF="mailto:ant-devel%40lists.berlios.de?Subject=Re%3A%20%5Bant-devel%5D%20bug%20in%20Dim.dim_max%20%7C%20table%20layout.&In-Reply-To=%3C20080403065325.GB19309%40mathematik.tu-darmstadt.de%3E"
+       TITLE="[ant-devel] bug in Dim.dim_max | table layout.">blumensath at mathematik.tu-darmstadt.de
+       </A><BR>
+    <I>Thu Apr  3 08:53:25 CEST 2008</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000060.html">[ant-devel] bug in Dim.dim_max | table layout.
+</A></li>
+        <LI>Next message: <A HREF="000063.html">[ant-devel] Conversion between characters and unicode value
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#62">[ date ]</a>
+              <a href="thread.html#62">[ thread ]</a>
+              <a href="subject.html#62">[ subject ]</a>
+              <a href="author.html#62">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Hello,
+
+&gt;<i> I was trying to figure out the table layout algorithm, but was  
+</I>&gt;<i> confused by the dim_max function in Dim.ml.
+</I>[...]
+&gt;<i> min_order is used for both stretch and shrink factor. I think  
+</I>&gt;<i> max_order should be used for stretch, isn't it?
+</I>
+Actually, I'm not sure what the best choice is. The function is intended
+to be used to, say, compute the height of a row of boxes. The question
+is, if all of the boxes have stretchability, what should be the
+stretchability of the whole row. I opted to take the minimum, but
+perhaps in some cases the maximum might be preferable.
+
+&gt;<i> Currently the Table layout fits the cell width to its content.
+</I>&gt;<i> I am adding code to Table.ml to allow tables that spread to the galley  
+</I>&gt;<i> width, or a user-specified width.
+</I>
+I haven't looked at that part of code in a long time. The ideal
+situation would be that, if all cells of the table have horizontal
+stretchability then the whole table also has stretchability.
+Then the surrounding code can choose how much to stretch the table.
+
+&gt;<i> I think this layout strategy should belong to a parameter dictionary  
+</I>&gt;<i> named &quot;table&quot;, where I store other table layout parameters (e.g.  
+</I>&gt;<i> vertical align of the table w.r.t the baseline) as well.
+</I>&gt;<i> Hope to hear your opinion on this before I proceed.
+</I>
+What parameters do you want to add? Currently, the whole table is
+returned as a single box. I have planned for a long time to return
+instead a list of separate rows. This is needed for breaking a table
+across pages and for computing the correct vertical spacing above and
+below a table. Furthermore, the user can then choose where to align the
+table (at the first or last row).
+
+Achim
+-- 
+________________________________________________________________________
+                                                              | \_____/ |
+   Achim Blumensath                                          \O/ \___/\ |
+   TU Darmstadt                                              =o=  \ /\ \|
+   www.mathematik.tu-darmstadt.de/~blumensath                /&quot;\   o----|
+____________________________________________________________________\___|
+-------------- next part --------------
+A non-text attachment was scrubbed...
+Name: not available
+Type: application/pgp-signature
+Size: 240 bytes
+Desc: not available
+URL: &lt;<A HREF="https://lists.berlios.de/pipermail/ant-devel/attachments/20080403/f804790c/attachment.pgp">https://lists.berlios.de/pipermail/ant-devel/attachments/20080403/f804790c/attachment.pgp</A>&gt;
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000060.html">[ant-devel] bug in Dim.dim_max | table layout.
+</A></li>
+	<LI>Next message: <A HREF="000063.html">[ant-devel] Conversion between characters and unicode value
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#62">[ date ]</a>
+              <a href="thread.html#62">[ thread ]</a>
+              <a href="subject.html#62">[ subject ]</a>
+              <a href="author.html#62">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/ant-devel">More information about the ant-devel
+mailing list</a><br>
+</body></html>

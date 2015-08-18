@@ -1,0 +1,92 @@
+From chemoelectric at chemoelectric.org  Thu Jun  3 00:41:17 2010
+From: chemoelectric at chemoelectric.org (Barry Schwartz)
+Date: Wed, 2 Jun 2010 17:41:17 -0500
+Subject: [ant-devel] ant and Camlimages 3.0.2
+Message-ID: <20100602224117.GA28745@crud.chemoelectric.org>
+
+There is a patch for compiling ant with Camlimages 3.0.2 at
+http://bitbucket.org/chemoelectric/ant-devel/changeset/d910212c3e11/raw/ant-devel-d910212c3e11.diff
+The biggest change is that there is a Bitmap module as part of
+Camlimages, so I changed Runtime.Bitmap to Runtime.BitmapBase. I don't
+know whether these particular changes ought to go into the CVS.
+
+Different distributions seem to differ on whether they include
+Camlimages 2 or Camlimages 3, so it is good to be able to use
+either. I think unpatched Camlimages 2 may have some security issues,
+but putting specially crafted trojan PNGs in your ant documents is a
+bad idea, in any case. :)
+
+Related: I'm trying to set up an ant mirror at Bitbucket, but am not
+certain that I know what I am doing. :) My account is at
+http://bitbucket.org/chemoelectric/
+
+Less related: I have Exherbo Linux "packages" (exhereses) for ant and
+its dependencies at http://github.com/chemoelectric/exherbo-rubujo
+I'll be surprised if anyone else uses Exherbo. :) The packages could
+easily be converted to Gentoo ebuilds, however, or used as guidance on
+how to build ant manually.
+
+
+
+From chemoelectric at chemoelectric.org  Thu Jun  3 01:14:20 2010
+From: chemoelectric at chemoelectric.org (Barry Schwartz)
+Date: Wed, 2 Jun 2010 18:14:20 -0500
+Subject: [ant-devel] ant and Camlimages 3.0.2
+In-Reply-To: <20100602224117.GA28745@crud.chemoelectric.org>
+References: <20100602224117.GA28745@crud.chemoelectric.org>
+Message-ID: <20100602231420.GA4183@crud.chemoelectric.org>
+
+Barry Schwartz <chemoelectric at chemoelectric.org> skribis:
+> Subject: [ant-devel] ant and Camlimages 3.0.2
+> From: Barry Schwartz <chemoelectric at chemoelectric.org>
+> Reply-To: ant-devel at lists.berlios.de
+> Date: Wed, 2 Jun 2010 17:41:17 -0500
+> To: ant-devel at lists.berlios.de
+> 
+> There is a patch for compiling ant with Camlimages 3.0.2 at
+> http://bitbucket.org/chemoelectric/ant-devel/changeset/d910212c3e11/raw/ant-devel-d910212c3e11.diff
+> The biggest change is that there is a Bitmap module as part of
+> Camlimages, so I changed Runtime.Bitmap to Runtime.BitmapBase. I don't
+> know whether these particular changes ought to go into the CVS.
+
+Somehow I left out the renamed BitmapBase files. Here is a second
+patch to be applied in addition to the previous one:
+http://bitbucket.org/chemoelectric/ant-devel/changeset/be5b1b670160/raw/ant-devel-be5b1b670160.diff
+
+
+From blumensath at mathematik.tu-darmstadt.de  Fri Jun  4 15:54:20 2010
+From: blumensath at mathematik.tu-darmstadt.de (Achim Blumensath)
+Date: Fri, 4 Jun 2010 15:54:20 +0200
+Subject: [ant-devel] ant and Camlimages 3.0.2
+In-Reply-To: <20100602224117.GA28745@crud.chemoelectric.org>
+References: <20100602224117.GA28745@crud.chemoelectric.org>
+Message-ID: <20100604135420.GK20672@mathematik.tu-darmstadt.de>
+
+Helle,
+
+> There is a patch for compiling ant with Camlimages 3.0.2 at
+> http://bitbucket.org/chemoelectric/ant-devel/changeset/d910212c3e11/raw/ant-devel-d910212c3e11.diff
+> The biggest change is that there is a Bitmap module as part of
+> Camlimages, so I changed Runtime.Bitmap to Runtime.BitmapBase. I don't
+> know whether these particular changes ought to go into the CVS.
+
+Looks good, except that I would prefer "MonoBitmap" instead of
+"BitmapBase". If you don't beat me to it, I'll check in a corresponding
+path as soon as I find the time.
+
+Achim
+-- 
+________________________________________________________________________
+                                                              | \_____/ |
+   Achim Blumensath                                          \O/ \___/\ |
+   TU Darmstadt                                              =o=  \ /\ \|
+   www.mathematik.tu-darmstadt.de/~blumensath                /"\   o----|
+____________________________________________________________________\___|
+-------------- next part --------------
+A non-text attachment was scrubbed...
+Name: signature.asc
+Type: application/pgp-signature
+Size: 189 bytes
+Desc: Digital signature
+URL: <https://lists.berlios.de/pipermail/ant-devel/attachments/20100604/21cd8a4f/attachment.pgp>
+

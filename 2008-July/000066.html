@@ -1,0 +1,117 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [ant-devel] How-to questions
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/ant-devel/2008-July/index.html" >
+   <LINK REL="made" HREF="mailto:ant-devel%40lists.berlios.de?Subject=Re%3A%20%5Bant-devel%5D%20How-to%20questions&In-Reply-To=%3C20080711062857.GB27897%40mathematik.tu-darmstadt.de%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000065.html">
+   <LINK REL="Next"  HREF="000067.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[ant-devel] How-to questions</H1>
+    <B>Achim Blumensath</B> 
+    <A HREF="mailto:ant-devel%40lists.berlios.de?Subject=Re%3A%20%5Bant-devel%5D%20How-to%20questions&In-Reply-To=%3C20080711062857.GB27897%40mathematik.tu-darmstadt.de%3E"
+       TITLE="[ant-devel] How-to questions">blumensath at mathematik.tu-darmstadt.de
+       </A><BR>
+    <I>Fri Jul 11 08:28:57 CEST 2008</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000065.html">[ant-devel] How-to questions
+</A></li>
+        <LI>Next message: <A HREF="000067.html">[ant-devel] How-to questions
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#66">[ date ]</a>
+              <a href="thread.html#66">[ thread ]</a>
+              <a href="subject.html#66">[ subject ]</a>
+              <a href="author.html#66">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Hello,
+
+&gt;<i> 1. Getting rid of the fixed width of galleys - and more generally,
+</I>&gt;<i> typesetting the galley material not before it is cut into areas but
+</I>&gt;<i> after that. Also, being able to use pageareas of different width and
+</I>&gt;<i> non-rectangular ones in any mix for a single galley.
+</I>
+This is currently not possible. It requires a major restructuring of the
+layout algorithms.
+
+&gt;<i> 2. Probably related to the previous point, in some books and
+</I>&gt;<i> magazines, the first line of the first paragraph of a chapter is often
+</I>&gt;<i> set in a different font. I can't do that automatically in TeX; is this
+</I>&gt;<i> possible in Ant by some trick? Ideally I want to be able to set each
+</I>&gt;<i> line of a paragraph, counting from top or from bottom, in a different
+</I>&gt;<i> font.
+</I>
+This is not possible and I have no idea how such a feature could be
+implemented (without making everything unbearable slow).
+
+&gt;<i> 3. Marginal notes that cut into the main text - i.e. indent into e.g.
+</I>&gt;<i> 3 lines at this height
+</I>
+This should be possible with some scripting. Basically what you have to
+do is to run ant once to get the line number where the note appears
+and then to run it a second time to change the par-shape accordingly.
+
+&gt;<i> 4. A way to insert inline notes, such as &quot;(continied)&quot;, into the text
+</I>&gt;<i> flow right after a page break or pagearea break
+</I>
+This is also currently not possible, but it could probably be added
+after the rewrite of the galley code.
+
+&gt;<i> 5. A way to specify parshape counting from bottom, as already
+</I>&gt;<i> discussed on this list - it was suggested that it's possible via some
+</I>&gt;<i> AL trickery with double processing, but I could not figure this out -
+</I>&gt;<i> can anyone please give an example code?
+</I>
+At the top of manual.ant there is a commented out section with some
+scripting commands which might be helpful. There you can see how to
+change the par-shape depending on the number of lines of the paragraph.
+
+Achim
+-- 
+________________________________________________________________________
+                                                              | \_____/ |
+   Achim Blumensath                                          \O/ \___/\ |
+   TU Darmstadt                                              =o=  \ /\ \|
+   www.mathematik.tu-darmstadt.de/~blumensath                /&quot;\   o----|
+____________________________________________________________________\___|
+-------------- next part --------------
+A non-text attachment was scrubbed...
+Name: not available
+Type: application/pgp-signature
+Size: 240 bytes
+Desc: not available
+URL: &lt;<A HREF="https://lists.berlios.de/pipermail/ant-devel/attachments/20080711/9b709edd/attachment.pgp">https://lists.berlios.de/pipermail/ant-devel/attachments/20080711/9b709edd/attachment.pgp</A>&gt;
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000065.html">[ant-devel] How-to questions
+</A></li>
+	<LI>Next message: <A HREF="000067.html">[ant-devel] How-to questions
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#66">[ date ]</a>
+              <a href="thread.html#66">[ thread ]</a>
+              <a href="subject.html#66">[ subject ]</a>
+              <a href="author.html#66">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/ant-devel">More information about the ant-devel
+mailing list</a><br>
+</body></html>

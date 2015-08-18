@@ -1,0 +1,499 @@
+From knoepfchendreher at web.de  Thu Sep 18 10:12:08 2008
+From: knoepfchendreher at web.de (Ralf Gawlista)
+Date: Thu, 18 Sep 2008 10:12:08 +0200
+Subject: [ant-devel] First impressions / 2 problems(?)
+Message-ID: <1330987086@web.de>
+
+Hi,
+
+since I am new to ant in general, and to this mailing-list in particular, I might have done things wrong.
+But the following occured to me when first trying to get ant ready to use:
+
+[1] Compilation hangs at the generation of hyphenation tables, generating about 90% CPU-load for ever. 
+At least on my system(s) ("Sidux", which is a Debian-based Linux-distro).
+I was not able to find a reason for this.
+The only way to get past this was to interrupt the omake, then manually enter the command
+
+./Util/GenHyphTable ../data/hyphen/british.hyphen ../data/hyphen/us.hyphen ../data/hyphen/deutsch-neu.hyphen > ./Engine/HyphenTable.ml
+
+then delete the corresponding commands from the OMakefile:
+
+$ diff ./Engine/OMakefile_orig ./Engine/OMakefile
+32,33c32
+< HyphenTable.ml: ../Util/GenHyphTable :value: $(HYPHEN_FILES)
+<       ../Util/GenHyphTable $(HYPHEN_FILES) >$@
+---
+> HyphenTable.ml: 
+
+After this, the omake finished without further problems.
+
+[2] The resulting ant executable seems to have a strange problem with TTF font files: 
+I used the minimal.ant example file, but altered the ps_declare_font in it to use different font files (which I had simply copied into the same directory). For example:
+
+    ps_declare_font "LinLibertine_BI-2.8.0.ttf" "MyNormFont" "medium" "normal" (0,0) {};
+
+(Of course, the line referencing this font must be changed, too, to reference family = {MyNormFont}, instead of the original family = {Latin Modern}.)
+Then always the glyph, which appears first after the \begingalley{main galley} it omitted completely throughout the whole text.
+(In particular, with the "the quick brown fox..." example line, the lowercase "t" is omitted in the resulting PDF. So, this is not only true of the very first "t", but also all the other "t" glyphs!)
+This seems not to happen whenever I use an OTF font file. (I even tried fonts, which I had both as OTF and TTF: The resulting PDF was ok with the OTF, but omitted glyphs with the TTF.) (And: I did not try PS font files at all, so I cannot talk of them.)
+
+(Oh, but, on the other hand, ant refused to load LinLibertine_Re-2.8.14.otf (with message "Warning: Cannot load font file `LinLibertine_Re-2.8.14.otf'!", which is probably another story, since this could also be some internal error in the font file...?)
+
+[3] The "Arial Unicode" ARIALUNI.TTF (from that rather well-known company ;) even seems to overload ant: When I use the minimal.ant (again with the modified minimal.ant, i.e. only one sentence of actual text!) with it, it seems to hang (interrupted it after 5 minutes), generating over 98% CPU load. With the "Arial Italic" ariali.ttf font, for example, everything goes o.k. (except for the missing glyphs as described above). This is probably due to the fact that ARIALUNI.TTF is the biggest font file I've ever seen (over 23 MB), but nevertheless, issuing an error message would still be better than simply freezing...
+
+[4] It might be useful if ant messages included the line number(s). If, for example, ant issues the message 
+
+Warning: Overfull hbox (badness infinite)!
+den Herrschaften, was du Sch?nes
+
+then it is possible, of course, to do a text search for the cited word, but it would be more useful to also have the corresponding line number.
+
+O.k., this for my first impressions. I hope that my remarks are not due to my wrong understanding/usage of ant... (Then I'd be eager to learn more about correctly using it! :)
+
+Regards, Ralf.
+
+_____________________________________________________________________
+Der WEB.DE SmartSurfer hilft bis zu 70% Ihrer Onlinekosten zu sparen!
+http://smartsurfer.web.de/?mc=100071&distributionid=000000000066
+
+
+
+From blumensath at mathematik.tu-darmstadt.de  Thu Sep 18 15:21:19 2008
+From: blumensath at mathematik.tu-darmstadt.de (Achim Blumensath)
+Date: Thu, 18 Sep 2008 15:21:19 +0200
+Subject: [ant-devel] First impressions / 2 problems(?)
+In-Reply-To: <1330987086@web.de>
+References: <1330987086@web.de>
+Message-ID: <20080918132119.GC17866@mathematik.tu-darmstadt.de>
+
+Hello,
+
+> But the following occured to me when first trying to get ant ready to
+> use:
+> 
+> [1] Compilation hangs at the generation of hyphenation tables,
+> generating about 90% CPU-load for ever. 
+
+Did you run out of memory? Was the system thrashing? That's the only
+explanation I can come up with for this behaviour.
+
+> [2] The resulting ant executable seems to have a strange problem with
+> TTF font files: 
+> I used the minimal.ant example file, but altered the ps_declare_font
+> in it to use different font files (which I had simply copied into the
+> same directory). For example:
+> 
+>     ps_declare_font "LinLibertine_BI-2.8.0.ttf" "MyNormFont" "medium" "normal" (0,0) {};
+
+looks good.
+
+> Then always the glyph, which appears first after the \begingalley{main
+> galley} it omitted completely throughout the whole text.
+
+Very strange.
+
+> (Oh, but, on the other hand, ant refused to load
+> LinLibertine_Re-2.8.14.otf (with message "Warning: Cannot load font
+> file `LinLibertine_Re-2.8.14.otf'!", which is probably another story,
+> since this could also be some internal error in the font file...?)
+
+Either that or a bug in ant.
+
+> [3] The "Arial Unicode" ARIALUNI.TTF (from that rather well-known
+> company ;) even seems to overload ant: When I use the minimal.ant
+> (again with the modified minimal.ant, i.e. only one sentence of actual
+> text!) with it, it seems to hang (interrupted it after 5 minutes),
+> generating over 98% CPU load. With the "Arial Italic" ariali.ttf font,
+> for example, everything goes o.k. (except for the missing glyphs as
+> described above). This is probably due to the fact that ARIALUNI.TTF
+> is the biggest font file I've ever seen (over 23 MB), but
+> nevertheless, issuing an error message would still be better than
+> simply freezing...
+
+How many glyphs does Arial Unicode have? Probably it's the loading of
+kerning pairs, which is quite inefficient for TrueTypes fonts at the
+moment. Or is Arial Unicode an OpenType font?
+
+> [4] It might be useful if ant messages included the line number(s).
+
+Some do, but in other cases the line number is not available anymore at
+the place where the error message is issued. This is something I need to
+fix eventually.
+
+Achim
+-- 
+________________________________________________________________________
+                                                              | \_____/ |
+   Achim Blumensath                                          \O/ \___/\ |
+   TU Darmstadt                                              =o=  \ /\ \|
+   www.mathematik.tu-darmstadt.de/~blumensath                /"\   o----|
+____________________________________________________________________\___|
+-------------- next part --------------
+A non-text attachment was scrubbed...
+Name: signature.asc
+Type: application/pgp-signature
+Size: 189 bytes
+Desc: Digital signature
+URL: <https://lists.berlios.de/pipermail/ant-devel/attachments/20080918/6c8e5986/attachment.pgp>
+
+From knoepfchendreher at web.de  Fri Sep 19 09:42:22 2008
+From: knoepfchendreher at web.de (knoepfchendreher at web.de)
+Date: Fri, 19 Sep 2008 09:42:22 +0200
+Subject: [ant-devel] First impressions / 2 problems(?)
+Message-ID: <1332650555@web.de>
+
+
+> > [1] Compilation hangs at the generation of hyphenation tables,
+> > generating about 90% CPU-load for ever. 
+
+> Did you run out of memory? Was the system thrashing? That's the only
+> explanation I can come up with for this behaviour.
+
+O.k., I did an "omake distclean", then I added the -verbose option to OCAMLFLAGS etc, so that the commands are printed,
+then restarted the omake. The last two printed commands before this "looping" are:
+
++ as -o '/tmp/camlstartup1d6f90.o' '/tmp/camlstartup13ea57.s'
++ gcc   -o 'GenHyphTable.opt' -I'/usr/lib/ocaml/3.10.2' -LNONE '/tmp/camlstartup1d6f90.o' '/usr/lib/ocaml/3.10.2/std_exit.o' 'GenHyphTable.o' '../lib/Runtime.a' '../lib/Unicode.a' '../Tools/Tools.a' '/usr/lib/ocaml/3.10.2/camlimages/ci_ps.a' '/usr/lib/ocaml/3.10.2/camlimages/ci_xpm.a' '/usr/lib/ocaml/3.10.2/camlimages/ci_xvthumb.a' '/usr/lib/ocaml/3.10.2/camlimages/ci_png.a' '/usr/lib/ocaml/3.10.2/camlimages/ci_ppm.a' '/usr/lib/ocaml/3.10.2/camlimages/ci_bmp.a' '/usr/lib/ocaml/3.10.2/camlimages/ci_tiff.a' '/usr/lib/ocaml/3.10.2/camlimages/ci_jpeg.a' '/usr/lib/ocaml/3.10.2/camlimages/ci_gif.a' '/usr/lib/ocaml/3.10.2/camlimages/ci_freetype.a' '/usr/lib/ocaml/3.10.2/camlimages/ci_core.a' '/usr/lib/ocaml/3.10.2/stdlib.a'  '-L../Tools' '-L../lib' '-L.' '-L.' '-L/usr/lib/ocaml/3.10.2/camlimages' '-L/usr/lib/ocaml/3.10.2' '-lkpathsea' '-lfreetype' '-lz' '-lgif' '-ljpeg' '-ltiff' '-lfreetype' '-lpng' '-lXpm' '-lstdc++' '/home/gawl/Programme/Ant_Is_Not_Tex/ant-0.8/Runtime/kpathsea-stubs.o' '/home/gawl/Programme/Ant_Is_Not_Tex/ant-0.8/Runtime/freetype-stubs.o' '-lkpathsea' '-lfreetype' '-lz' '-lgif' '-ljpeg' '-ltiff' '-lfreetype' '-lpng' '-lXpm' '-lstdc++' '/home/gawl/Programme/Ant_Is_Not_Tex/ant-0.8/Unicode/Tables.o' '-lkpathsea' '-lfreetype' '-lz' '-lgif' '-ljpeg' '-ltiff' '-lfreetype' '-lpng' '-lXpm' '-lstdc++' '/home/gawl/Programme/Ant_Is_Not_Tex/ant-0.8/Tools/zlib-stubs.o' '-lci_xpm' '-lXpm' '-lci_png' '-lpng' '-lz' '-lci_tiff' '-ltiff' '-lci_jpeg' '-ljpeg' '-lci_gif' '-lgif' '-lci_freetype' '-lfreetype' '-lz' '-L//lib' '-L/usr/lib/X11' '/usr/lib/ocaml/3.10.2/libasmrun.a' -lm  -ldl
+
+During this "looping" the Unix command "top" says:
+
+Tasks:  72 total,   2 running,  70 sleeping,   0 stopped,   0 zombie
+Cpu(s): 99.7%us,  0.3%sy,  0.0%ni,  0.0%id,  0.0%wa,  0.0%hi,  0.0%si,  0.0%st
+Mem:    482416k total,   377544k used,   104872k free,    21240k buffers
+Swap:  1004052k total,        0k used,  1004052k free,   279568k cached
+
+  PID USER      PR  NI  VIRT  RES  SHR S %CPU %MEM    TIME+  COMMAND
+ 7956 gawl      25   0  9824 4536 1608 R 99.9  0.9   4:18.06 GenHyphTable
+    1 root      15   0  1984  696  596 S  0.0  0.1   0:01.20 init
+[...]
+
+So, I'd say from this that it is some close loop, consuming CPU cycles, but almost no memory.
+This candidate "GenHyphTable" in the process list ("ps -ef"):
+
+UID        PID  PPID  C STIME TTY          TIME CMD
+gawl      7956  6964 99 09:08 pts/0    00:07:43 /home/gawl/Programme/Ant_Is_Not_Tex/ant-0.8/Util/GenHyphTable ../data/hyphen/british.hyphen ../data/hyphen/us.hyphen ../data/hyphen/de
+
+But, as I already wrote in my first posting, if I interrupt the omake and execute this "GenHyphTable" command manually, it finishes without problems within a few seconds! So, I must admit that I have no idea where the problem lies.
+Maybe some effect in the particular software versions that I have installed?
+So, just for info: For compiling ant I installed:
+gcc                                   4:4.3.2-1
+omake                                 0.9.8.5-3-3+b2
+ocaml                                 3.10.2-3
+camlp4                                3.10.2-3
+camlp4-extra                          3.10.2-3
+libfreetype6-dev                      2.3.7-2
+libkpathsea-dev                       2007.dfsg.2-3
+libgif-dev                            4.1.6-5
+libjpeg62-dev                         6b-14
+libtiff4-dev                          3.8.2-11
+libpng12-dev                          1.2.27-1
+libxpm-dev                            1:3.5.7-1
+
+ 
+ 
+> > [3] The "Arial Unicode" ARIALUNI.TTF [...]
+
+> How many glyphs does Arial Unicode have? Probably it's the loading of
+> kerning pairs, which is quite inefficient for TrueTypes fonts at the
+> moment. Or is Arial Unicode an OpenType font?
+
+Unix command "file" says, that it is a TrueType font.
+I do not know how to count glyphs using FontForge, so I exported it to an SVG font and counted the "<glyph >" tags there, using "grep" and "wc".
+It seems that ARIALUNI.TTF consists of 50377 glyphs.
+But, FontForge does not want to display the usual view of kerning pairs, I cannot say whether this means that there are no kerning pairs in this font.
+(Viewing the kerning pairs goes fine for, e.g., the arial.ttf.)
+
+
+
+Regards, Ralf.
+
+________________________________________________________________________
+Schon geh?rt? Bei WEB.DE gibt' s viele kostenlose Spiele:
+http://games.entertainment.web.de/de/entertainment/games/free/index.html
+
+-------------- next part --------------
+A non-text attachment was scrubbed...
+Name: signature.asc
+Type: application/pgp-signature
+Size: 190 bytes
+Desc: not available
+URL: <https://lists.berlios.de/pipermail/ant-devel/attachments/20080919/4c2f2588/attachment.pgp>
+
+From blumensath at mathematik.tu-darmstadt.de  Fri Sep 19 13:38:44 2008
+From: blumensath at mathematik.tu-darmstadt.de (Achim Blumensath)
+Date: Fri, 19 Sep 2008 13:38:44 +0200
+Subject: [ant-devel] First impressions / 2 problems(?)
+In-Reply-To: <1332650555@web.de>
+References: <1332650555@web.de>
+Message-ID: <20080919113844.GC1945@mathematik.tu-darmstadt.de>
+
+Hello,
+
+knoepfchendreher at web.de wrote:
+>   PID USER      PR  NI  VIRT  RES  SHR S %CPU %MEM    TIME+  COMMAND
+>  7956 gawl      25   0  9824 4536 1608 R 99.9  0.9   4:18.06 GenHyphTable
+>     1 root      15   0  1984  696  596 S  0.0  0.1   0:01.20 init
+> [...]
+> 
+> So, I'd say from this that it is some close loop, consuming CPU
+> cycles, but almost no memory.
+
+Strange. It might be a but in OMake.
+
+If you really want to find out what's going on, I think the thing to do
+would be adding lots of Printf.eprintf commands to GenHyphenTable.ml to
+see at which point of the program it is looping.
+
+> Maybe some effect in the particular software versions that I have
+> installed?
+> gcc                                   4:4.3.2-1
+
+Perhaps you encountered a wrong-code bug in gcc. But I think that's
+unlikely.
+
+> omake                                 0.9.8.5-3-3+b2
+> ocaml                                 3.10.2-3
+> camlp4                                3.10.2-3
+> camlp4-extra                          3.10.2-3
+
+This looks ok.
+
+> > > [3] The "Arial Unicode" ARIALUNI.TTF [...]
+> 
+> > How many glyphs does Arial Unicode have? Probably it's the loading of
+> > kerning pairs, which is quite inefficient for TrueTypes fonts at the
+> > moment. Or is Arial Unicode an OpenType font?
+> 
+> Unix command "file" says, that it is a TrueType font.
+
+Do you have the lcdf typetools installed? It would be interesting to see
+what
+
+  otfinfo -f ARIALUNI.TTF
+
+says. In particular, I'm interested in whether the font has GSUB and
+GPOS tables. Or you could use
+
+  strings ARIALUNI.TTF | grep GPOS | less
+
+> It seems that ARIALUNI.TTF consists of 50377 glyphs.
+
+That's a lot. If it has no GPOS table then I think I know where the
+problem is: it's the loop in Runtime/FontFT.ml in the function
+make_simple_adjustment_table (subfunction kerns_to_adjustments).
+
+Achim
+-- 
+________________________________________________________________________
+                                                              | \_____/ |
+   Achim Blumensath                                          \O/ \___/\ |
+   TU Darmstadt                                              =o=  \ /\ \|
+   www.mathematik.tu-darmstadt.de/~blumensath                /"\   o----|
+____________________________________________________________________\___|
+-------------- next part --------------
+A non-text attachment was scrubbed...
+Name: signature.asc
+Type: application/pgp-signature
+Size: 189 bytes
+Desc: Digital signature
+URL: <https://lists.berlios.de/pipermail/ant-devel/attachments/20080919/ba0f48be/attachment.pgp>
+
+From knoepfchendreher at web.de  Fri Sep 19 15:05:59 2008
+From: knoepfchendreher at web.de (Ralf Gawlista)
+Date: Fri, 19 Sep 2008 15:05:59 +0200
+Subject: [ant-devel] First impressions / 2 problems(?)
+Message-ID: <1333122804@web.de>
+
+Hello,
+
+> Do you have the lcdf typetools installed? It would be interesting to see
+> what
+> 
+>   otfinfo -f ARIALUNI.TTF
+>
+> says. 
+
+(I haven't had installed these yet, but that was done quickly :)
+
+But, "otfinfo -f ARIALUNI.TTF" does not output anything at all, whereas "strings ARIALUNI.TTF | grep GPOS" simply prints
+
+$GPOS
+
+i.e. one single line of output.
+
+Then, "otfinfo -t ARIALUNI.TTF" print more:
+   6796 DSIG
+   4132 GDEF
+   8008 GPOS
+  66612 GSUB
+  50381 LTSH
+     86 OS/2
+   2508 cmap
+   3192 cvt
+   1898 fpgm
+     16 gasp
+22410874 glyf
+ 302288 hdmx
+     54 head
+     36 hhea
+ 201508 hmtx
+ 201512 loca
+     32 maxp
+   6101 name
+     32 post
+   9397 prep
+
+...but, to be honest, I do not know what this means and whether this matters here...
+
+
+Regards, Ralf.
+
+_______________________________________________________________________
+Jetzt neu! Sch?tzen Sie Ihren PC mit McAfee und WEB.DE. 30 Tage
+kostenlos testen. http://www.pc-sicherheit.web.de/startseite/?mc=022220
+
+
+
+From blumensath at mathematik.tu-darmstadt.de  Fri Sep 19 15:22:57 2008
+From: blumensath at mathematik.tu-darmstadt.de (Achim Blumensath)
+Date: Fri, 19 Sep 2008 15:22:57 +0200
+Subject: [ant-devel] First impressions / 2 problems(?)
+In-Reply-To: <1333122804@web.de>
+References: <1333122804@web.de>
+Message-ID: <20080919132257.GD1945@mathematik.tu-darmstadt.de>
+
+Hello,
+
+Ralf Gawlista wrote:
+> > Do you have the lcdf typetools installed? It would be interesting to see
+> > what
+> > 
+> >   otfinfo -f ARIALUNI.TTF
+> >
+> > says. 
+> 
+> But, "otfinfo -f ARIALUNI.TTF" does not output anything at all,
+
+Sorry, the -f should have been -t.
+
+> Then, "otfinfo -t ARIALUNI.TTF" print more:
+>    6796 DSIG
+>    4132 GDEF
+>    8008 GPOS
+>   66612 GSUB
+>   50381 LTSH
+>      86 OS/2
+>    2508 cmap
+>    3192 cvt
+>    1898 fpgm
+>      16 gasp
+> 22410874 glyf
+>  302288 hdmx
+>      54 head
+>      36 hhea
+>  201508 hmtx
+>  201512 loca
+>      32 maxp
+>    6101 name
+>      32 post
+>    9397 prep
+
+Thanks. So it really is an OpenType font.
+That means that my OpenType loading routines are also inefficient.
+
+Achim
+-- 
+________________________________________________________________________
+                                                              | \_____/ |
+   Achim Blumensath                                          \O/ \___/\ |
+   TU Darmstadt                                              =o=  \ /\ \|
+   www.mathematik.tu-darmstadt.de/~blumensath                /"\   o----|
+____________________________________________________________________\___|
+-------------- next part --------------
+A non-text attachment was scrubbed...
+Name: signature.asc
+Type: application/pgp-signature
+Size: 189 bytes
+Desc: Digital signature
+URL: <https://lists.berlios.de/pipermail/ant-devel/attachments/20080919/0c1b8173/attachment.pgp>
+
+From knoepfchendreher at web.de  Tue Sep 23 09:49:44 2008
+From: knoepfchendreher at web.de (Ralf Gawlista)
+Date: Tue, 23 Sep 2008 09:49:44 +0200
+Subject: [ant-devel] Solution for the 'hanging'/freezing during
+	compilation(!?) :)
+Message-ID: <1336842610@web.de>
+
+Hello,
+
+o.k., this is almost too trivial to mention, but...
+
+Remember, how I told you that compiling ant "freezes" during the generation of hyphenation tables...?
+...and that it all worked well if I manually enter the command 
+
+./Util/GenHyphTable ./data/hyphen/... 
+
+Well, of course, when entering the command manually, I used bash-completion. (Probably all people do!?)
+And therefore I did not notice the difference in one character:
+
+In OMakefile, there is written:
+
+HYPHEN_PATTERNS[] = british us deutsch-traditional deutsch-new francais
+
+But the contents of directory hyphen is:
+
+british.hyphen us.hyphen deutsch-alt.hyphen deutsch-neu.hyphen francais.hyphen
+
+I did not care of the traditional German patterns, but included the new German pattern, et voil?, suddenly the command was looking for a deutsch-new, but there is none (instead there is a deutsch-neu. WAAAAAAAAAAAAAAAAAAAAAAAAAAAH...  ;)
+
+Yes, I did the test, I corrected the filenames in the OMakefile, did an "omake distclean" and re-started the compile, and this time everything worked well, and it took only a few minutes.
+
+Regards, Ralf.
+
+____________________________________________________________________
+Psssst! Schon vom neuen WEB.DE MultiMessenger geh?rt? 
+Der kann`s mit allen: http://www.produkte.web.de/messenger/?did=3123
+
+
+
+From blumensath at mathematik.tu-darmstadt.de  Tue Sep 23 09:56:45 2008
+From: blumensath at mathematik.tu-darmstadt.de (Achim Blumensath)
+Date: Tue, 23 Sep 2008 09:56:45 +0200
+Subject: [ant-devel] Solution for the 'hanging'/freezing during
+	compilation(!?) :)
+In-Reply-To: <1336842610@web.de>
+References: <1336842610@web.de>
+Message-ID: <20080923075645.GD31616@mathematik.tu-darmstadt.de>
+
+Hello,
+
+Ralf Gawlista wrote:
+> In OMakefile, there is written:
+> 
+> HYPHEN_PATTERNS[] = british us deutsch-traditional deutsch-new francais
+> 
+> But the contents of directory hyphen is:
+> 
+> british.hyphen us.hyphen deutsch-alt.hyphen deutsch-neu.hyphen francais.hyphen
+
+Thanks, for the report. I've changed the OMakefile.
+
+Of course, GenHyphTable should output an error message, if it cannot
+open some file.
+
+Achim
+-- 
+________________________________________________________________________
+                                                              | \_____/ |
+   Achim Blumensath                                          \O/ \___/\ |
+   TU Darmstadt                                              =o=  \ /\ \|
+   www.mathematik.tu-darmstadt.de/~blumensath                /"\   o----|
+____________________________________________________________________\___|
+-------------- next part --------------
+A non-text attachment was scrubbed...
+Name: signature.asc
+Type: application/pgp-signature
+Size: 189 bytes
+Desc: Digital signature
+URL: <https://lists.berlios.de/pipermail/ant-devel/attachments/20080923/6d7e9272/attachment.pgp>
+

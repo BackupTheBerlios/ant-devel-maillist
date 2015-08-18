@@ -1,0 +1,123 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [ant-devel] Compilation problem
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/ant-devel/2009-June/index.html" >
+   <LINK REL="made" HREF="mailto:ant-devel%40lists.berlios.de?Subject=Re%3A%20%5Bant-devel%5D%20Compilation%20problem&In-Reply-To=%3C73ACEAEC-917E-4020-879B-23BD7DB88E09%40gmail.com%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   
+   <LINK REL="Next"  HREF="000110.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[ant-devel] Compilation problem</H1>
+    <B>Vincent Aravantinos</B> 
+    <A HREF="mailto:ant-devel%40lists.berlios.de?Subject=Re%3A%20%5Bant-devel%5D%20Compilation%20problem&In-Reply-To=%3C73ACEAEC-917E-4020-879B-23BD7DB88E09%40gmail.com%3E"
+       TITLE="[ant-devel] Compilation problem">vincent.aravantinos at gmail.com
+       </A><BR>
+    <I>Fri Jun 12 12:54:16 CEST 2009</I>
+    <P><UL>
+        
+        <LI>Next message: <A HREF="000110.html">[ant-devel] Compilation problem
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#109">[ date ]</a>
+              <a href="thread.html#109">[ thread ]</a>
+              <a href="subject.html#109">[ subject ]</a>
+              <a href="author.html#109">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>(I don't know if this is the right place for my problem, correct me if  
+it's not)
+
+Hi,
+
+I am very interested in Ant but cannot manage to compile it.
+
+I get the following error message:
+
+$omake
+*** omake: reading OMakefiles
+--- Checking for ocamlfind... (found /opt/godi/bin/ocamlfind)
+--- Checking for ocamlc.opt... (found /opt/godi/bin/ocamlc.opt)
+--- Checking for ocamlopt.opt... (found /opt/godi/bin/ocamlopt.opt)
+--- Checking whether ocamlc understands the &quot;z&quot; warnings... (yes)
+--- Checking if ocamldep understands -modules... (yes)
+*** omake: finished reading OMakefiles (0.91 sec)
+--- Checking for gcc... (found /usr/bin/gcc)
+--- Checking for g++... (found /usr/bin/g++)
+- scan Runtime freetype-stubs.o
++ gcc -I. -MM freetype-stubs.c
+freetype-stubs.c:1:25: error: caml/memory.h: No such file or directory
+freetype-stubs.c:2:27: error: caml/mlvalues.h: No such file or directory
+freetype-stubs.c:3:25: error: caml/custom.h: No such file or directory
+freetype-stubs.c:4:23: error: caml/fail.h: No such file or directory
+freetype-stubs.c:5:24: error: caml/alloc.h: No such file or directory
+freetype-stubs.c:6:22: error: ft2build.h: No such file or directory
+freetype-stubs.c:7:10: error: #include expects &quot;FILENAME&quot; or &lt;FILENAME&gt;
+freetype-stubs.c:8:10: error: #include expects &quot;FILENAME&quot; or &lt;FILENAME&gt;
+freetype-stubs.c:9:10: error: #include expects &quot;FILENAME&quot; or &lt;FILENAME&gt;
+*** omake: 55/938 targets are up to date
+*** omake: failed (1.42 sec, 1/1 scans, 0/0 rules, 24/381 digests)
+*** omake: targets were not rebuilt because of errors:
+    &lt;scanner Runtime/freetype-stubs.o&gt;
+       depends on: Runtime/freetype-stubs.c
+
+I am using:
+- ant 0.8
+- godi
+- ocaml 3.11
+- OMake 0.9.8.5 (release 3)
+- Mac OSX 10.5
+
+It seems that omake uses gcc to compile the stubs which does not work  
+as caml/memory.h and others are not in /usr/lib as usual but in the  
+findlib tree.
+I guess &quot;ocamlfind ocamlc&quot; should be used instead of &quot;gcc&quot; but I have  
+no clue how to do this (I don't know OMake) and particularly how to do  
+this in a clean way.
+It does not find ft2build.h neither. &quot;freetype-config --cflags&quot; does  
+not seem to be transmitted to the compiler.
+
+
+Hoping I am clear enough, thanks in advance,
+--
+Vincent Aravantinos
+PhD Student - LIG - CAPP Team
+Grenoble, France
++33.6.11.23.34.72
+<A HREF="https://lists.berlios.de/mailman/listinfo/ant-devel">vincent.aravantinos at imag.fr</A>
+<A HREF="http://membres-lig.imag.fr/aravantinos/">http://membres-lig.imag.fr/aravantinos/</A>
+
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: &lt;<A HREF="https://lists.berlios.de/pipermail/ant-devel/attachments/20090612/40e9e87b/attachment.html">https://lists.berlios.de/pipermail/ant-devel/attachments/20090612/40e9e87b/attachment.html</A>&gt;
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	
+	<LI>Next message: <A HREF="000110.html">[ant-devel] Compilation problem
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#109">[ date ]</a>
+              <a href="thread.html#109">[ thread ]</a>
+              <a href="subject.html#109">[ subject ]</a>
+              <a href="author.html#109">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/ant-devel">More information about the ant-devel
+mailing list</a><br>
+</body></html>

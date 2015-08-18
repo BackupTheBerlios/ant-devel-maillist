@@ -1,0 +1,68 @@
+From sylvain.salvati at loria.fr  Mon Oct  1 10:18:42 2007
+From: sylvain.salvati at loria.fr (Sylvain Salvati)
+Date: Mon, 01 Oct 2007 10:18:42 +0200
+Subject: [ant-devel] ANT current development status
+Message-ID: <4700AD62.3010906@loria.fr>
+
+Hello,
+
+I have recently been in need to do sofisticated graphics using TeX and I 
+have been really disappointed in the way I could abstract over the data 
+I wanted to draw.  I then looked for other ways of typesetting graphics 
+in a tex fashion and found ANT which seems to be a really promising 
+program.  I think that using ocaml as a script language is great, that 
+it should allow straightforward graphics typesetting and really achieve 
+this goal ANT has to be modular.  I got really interested in ANT until I 
+realized that the last release was in late 2005.  So a natural question 
+for me, before I spend time to learn how to use ANT, is whether ANT is 
+still under development.  I do believe that if it is then it will 
+eventually replace TeX as a typesetting program so that it will have 
+earned a new early user.
+
+Sylvain.
+
+
+From blumensath at mathematik.tu-darmstadt.de  Thu Oct  4 09:17:37 2007
+From: blumensath at mathematik.tu-darmstadt.de (Achim Blumensath)
+Date: Thu, 4 Oct 2007 09:17:37 +0200
+Subject: [ant-devel] ANT current development status
+In-Reply-To: <4700AD62.3010906@loria.fr>
+References: <4700AD62.3010906@loria.fr>
+Message-ID: <20071004071737.GC20933@mathematik.tu-darmstadt.de>
+
+Hello,
+
+Sylvain Salvati wrote:
+> I then looked for other ways of typesetting graphics in a tex fashion
+> and found ANT which seems to be a really promising program.  I think
+> that using ocaml as a script language is great, that it should allow
+> straightforward graphics typesetting and really achieve this goal ANT
+> has to be modular.
+
+Note that the scripting language of ant is not OCaml. It's a language
+resembling Haskell.
+
+> I got really interested in ANT until I realized that the last release
+> was in late 2005.  So a natural question for me, before I spend time
+> to learn how to use ANT, is whether ANT is still under development.
+
+It is, and the next release doesn't seem to be that far off. But note
+that progress is rather slow since I do not have that much time to spend
+on it.
+
+Achim
+-- 
+________________________________________________________________________
+                                                              | \_____/ |
+   Achim Blumensath                                          \O/ \___/\ |
+   TU Darmstadt                                              =o=  \ /\ \|
+   www.mathematik.tu-darmstadt.de/~blumensath                /"\   o----|
+____________________________________________________________________\___|
+-------------- next part --------------
+A non-text attachment was scrubbed...
+Name: not available
+Type: application/pgp-signature
+Size: 240 bytes
+Desc: not available
+URL: <https://lists.berlios.de/pipermail/ant-devel/attachments/20071004/3517e6d6/attachment.pgp>
+

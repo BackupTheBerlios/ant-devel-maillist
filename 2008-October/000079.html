@@ -1,0 +1,110 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [ant-devel] More impressions...
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/ant-devel/2008-October/index.html" >
+   <LINK REL="made" HREF="mailto:ant-devel%40lists.berlios.de?Subject=Re%3A%20%5Bant-devel%5D%20More%20impressions...&In-Reply-To=%3C20081001125302.GD32344%40mathematik.tu-darmstadt.de%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000078.html">
+   <LINK REL="Next"  HREF="000080.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[ant-devel] More impressions...</H1>
+    <B>Achim Blumensath</B> 
+    <A HREF="mailto:ant-devel%40lists.berlios.de?Subject=Re%3A%20%5Bant-devel%5D%20More%20impressions...&In-Reply-To=%3C20081001125302.GD32344%40mathematik.tu-darmstadt.de%3E"
+       TITLE="[ant-devel] More impressions...">blumensath at mathematik.tu-darmstadt.de
+       </A><BR>
+    <I>Wed Oct  1 14:53:02 CEST 2008</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000078.html">[ant-devel] More impressions...
+</A></li>
+        <LI>Next message: <A HREF="000080.html">[ant-devel] ant-devel broken?
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#79">[ date ]</a>
+              <a href="thread.html#79">[ thread ]</a>
+              <a href="subject.html#79">[ subject ]</a>
+              <a href="author.html#79">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Hello,
+
+&gt;<i> [1.] Typesetting of mathematical formulae seems to work perfectly :)
+</I>&gt;<i> ...but... only if one has an \include{fonts.ant} in the ant file. Of
+</I>&gt;<i> course, this is not a problem, but I think this should be mentioned in
+</I>&gt;<i> the manual: There is no warning/error message at all, if one does not
+</I>&gt;<i> include this file, but the resulting pdf shows nothing (except a
+</I>&gt;<i> little &quot;whitespace&quot;) in this case. Therefore some remark in the manual
+</I>&gt;<i> would probably be helpful...
+</I>
+ant itself does not have any default settings concerning the layout.
+Selecting fonts (and math fonts) is the responsibility of the macro
+package. Unfortunately, these macro packages are not yet finished.
+Writing a usable macro package is one of the highest priority open
+issues at the moment. Unfortunately, development of ant is currently
+suspended for lack of time on my part.
+
+&gt;<i> [2.] I did not succeed in using images. I tried the \image markup with
+</I>&gt;<i> test images in png and jpeg (and even pdf) format. In case of jpeg and
+</I>&gt;<i> png, this resulted in a corrupt PDF file (error message from Adobe
+</I>&gt;<i> Acrobat which &quot;auto-repaired&quot; the file somehow and then showed it
+</I>&gt;<i> without the image, whilst KPDF even crashed). (In case of a pdf image,
+</I>&gt;<i> the resulting PDF had an additional blank page, without any visible
+</I>&gt;<i> sign of the image.)
+</I>
+Probably, there is some bug in the PDF creation routines.
+
+BTW, would you like to lend a hand with ant? I'm currently terribly
+short on time and there are many simple things that could be improved.
+Depending on ones background one could look into:
+
+o improving the documentation
+o improving the macro package
+o debugging the file format modules (font loading, PDF creation, etc.)
+
+Achim
+-- 
+________________________________________________________________________
+                                                              | \_____/ |
+   Achim Blumensath                                          \O/ \___/\ |
+   TU Darmstadt                                              =o=  \ /\ \|
+   www.mathematik.tu-darmstadt.de/~blumensath                /&quot;\   o----|
+____________________________________________________________________\___|
+-------------- next part --------------
+A non-text attachment was scrubbed...
+Name: signature.asc
+Type: application/pgp-signature
+Size: 189 bytes
+Desc: Digital signature
+URL: &lt;<A HREF="https://lists.berlios.de/pipermail/ant-devel/attachments/20081001/9fdabd87/attachment.pgp">https://lists.berlios.de/pipermail/ant-devel/attachments/20081001/9fdabd87/attachment.pgp</A>&gt;
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000078.html">[ant-devel] More impressions...
+</A></li>
+	<LI>Next message: <A HREF="000080.html">[ant-devel] ant-devel broken?
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#79">[ date ]</a>
+              <a href="thread.html#79">[ thread ]</a>
+              <a href="subject.html#79">[ subject ]</a>
+              <a href="author.html#79">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/ant-devel">More information about the ant-devel
+mailing list</a><br>
+</body></html>

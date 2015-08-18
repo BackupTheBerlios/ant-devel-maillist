@@ -1,0 +1,106 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [ant-devel] ant-devel broken?
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/ant-devel/2008-October/index.html" >
+   <LINK REL="made" HREF="mailto:ant-devel%40lists.berlios.de?Subject=Re%3A%20%5Bant-devel%5D%20ant-devel%20broken%3F&In-Reply-To=%3Cf329bf540810030744g3b132687m6c68c47c07292d28%40mail.gmail.com%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000079.html">
+   <LINK REL="Next"  HREF="000082.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[ant-devel] ant-devel broken?</H1>
+    <B>Han-Wen Nienhuys</B> 
+    <A HREF="mailto:ant-devel%40lists.berlios.de?Subject=Re%3A%20%5Bant-devel%5D%20ant-devel%20broken%3F&In-Reply-To=%3Cf329bf540810030744g3b132687m6c68c47c07292d28%40mail.gmail.com%3E"
+       TITLE="[ant-devel] ant-devel broken?">hanwenn at gmail.com
+       </A><BR>
+    <I>Fri Oct  3 16:44:00 CEST 2008</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000079.html">[ant-devel] More impressions...
+</A></li>
+        <LI>Next message: <A HREF="000082.html">[ant-devel] compilation problems
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#80">[ date ]</a>
+              <a href="thread.html#80">[ thread ]</a>
+              <a href="subject.html#80">[ subject ]</a>
+              <a href="author.html#80">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>On Tue, Aug 19, 2008 at 1:03 PM, Han-Wen Nienhuys &lt;<A HREF="https://lists.berlios.de/mailman/listinfo/ant-devel">hanwenn at gmail.com</A>&gt; wrote:
+&gt;<i> [<A HREF="https://lists.berlios.de/mailman/listinfo/ant-devel">lilydev at haring</A> ant]$ omake
+</I>&gt;<i> *** omake: reading OMakefiles
+</I>&gt;<i> *** omake: finished reading OMakefiles (1.52 sec)
+</I>&gt;<i> --- Checking for gcc... (found /usr/bin/gcc)
+</I>&gt;<i> --- Checking for g++... (found /usr/bin/g++)
+</I>&gt;<i> - scan Runtime freetype-stubs.o
+</I>&gt;<i> + gcc -I. -MM freetype-stubs.c
+</I>&gt;<i> freetype-stubs.c:7:10:[====
+</I>&gt;<i>          error: #include expects &quot;FILENAME&quot; or &lt;FILENAME&gt;
+</I>&gt;<i> freetype-stubs.c:8:10: error: #include expects &quot;FILENAME&quot; or &lt;FILENAME&gt;
+</I>&gt;<i> freetype-stubs.c:9:10: error: #include expects &quot;FILENAME&quot; or &lt;FILENAME&gt;
+</I>
+
+Sorry for the delay - it appears that OMake is not using the
+freetype-config --cflags when generating the dependency files. I fixed
+it by adding
+
+PREFIXED_INCLUDES = $(shell freetype-config --cflags)
+
+to the omake files
+
+
+Onto the next error:
+
++ ocamlopt.opt -w Aes -warn-error P -rectypes -I ../Tools -I ../lib
+-pp ../PreProc/camlp4opt -I . -I . -o GenUnicodeTable.opt unix.cmxa
+/usr/lib/ocaml/camlimages/ci_core.cmxa
+/usr/lib/ocaml/camlimages/ci_freetype.cmxa
+/usr/lib/ocaml/camlimages/ci_gif.cmxa
+/usr/lib/ocaml/camlimages/ci_jpeg.cmxa
+/usr/lib/ocaml/camlimages/ci_tiff.cmxa
+/usr/lib/ocaml/camlimages/ci_bmp.cmxa
+/usr/lib/ocaml/camlimages/ci_ppm.cmxa
+/usr/lib/ocaml/camlimages/ci_png.cmxa
+/usr/lib/ocaml/camlimages/ci_xvthumb.cmxa
+/usr/lib/ocaml/camlimages/ci_xpm.cmxa
+/usr/lib/ocaml/camlimages/ci_ps.cmxa ../Tools/Tools.cmxa
+GenUnicodeTable.cmx -I /usr/lib/ocaml/camlimages -cclib -L//lib -cclib
+-L/usr/X11/lib -cclib -lz
+Cannot find file /usr/lib/ocaml/camlimages/ci_tiff.cmxa
+
+
+-- 
+Han-Wen Nienhuys - <A HREF="https://lists.berlios.de/mailman/listinfo/ant-devel">hanwen at xs4all.nl</A> - <A HREF="http://www.xs4all.nl/~hanwen">http://www.xs4all.nl/~hanwen</A>
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000079.html">[ant-devel] More impressions...
+</A></li>
+	<LI>Next message: <A HREF="000082.html">[ant-devel] compilation problems
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#80">[ date ]</a>
+              <a href="thread.html#80">[ thread ]</a>
+              <a href="subject.html#80">[ subject ]</a>
+              <a href="author.html#80">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/ant-devel">More information about the ant-devel
+mailing list</a><br>
+</body></html>

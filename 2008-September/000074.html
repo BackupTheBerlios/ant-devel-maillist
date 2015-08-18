@@ -1,0 +1,109 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [ant-devel] First impressions / 2 problems(?)
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/ant-devel/2008-September/index.html" >
+   <LINK REL="made" HREF="mailto:ant-devel%40lists.berlios.de?Subject=Re%3A%20%5Bant-devel%5D%20First%20impressions%20/%202%20problems%28%3F%29&In-Reply-To=%3C1333122804%40web.de%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000073.html">
+   <LINK REL="Next"  HREF="000075.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[ant-devel] First impressions / 2 problems(?)</H1>
+    <B>Ralf Gawlista</B> 
+    <A HREF="mailto:ant-devel%40lists.berlios.de?Subject=Re%3A%20%5Bant-devel%5D%20First%20impressions%20/%202%20problems%28%3F%29&In-Reply-To=%3C1333122804%40web.de%3E"
+       TITLE="[ant-devel] First impressions / 2 problems(?)">knoepfchendreher at web.de
+       </A><BR>
+    <I>Fri Sep 19 15:05:59 CEST 2008</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000073.html">[ant-devel] First impressions / 2 problems(?)
+</A></li>
+        <LI>Next message: <A HREF="000075.html">[ant-devel] First impressions / 2 problems(?)
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#74">[ date ]</a>
+              <a href="thread.html#74">[ thread ]</a>
+              <a href="subject.html#74">[ subject ]</a>
+              <a href="author.html#74">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Hello,
+
+&gt;<i> Do you have the lcdf typetools installed? It would be interesting to see
+</I>&gt;<i> what
+</I>&gt;<i> 
+</I>&gt;<i>   otfinfo -f ARIALUNI.TTF
+</I>&gt;<i>
+</I>&gt;<i> says. 
+</I>
+(I haven't had installed these yet, but that was done quickly :)
+
+But, &quot;otfinfo -f ARIALUNI.TTF&quot; does not output anything at all, whereas &quot;strings ARIALUNI.TTF | grep GPOS&quot; simply prints
+
+$GPOS
+
+i.e. one single line of output.
+
+Then, &quot;otfinfo -t ARIALUNI.TTF&quot; print more:
+   6796 DSIG
+   4132 GDEF
+   8008 GPOS
+  66612 GSUB
+  50381 LTSH
+     86 OS/2
+   2508 cmap
+   3192 cvt
+   1898 fpgm
+     16 gasp
+22410874 glyf
+ 302288 hdmx
+     54 head
+     36 hhea
+ 201508 hmtx
+ 201512 loca
+     32 maxp
+   6101 name
+     32 post
+   9397 prep
+
+...but, to be honest, I do not know what this means and whether this matters here...
+
+
+Regards, Ralf.
+
+_______________________________________________________________________
+Jetzt neu! Sch&#252;tzen Sie Ihren PC mit McAfee und WEB.DE. 30 Tage
+kostenlos testen. <A HREF="http://www.pc-sicherheit.web.de/startseite/?mc=022220">http://www.pc-sicherheit.web.de/startseite/?mc=022220</A>
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000073.html">[ant-devel] First impressions / 2 problems(?)
+</A></li>
+	<LI>Next message: <A HREF="000075.html">[ant-devel] First impressions / 2 problems(?)
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#74">[ date ]</a>
+              <a href="thread.html#74">[ thread ]</a>
+              <a href="subject.html#74">[ subject ]</a>
+              <a href="author.html#74">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/ant-devel">More information about the ant-devel
+mailing list</a><br>
+</body></html>

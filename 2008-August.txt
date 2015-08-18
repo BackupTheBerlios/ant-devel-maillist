@@ -1,0 +1,67 @@
+From hanwenn at gmail.com  Tue Aug 19 18:03:40 2008
+From: hanwenn at gmail.com (Han-Wen Nienhuys)
+Date: Tue, 19 Aug 2008 13:03:40 -0300
+Subject: [ant-devel] ant-devel broken?
+In-Reply-To: <20080819095715.GE17246@mathematik.tu-darmstadt.de>
+References: <f329bf540808121929x68b1e9feue9656d101ec5d88d@mail.gmail.com>
+	<20080819095715.GE17246@mathematik.tu-darmstadt.de>
+Message-ID: <f329bf540808190903w1611ae8fn24555890bd5746ba@mail.gmail.com>
+
+[lilydev at haring ant]$ omake
+*** omake: reading OMakefiles
+*** omake: finished reading OMakefiles (1.52 sec)
+--- Checking for gcc... (found /usr/bin/gcc)
+--- Checking for g++... (found /usr/bin/g++)
+- scan Runtime freetype-stubs.o
++ gcc -I. -MM freetype-stubs.c
+freetype-stubs.c:7:10:[====
+          error: #include expects "FILENAME" or <FILENAME>
+freetype-stubs.c:8:10: error: #include expects "FILENAME" or <FILENAME>
+freetype-stubs.c:9:10: error: #include expects "FILENAME" or <FILENAME>
+*** omake: 60/945 targets are up to date
+*** omake: failed (4.37 sec, 2/2 scans, 1/1 rules, 3/349 digests)
+*** omake: targets were not rebuilt because of errors:
+   <scanner Runtime/freetype-stubs.o>
+      depends on: Runtime/freetype-stubs.c
+
+this is actually an  error I can understand.  Let me look into it when
+I have time.
+
+On Tue, Aug 19, 2008 at 6:57 AM, Achim Blumensath
+<blumensath at mathematik.tu-darmstadt.de> wrote:
+> Hello,
+>
+> concerning your original question:
+>
+>>   File /usr/lib/omake/build/OCaml.om: line 933, characters 10-73
+>>   Do not know how to build "lib" required for "lib/Unicode.cmi"
+>
+> Have you tried to create the directory lib manually?
+>
+>  $ mkdir lib
+>
+> Achim
+> --
+> ________________________________________________________________________
+>                                                              | \_____/ |
+>   Achim Blumensath                                          \O/ \___/\ |
+>   TU Darmstadt                                              =o=  \ /\ \|
+>   www.mathematik.tu-darmstadt.de/~blumensath                /"\   o----|
+> ____________________________________________________________________\___|
+>
+> -----BEGIN PGP SIGNATURE-----
+> Version: GnuPG v1.4.6 (GNU/Linux)
+>
+> iD8DBQFIqpj7EJmibKiR73IRAiR6AJ9Qk6Y6ElOeYZguIuqtPPB8+crKmACeMHWi
+> YBIKVNwt1XYOt+dTjNTVwDw=
+> =VSlC
+> -----END PGP SIGNATURE-----
+>
+>
+
+
+
+-- 
+Han-Wen Nienhuys - hanwen at xs4all.nl - http://www.xs4all.nl/~hanwen
+
+

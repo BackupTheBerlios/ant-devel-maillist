@@ -1,0 +1,1074 @@
+From roma at ro-che.info  Sun Mar  2 15:58:11 2008
+From: roma at ro-che.info (Roman Cheplyaka)
+Date: Sun, 2 Mar 2008 16:58:11 +0200
+Subject: [ant-devel] improving ant during Google Summer of Code
+In-Reply-To: <20080229132202.GE29438@mathematik.tu-darmstadt.de>
+References: <20080229092633.GA10352@home.ro-che.info>
+	<20080229132202.GE29438@mathematik.tu-darmstadt.de>
+Message-ID: <20080302145810.GA6594@home.ro-che.info>
+
+* Achim Blumensath <blumensath at mathematik.tu-darmstadt.de> [2008-02-29 14:22:02+0100]
+> > Would you consider applying as a mentor for Google Summer of Code
+> > programme[1]? This would give you developers who devote (at least)
+> > their summer holidays to ant development. Particularly, I will be
+> > happy to work on ant.
+> 
+> I could act as a mentor for GSoC, but only as part of some other
+> project. I won't submit an "ant project" since I don't think such a
+> project would have much chance of being accepted.
+> 
+> So, if there is some TeX related project willing to include work on ant,
+> I would volunteer as a mentor.
+> 
+> Supposing that there is such a project, which part of ant would you be
+> interested in working on?
+
+First of all, you know ant far better than me, so if you see some things
+that need to be done and you have not enough time for them, I'd be happy
+to help.
+
+What I'd like to achieve is easy process of migration from LaTeX to ant.
+There have to be analogs for all popular LaTeX and amsTeX classes and
+styles. Also we need i18n -- tool for converting LaTeX encoding and
+hyphenation files to ant would be great (does it already exist?).
+
+-- 
+Roman I. Cheplyaka :: http://ro-che.info/
+...being in love is totally punk rock...
+-------------- next part --------------
+A non-text attachment was scrubbed...
+Name: signature.asc
+Type: application/pgp-signature
+Size: 307 bytes
+Desc: Digital signature
+URL: <https://lists.berlios.de/pipermail/ant-devel/attachments/20080302/88263152/attachment.pgp>
+
+From blumensath at mathematik.tu-darmstadt.de  Mon Mar  3 11:08:53 2008
+From: blumensath at mathematik.tu-darmstadt.de (Achim Blumensath)
+Date: Mon, 3 Mar 2008 11:08:53 +0100
+Subject: [ant-devel] improving ant during Google Summer of Code
+In-Reply-To: <20080302145810.GA6594@home.ro-che.info>
+References: <20080229092633.GA10352@home.ro-che.info>
+	<20080229132202.GE29438@mathematik.tu-darmstadt.de>
+	<20080302145810.GA6594@home.ro-che.info>
+Message-ID: <20080303100853.GB29372@mathematik.tu-darmstadt.de>
+
+Hello,
+
+> First of all, you know ant far better than me, so if you see some
+> things that need to be done and you have not enough time for them, I'd
+> be happy to help.
+
+I think one of the most important problems right now is the lack of a
+macro package like LaTeX with the usual typesetting commands (sections,
+lists,...).
+
+A related point is the scripting language of ant which needs a more
+complete set of typesetting commands.
+
+> What I'd like to achieve is easy process of migration from LaTeX to
+> ant. There have to be analogs for all popular LaTeX and amsTeX classes
+> and styles. Also we need i18n -- tool for converting LaTeX encoding
+> and hyphenation files to ant would be great (does it already exist?).
+
+Currently, ant only understands UTF-8. It would be straightforward to
+add the capability to read other encodings, but so far the need did not
+arise.
+
+Hyphenation files are rather straightforward to adapt. You only have to
+change the format slightly, and you have to convert everything to UTF-8.
+
+Achim
+-- 
+________________________________________________________________________
+                                                              | \_____/ |
+   Achim Blumensath                                          \O/ \___/\ |
+   TU Darmstadt                                              =o=  \ /\ \|
+   www.mathematik.tu-darmstadt.de/~blumensath                /"\   o----|
+____________________________________________________________________\___|
+-------------- next part --------------
+A non-text attachment was scrubbed...
+Name: not available
+Type: application/pgp-signature
+Size: 240 bytes
+Desc: not available
+URL: <https://lists.berlios.de/pipermail/ant-devel/attachments/20080303/b37e195e/attachment.pgp>
+
+From roma at ro-che.info  Tue Mar  4 17:50:13 2008
+From: roma at ro-che.info (Roman Cheplyaka)
+Date: Tue, 4 Mar 2008 18:50:13 +0200
+Subject: [ant-devel] improving ant during Google Summer of Code
+In-Reply-To: <20080303100853.GB29372@mathematik.tu-darmstadt.de>
+References: <20080229092633.GA10352@home.ro-che.info>
+	<20080229132202.GE29438@mathematik.tu-darmstadt.de>
+	<20080302145810.GA6594@home.ro-che.info>
+	<20080303100853.GB29372@mathematik.tu-darmstadt.de>
+Message-ID: <20080304165013.GA4160@home.ro-che.info>
+
+* Achim Blumensath <blumensath at mathematik.tu-darmstadt.de> [2008-03-03 11:08:53+0100]
+> > First of all, you know ant far better than me, so if you see some
+> > things that need to be done and you have not enough time for them, I'd
+> > be happy to help.
+> 
+> I think one of the most important problems right now is the lack of a
+> macro package like LaTeX with the usual typesetting commands (sections,
+> lists,...).
+
+Certainly makes sense.
+
+> A related point is the scripting language of ant which needs a more
+> complete set of typesetting commands.
+> 
+> > What I'd like to achieve is easy process of migration from LaTeX to
+> > ant. There have to be analogs for all popular LaTeX and amsTeX classes
+> > and styles. Also we need i18n -- tool for converting LaTeX encoding
+> > and hyphenation files to ant would be great (does it already exist?).
+> 
+> Currently, ant only understands UTF-8. It would be straightforward to
+> add the capability to read other encodings, but so far the need did not
+> arise.
+
+I use UTF-8 locale and ant fails to print cyrillic letters (neither they
+appear in PDF document nor ant seems to reserve space for them).
+
+Anyway, Google just started to accept applications from mentoring
+organizations. If ant is available as GSoC project, it would be a
+first-priority project for me to apply.
+
+-- 
+Roman I. Cheplyaka :: http://ro-che.info/
+...being in love is totally punk rock...
+-------------- next part --------------
+A non-text attachment was scrubbed...
+Name: signature.asc
+Type: application/pgp-signature
+Size: 307 bytes
+Desc: Digital signature
+URL: <https://lists.berlios.de/pipermail/ant-devel/attachments/20080304/1c473bc1/attachment.pgp>
+
+From blumensath at mathematik.tu-darmstadt.de  Wed Mar  5 09:24:10 2008
+From: blumensath at mathematik.tu-darmstadt.de (Achim Blumensath)
+Date: Wed, 5 Mar 2008 09:24:10 +0100
+Subject: [ant-devel] improving ant during Google Summer of Code
+In-Reply-To: <20080304165013.GA4160@home.ro-che.info>
+References: <20080229092633.GA10352@home.ro-che.info>
+	<20080229132202.GE29438@mathematik.tu-darmstadt.de>
+	<20080302145810.GA6594@home.ro-che.info>
+	<20080303100853.GB29372@mathematik.tu-darmstadt.de>
+	<20080304165013.GA4160@home.ro-che.info>
+Message-ID: <20080305082410.GB19306@mathematik.tu-darmstadt.de>
+
+Hello,
+
+Roman Cheplyaka wrote:
+> I use UTF-8 locale and ant fails to print cyrillic letters (neither they
+> appear in PDF document nor ant seems to reserve space for them).
+
+Did you use a font with cyrillic letters?
+
+Achim
+-- 
+________________________________________________________________________
+                                                              | \_____/ |
+   Achim Blumensath                                          \O/ \___/\ |
+   TU Darmstadt                                              =o=  \ /\ \|
+   www.mathematik.tu-darmstadt.de/~blumensath                /"\   o----|
+____________________________________________________________________\___|
+-------------- next part --------------
+A non-text attachment was scrubbed...
+Name: not available
+Type: application/pgp-signature
+Size: 240 bytes
+Desc: not available
+URL: <https://lists.berlios.de/pipermail/ant-devel/attachments/20080305/37884207/attachment.pgp>
+
+From roma at ro-che.info  Wed Mar  5 09:41:07 2008
+From: roma at ro-che.info (Roman Cheplyaka)
+Date: Wed, 5 Mar 2008 10:41:07 +0200
+Subject: [ant-devel] improving ant during Google Summer of Code
+In-Reply-To: <20080305082410.GB19306@mathematik.tu-darmstadt.de>
+References: <20080229092633.GA10352@home.ro-che.info>
+	<20080229132202.GE29438@mathematik.tu-darmstadt.de>
+	<20080302145810.GA6594@home.ro-che.info>
+	<20080303100853.GB29372@mathematik.tu-darmstadt.de>
+	<20080304165013.GA4160@home.ro-che.info>
+	<20080305082410.GB19306@mathematik.tu-darmstadt.de>
+Message-ID: <20080305084107.GA3941@home.ro-che.info>
+
+* Achim Blumensath <blumensath at mathematik.tu-darmstadt.de> [2008-03-05 09:24:10+0100]
+> Hello,
+> 
+> Roman Cheplyaka wrote:
+> > I use UTF-8 locale and ant fails to print cyrillic letters (neither they
+> > appear in PDF document nor ant seems to reserve space for them).
+> 
+> Did you use a font with cyrillic letters?
+
+I used CM (just included fonts.ant). And CM seems to have cyrillic
+letters (at least TeX finds them).
+
+-- 
+Roman I. Cheplyaka :: http://ro-che.info/
+...being in love is totally punk rock...
+-------------- next part --------------
+A non-text attachment was scrubbed...
+Name: signature.asc
+Type: application/pgp-signature
+Size: 307 bytes
+Desc: Digital signature
+URL: <https://lists.berlios.de/pipermail/ant-devel/attachments/20080305/449c43a3/attachment.pgp>
+
+From blumensath at mathematik.tu-darmstadt.de  Wed Mar  5 15:48:35 2008
+From: blumensath at mathematik.tu-darmstadt.de (Achim Blumensath)
+Date: Wed, 5 Mar 2008 15:48:35 +0100
+Subject: [ant-devel] improving ant during Google Summer of Code
+In-Reply-To: <20080305084107.GA3941@home.ro-che.info>
+References: <20080229092633.GA10352@home.ro-che.info>
+	<20080229132202.GE29438@mathematik.tu-darmstadt.de>
+	<20080302145810.GA6594@home.ro-che.info>
+	<20080303100853.GB29372@mathematik.tu-darmstadt.de>
+	<20080304165013.GA4160@home.ro-che.info>
+	<20080305082410.GB19306@mathematik.tu-darmstadt.de>
+	<20080305084107.GA3941@home.ro-che.info>
+Message-ID: <20080305144835.GD19306@mathematik.tu-darmstadt.de>
+
+Hello,
+
+Roman Cheplyaka wrote:
+> > > I use UTF-8 locale and ant fails to print cyrillic letters (neither they
+> > > appear in PDF document nor ant seems to reserve space for them).
+> > 
+> > Did you use a font with cyrillic letters?
+> 
+> I used CM (just included fonts.ant). And CM seems to have cyrillic
+> letters (at least TeX finds them).
+
+Computer Modern itself does not have cyrillic characters. You could use
+the "Washington Computer Modern Cyrillic" fonts, which also are defined
+in fonts.ant. But it seems I forgot to specify the right encoding for
+these fonts, so they are not usable at the moment.
+
+But what you can do is, to use an OpenType or a PostScript font which
+cyrillic characters (provided the encoding it specifies is correct). For
+instance, you could try the OpenType version of the Latin Modern fonts.
+That should work.
+
+Achim
+-- 
+________________________________________________________________________
+                                                              | \_____/ |
+   Achim Blumensath                                          \O/ \___/\ |
+   TU Darmstadt                                              =o=  \ /\ \|
+   www.mathematik.tu-darmstadt.de/~blumensath                /"\   o----|
+____________________________________________________________________\___|
+-------------- next part --------------
+A non-text attachment was scrubbed...
+Name: not available
+Type: application/pgp-signature
+Size: 240 bytes
+Desc: not available
+URL: <https://lists.berlios.de/pipermail/ant-devel/attachments/20080305/fe255e72/attachment.pgp>
+
+From chemoelectric at chemoelectric.org  Wed Mar  5 19:50:44 2008
+From: chemoelectric at chemoelectric.org (Barry Schwartz)
+Date: Wed, 5 Mar 2008 12:50:44 -0600
+Subject: [ant-devel] improving ant during Google Summer of Code
+In-Reply-To: <20080305144835.GD19306@mathematik.tu-darmstadt.de>
+References: <20080229092633.GA10352@home.ro-che.info>
+	<20080229132202.GE29438@mathematik.tu-darmstadt.de>
+	<20080302145810.GA6594@home.ro-che.info>
+	<20080303100853.GB29372@mathematik.tu-darmstadt.de>
+	<20080304165013.GA4160@home.ro-che.info>
+	<20080305082410.GB19306@mathematik.tu-darmstadt.de>
+	<20080305084107.GA3941@home.ro-che.info>
+	<20080305144835.GD19306@mathematik.tu-darmstadt.de>
+Message-ID: <20080305185044.GA28481@crud.crud.mn.org>
+
+Achim Blumensath <blumensath at mathematik.tu-darmstadt.de> skribis:
+> Roman Cheplyaka wrote:
+> > > > I use UTF-8 locale and ant fails to print cyrillic letters (neither they
+> > > > appear in PDF document nor ant seems to reserve space for them).
+> > > 
+> > > Did you use a font with cyrillic letters?
+> > 
+> > I used CM (just included fonts.ant). And CM seems to have cyrillic
+> > letters (at least TeX finds them).
+> 
+> Computer Modern itself does not have cyrillic characters. You could use
+> the "Washington Computer Modern Cyrillic" fonts, which also are defined
+> in fonts.ant. But it seems I forgot to specify the right encoding for
+> these fonts, so they are not usable at the moment.
+> 
+> But what you can do is, to use an OpenType or a PostScript font which
+> cyrillic characters (provided the encoding it specifies is correct). For
+> instance, you could try the OpenType version of the Latin Modern fonts.
+> That should work.
+
+Unless cyrillics have been added recently, Latin Modern doesn't have
+cyrillics.
+
+
+-- 
+Barry SCHWARTZ   /   Esperanto: Barijo ?VARCO
+chemoelectric ?e chemoelectric punkto org  http://chemoelectric.org
+             Free stuff / Senpagaj varoj:  http://crudfactory.com
+   To learn about the Esperanto language:  http://lernu.net
+
+
+From shenchen at nus.edu.sg  Fri Mar 28 12:42:11 2008
+From: shenchen at nus.edu.sg (Shen Chen)
+Date: Fri, 28 Mar 2008 19:42:11 +0800
+Subject: [ant-devel] Conversion between characters and unicode value
+Message-ID: <84E6C0FA-CAA5-4405-A3EA-55704AF5808C@nus.edu.sg>
+
+Hi Achim,
+
+I wonder if there is an AL function to convert a character to its  
+ascii/unicode value, i.e. an integer? I want to feed that number to  
+\mathchar.
+How about the conversion in the reverse direction?
+
+Thank you very much.
+
+shenchen
+
+
+From blumensath at mathematik.tu-darmstadt.de  Fri Mar 28 13:10:48 2008
+From: blumensath at mathematik.tu-darmstadt.de (Achim Blumensath)
+Date: Fri, 28 Mar 2008 13:10:48 +0100
+Subject: [ant-devel] Conversion between characters and unicode value
+In-Reply-To: <84E6C0FA-CAA5-4405-A3EA-55704AF5808C@nus.edu.sg>
+References: <84E6C0FA-CAA5-4405-A3EA-55704AF5808C@nus.edu.sg>
+Message-ID: <20080328121048.GB26038@mathematik.tu-darmstadt.de>
+
+Hello,
+
+> I wonder if there is an AL function to convert a character to its  
+> ascii/unicode value, i.e. an integer? I want to feed that number to  
+> \mathchar.
+> How about the conversion in the reverse direction?
+
+Oops. Seems like I forgot those functions. I'll add them, if I find the
+time this weekend.
+
+If you find anything else missing, please tell me so I can fix it.
+
+Achim
+-- 
+________________________________________________________________________
+                                                              | \_____/ |
+   Achim Blumensath                                          \O/ \___/\ |
+   TU Darmstadt                                              =o=  \ /\ \|
+   www.mathematik.tu-darmstadt.de/~blumensath                /"\   o----|
+____________________________________________________________________\___|
+-------------- next part --------------
+A non-text attachment was scrubbed...
+Name: not available
+Type: application/pgp-signature
+Size: 240 bytes
+Desc: not available
+URL: <https://lists.berlios.de/pipermail/ant-devel/attachments/20080328/058fd092/attachment.pgp>
+
+From shenchen at nus.edu.sg  Fri Mar 28 16:44:47 2008
+From: shenchen at nus.edu.sg (Shen Chen)
+Date: Fri, 28 Mar 2008 23:44:47 +0800
+Subject: [ant-devel] Conversion between characters and unicode value
+In-Reply-To: <20080328121048.GB26038@mathematik.tu-darmstadt.de>
+References: <84E6C0FA-CAA5-4405-A3EA-55704AF5808C@nus.edu.sg>
+	<20080328121048.GB26038@mathematik.tu-darmstadt.de>
+Message-ID: <67D22B4A-5B31-4831-BA96-11FA9B41FF76@nus.edu.sg>
+
+Hi,
+
+Since \ALcommand requires us to return a parse_state, I wonder how to  
+generate a parse_state without actually doing anything. Currently I am  
+using ps_warning to this end:
+
+local begin
+   set_fam0 _ [] := do ps_warning "done" end;
+   set_fam0 n [x:xs] :=
+     do
+       ps_set_math_code x Ordinary 0 n 0 n;
+       set_fam0 (n+1) xs
+     end
+end
+
+Ugly it is... Could you advise a better code? Thank you.
+
+regards,
+shenchen
+
+On Mar 28, 2008, at 8:10 PM, Achim Blumensath wrote:
+
+> Hello,
+>
+>> I wonder if there is an AL function to convert a character to its
+>> ascii/unicode value, i.e. an integer? I want to feed that number to
+>> \mathchar.
+>> How about the conversion in the reverse direction?
+>
+> Oops. Seems like I forgot those functions. I'll add them, if I find  
+> the
+> time this weekend.
+>
+> If you find anything else missing, please tell me so I can fix it.
+>
+> Achim
+> -- 
+> ________________________________________________________________________
+>                                                              |  
+> \_____/ |
+>   Achim Blumensath                                          \O/ \___/ 
+> \ |
+>   TU Darmstadt                                              =o=  \ / 
+> \ \|
+>   www.mathematik.tu-darmstadt.de/~blumensath                /"\    
+> o----|
+> ____________________________________________________________________ 
+> \___|
+> _______________________________________________
+> ant-devel mailing list
+> ant-devel at lists.berlios.de
+> https://lists.berlios.de/mailman/listinfo/ant-devel
+
+
+
+From blumensath at mathematik.tu-darmstadt.de  Fri Mar 28 16:59:04 2008
+From: blumensath at mathematik.tu-darmstadt.de (Achim Blumensath)
+Date: Fri, 28 Mar 2008 16:59:04 +0100
+Subject: [ant-devel] Conversion between characters and unicode value
+In-Reply-To: <67D22B4A-5B31-4831-BA96-11FA9B41FF76@nus.edu.sg>
+References: <84E6C0FA-CAA5-4405-A3EA-55704AF5808C@nus.edu.sg>
+	<20080328121048.GB26038@mathematik.tu-darmstadt.de>
+	<67D22B4A-5B31-4831-BA96-11FA9B41FF76@nus.edu.sg>
+Message-ID: <20080328155904.GF26038@mathematik.tu-darmstadt.de>
+
+Hello,
+
+> Since \ALcommand requires us to return a parse_state, I wonder how to  
+> generate a parse_state without actually doing anything. Currently I am  
+> using ps_warning to this end:
+> 
+> local begin
+>    set_fam0 _ [] := do ps_warning "done" end;
+>    set_fam0 n [x:xs] :=
+>      do
+>        ps_set_math_code x Ordinary 0 n 0 n;
+>        set_fam0 (n+1) xs
+>      end
+> end
+> 
+> Ugly it is... Could you advise a better code? Thank you.
+
+Just use the identity function:
+
+  set_fam0 _ [] := { ps := ps };
+
+Achim
+-- 
+________________________________________________________________________
+                                                              | \_____/ |
+   Achim Blumensath                                          \O/ \___/\ |
+   TU Darmstadt                                              =o=  \ /\ \|
+   www.mathematik.tu-darmstadt.de/~blumensath                /"\   o----|
+____________________________________________________________________\___|
+-------------- next part --------------
+A non-text attachment was scrubbed...
+Name: not available
+Type: application/pgp-signature
+Size: 240 bytes
+Desc: not available
+URL: <https://lists.berlios.de/pipermail/ant-devel/attachments/20080328/e90cf018/attachment.pgp>
+
+From shenchen at nus.edu.sg  Fri Mar 28 17:21:12 2008
+From: shenchen at nus.edu.sg (Shen Chen)
+Date: Sat, 29 Mar 2008 00:21:12 +0800
+Subject: [ant-devel] Conversion between characters and unicode value
+In-Reply-To: <20080328155904.GF26038@mathematik.tu-darmstadt.de>
+References: <84E6C0FA-CAA5-4405-A3EA-55704AF5808C@nus.edu.sg>
+	<20080328121048.GB26038@mathematik.tu-darmstadt.de>
+	<67D22B4A-5B31-4831-BA96-11FA9B41FF76@nus.edu.sg>
+	<20080328155904.GF26038@mathematik.tu-darmstadt.de>
+Message-ID: <F5EE7756-FAF4-4DAD-8227-F74416531B31@nus.edu.sg>
+
+Hi,
+
+Thank you very much for helping!
+
+I just realized that Macro definition and math_code definition are  
+global. In fact, only parameter dictionaries are local to the group.  
+This is quite different from TeX and shocked me a little bit. It seems  
+that I need to remember everything I previously defined, and save/ 
+restore them...
+
+In this case, is there a mechanism to save/restore math_code,  
+math_accent, math_root_symbol etc? Also, I want to have a callback  
+function when the current group ends, where I can do all the restores.  
+Is that good idea? Or there is a better solution?
+Thank you very much.
+
+regards,
+shenchen
+
+On Mar 28, 2008, at 11:59 PM, Achim Blumensath wrote:
+
+> Hello,
+>
+>> Since \ALcommand requires us to return a parse_state, I wonder how to
+>> generate a parse_state without actually doing anything. Currently I  
+>> am
+>> using ps_warning to this end:
+>>
+>> local begin
+>>   set_fam0 _ [] := do ps_warning "done" end;
+>>   set_fam0 n [x:xs] :=
+>>     do
+>>       ps_set_math_code x Ordinary 0 n 0 n;
+>>       set_fam0 (n+1) xs
+>>     end
+>> end
+>>
+>> Ugly it is... Could you advise a better code? Thank you.
+>
+> Just use the identity function:
+>
+>  set_fam0 _ [] := { ps := ps };
+>
+> Achim
+> -- 
+> ________________________________________________________________________
+>                                                              |  
+> \_____/ |
+>   Achim Blumensath                                          \O/ \___/ 
+> \ |
+>   TU Darmstadt                                              =o=  \ / 
+> \ \|
+>   www.mathematik.tu-darmstadt.de/~blumensath                /"\    
+> o----|
+> ____________________________________________________________________ 
+> \___|
+> _______________________________________________
+> ant-devel mailing list
+> ant-devel at lists.berlios.de
+> https://lists.berlios.de/mailman/listinfo/ant-devel
+
+
+
+From shenchen at nus.edu.sg  Sat Mar 29 18:04:33 2008
+From: shenchen at nus.edu.sg (Shen Chen)
+Date: Sun, 30 Mar 2008 01:04:33 +0800
+Subject: [ant-devel] Conversion between characters and unicode value
+In-Reply-To: <20080328155904.GF26038@mathematik.tu-darmstadt.de>
+References: <84E6C0FA-CAA5-4405-A3EA-55704AF5808C@nus.edu.sg>
+	<20080328121048.GB26038@mathematik.tu-darmstadt.de>
+	<67D22B4A-5B31-4831-BA96-11FA9B41FF76@nus.edu.sg>
+	<20080328155904.GF26038@mathematik.tu-darmstadt.de>
+Message-ID: <9332B2E8-C83D-4367-B5B7-2BF6665A08AC@nus.edu.sg>
+
+Hi Achim,
+
+I am writing a small macro library that allows me to typeset maths/ 
+physics text. Below is a wish list I currently have in mind:
+
+1. unicode <-> character conversion function
+
+2. ps_log_string that writes to the log file.
+
+3. kpsewhich function: I dump various maps (font encodings, etc) with  
+serialization, and certainly hope to place them in my TEXMF tree.
+
+4. \ifdef and it's ps_xxxx equivalence.
+
+5. ps_xxxx equivalents to \setparameter{} and \setmathfont{}. I can't  
+figure out how to use set_math_font which returns a function of type  
+environment. May be it should be used to construct nodes?
+
+6. helper functions to construct nodes. I saw a (commented out)  
+example of using ps_add_node.  Node.ml seem to contain most of the  
+definitions, but I am not exactly sure how to do the translation.
+
+7. I would prefer math_char definition local to the current group.  
+Actually I wonder why macros are made global.
+
+8. Named float queues. When I define a float area, I specify a queue  
+name (similar to Galley). When I place a float, I also specify the  
+name of float queue to which the current float is appended. I hope to  
+use this feature to implement multi-column figure/equation, and floats  
+in margin.
+
+I haven't read much Ant source code yet. I haven't used functional  
+programming language before, so my code reading is slow. Writing AL  
+scripts was a pain at first, but I think I am slowly picking up.
+Some of the items in the wish list may not be necessary, or better  
+alternatives are available. Refernece.ant and manual.sty has been  
+enormously helpful to my macro writing so far. I certainly hope to see  
+more examples, if possible.
+
+I tried loading a Chinese TTF font in ant. Correct result was  
+generated, but it takes two minutes or so to load the font (on core 2  
+duo). I wonder if this would be a fundamental limitation to ant, or  
+there is definite solutions to this problem. I don't need Chinese  
+typesetting at this moment, but it's definitely something we need in  
+future.
+
+Thank you very much.
+
+regards,
+shenchen
+
+On Mar 28, 2008, at 11:59 PM, Achim Blumensath wrote:
+
+> Hello,
+>
+>> Since \ALcommand requires us to return a parse_state, I wonder how to
+>> generate a parse_state without actually doing anything. Currently I  
+>> am
+>> using ps_warning to this end:
+>>
+>> local begin
+>>   set_fam0 _ [] := do ps_warning "done" end;
+>>   set_fam0 n [x:xs] :=
+>>     do
+>>       ps_set_math_code x Ordinary 0 n 0 n;
+>>       set_fam0 (n+1) xs
+>>     end
+>> end
+>>
+>> Ugly it is... Could you advise a better code? Thank you.
+>
+> Just use the identity function:
+>
+>  set_fam0 _ [] := { ps := ps };
+>
+> Achim
+> -- 
+> ________________________________________________________________________
+>                                                              |  
+> \_____/ |
+>   Achim Blumensath                                          \O/ \___/ 
+> \ |
+>   TU Darmstadt                                              =o=  \ / 
+> \ \|
+>   www.mathematik.tu-darmstadt.de/~blumensath                /"\    
+> o----|
+> ____________________________________________________________________ 
+> \___|
+> _______________________________________________
+> ant-devel mailing list
+> ant-devel at lists.berlios.de
+> https://lists.berlios.de/mailman/listinfo/ant-devel
+
+
+
+From blumensath at mathematik.tu-darmstadt.de  Mon Mar 31 09:28:40 2008
+From: blumensath at mathematik.tu-darmstadt.de (Achim Blumensath)
+Date: Mon, 31 Mar 2008 09:28:40 +0200
+Subject: [ant-devel] Conversion between characters and unicode value
+In-Reply-To: <9332B2E8-C83D-4367-B5B7-2BF6665A08AC@nus.edu.sg>
+References: <84E6C0FA-CAA5-4405-A3EA-55704AF5808C@nus.edu.sg>
+	<20080328121048.GB26038@mathematik.tu-darmstadt.de>
+	<67D22B4A-5B31-4831-BA96-11FA9B41FF76@nus.edu.sg>
+	<20080328155904.GF26038@mathematik.tu-darmstadt.de>
+	<9332B2E8-C83D-4367-B5B7-2BF6665A08AC@nus.edu.sg>
+Message-ID: <20080331072839.GA25496@mathematik.tu-darmstadt.de>
+
+Hello,
+
+> 1. unicode <-> character conversion function
+
+were just added to CVS.
+
+> 2. ps_log_string that writes to the log file.
+
+You mean like ps_warning, just without the text "WARNING"?
+I can do that.
+
+> 3. kpsewhich function: I dump various maps (font encodings, etc) with  
+> serialization, and certainly hope to place them in my TEXMF tree.
+
+I'll add those.
+
+> 4. \ifdef and it's ps_xxxx equivalence.
+
+I can add a ps_if_defined, but I won't add any conditionals to the
+markup language. Everything requiring them should be implemented in AL.
+
+> 5. ps_xxxx equivalents to \setparameter{} and \setmathfont{}. I can't  
+> figure out how to use set_math_font which returns a function of type  
+> environment. May be it should be used to construct nodes?
+
+Those were planned for a long time, but I didn't find the time.
+Currently, you can use
+
+  ps_set_par_params dict ps :=
+    ps_add_node (Command, set_par_params dict) ps;
+
+> 6. helper functions to construct nodes. I saw a (commented out)  
+> example of using ps_add_node.  Node.ml seem to contain most of the  
+> definitions, but I am not exactly sure how to do the translation.
+
+You can take a look at Markup/ALNodes.ml for the coding. Anyway, I plan
+to add AL commands for all markup commands (like hbox, vbox, etc.)
+So in most cases it should become unnecessary to construct nodes directly.
+
+> 7. I would prefer math_char definition local to the current group.  
+> Actually I wonder why macros are made global.
+
+Why would you need local definitions? I have a hard time imagining cases
+where local definitions of macros are useful.
+
+> 8. Named float queues. When I define a float area, I specify a queue  
+> name (similar to Galley). When I place a float, I also specify the  
+> name of float queue to which the current float is appended. I hope to  
+> use this feature to implement multi-column figure/equation, and floats  
+> in margin.
+
+What is your question? Float areas already have a name. Support for
+margin notes is planned. I just didn't get around to implementing them
+yet.
+
+> I haven't read much Ant source code yet. I haven't used functional  
+> programming language before, so my code reading is slow. Writing AL  
+> scripts was a pain at first, but I think I am slowly picking up.
+> Some of the items in the wish list may not be necessary, or better  
+> alternatives are available. Refernece.ant and manual.sty has been  
+> enormously helpful to my macro writing so far. I certainly hope to see  
+> more examples, if possible.
+
+If you have any concrete suggestions of how to improve the manual I
+would be grateful.
+
+> I tried loading a Chinese TTF font in ant. Correct result was  
+> generated, but it takes two minutes or so to load the font (on core 2  
+> duo). I wonder if this would be a fundamental limitation to ant, or  
+> there is definite solutions to this problem. I don't need Chinese  
+> typesetting at this moment, but it's definitely something we need in  
+> future.
+
+How many glyphs did this font contain? I'm using ant with the MinionPro
+font which has about 1500 glyphs and I didn't notice any slowdown.
+Can you you point me to some free Chinese font where the problem occurs?
+
+Achim
+-- 
+________________________________________________________________________
+                                                              | \_____/ |
+   Achim Blumensath                                          \O/ \___/\ |
+   TU Darmstadt                                              =o=  \ /\ \|
+   www.mathematik.tu-darmstadt.de/~blumensath                /"\   o----|
+____________________________________________________________________\___|
+-------------- next part --------------
+A non-text attachment was scrubbed...
+Name: not available
+Type: application/pgp-signature
+Size: 240 bytes
+Desc: not available
+URL: <https://lists.berlios.de/pipermail/ant-devel/attachments/20080331/8daa4a6d/attachment.pgp>
+
+From shenchen at nus.edu.sg  Mon Mar 31 11:26:08 2008
+From: shenchen at nus.edu.sg (Shen Chen)
+Date: Mon, 31 Mar 2008 17:26:08 +0800
+Subject: [ant-devel] Conversion between characters and unicode value
+In-Reply-To: <20080331072839.GA25496@mathematik.tu-darmstadt.de>
+References: <84E6C0FA-CAA5-4405-A3EA-55704AF5808C@nus.edu.sg>
+	<20080328121048.GB26038@mathematik.tu-darmstadt.de>
+	<67D22B4A-5B31-4831-BA96-11FA9B41FF76@nus.edu.sg>
+	<20080328155904.GF26038@mathematik.tu-darmstadt.de>
+	<9332B2E8-C83D-4367-B5B7-2BF6665A08AC@nus.edu.sg>
+	<20080331072839.GA25496@mathematik.tu-darmstadt.de>
+Message-ID: <429A56EF-56AE-4F10-8201-B62ED9ACE573@nus.edu.sg>
+
+Hello,
+
+> Hello,
+>
+>> 1. unicode <-> character conversion function
+>
+> were just added to CVS.
+
+I'll check out from CVS and try it. Thank you very much. I hope by  
+doing a diff I can learn how to code ps_log_string myself.
+
+>> 2. ps_log_string that writes to the log file.
+>
+> You mean like ps_warning, just without the text "WARNING"?
+> I can do that.
+Yes.
+
+
+
+>> 4. \ifdef and it's ps_xxxx equivalence.
+>
+> I can add a ps_if_defined, but I won't add any conditionals to the
+> markup language. Everything requiring them should be implemented in  
+> AL.
+Yes that makes perfect sense.
+
+
+>> 5. ps_xxxx equivalents to \setparameter{} and \setmathfont{}. I can't
+>> figure out how to use set_math_font which returns a function of type
+>> environment. May be it should be used to construct nodes?
+>
+> Those were planned for a long time, but I didn't find the time.
+> Currently, you can use
+>
+>  ps_set_par_params dict ps :=
+>    ps_add_node (Command, set_par_params dict) ps;
+Thanks. It should be good enough for the time being.
+
+
+>> 6. helper functions to construct nodes. I saw a (commented out)
+>> example of using ps_add_node.  Node.ml seem to contain most of the
+>> definitions, but I am not exactly sure how to do the translation.
+>
+> You can take a look at Markup/ALNodes.ml for the coding. Anyway, I  
+> plan
+> to add AL commands for all markup commands (like hbox, vbox, etc.)
+> So in most cases it should become unnecessary to construct nodes  
+> directly.
+I will try.
+
+
+>> 7. I would prefer math_char definition local to the current group.
+>> Actually I wonder why macros are made global.
+>
+> Why would you need local definitions? I have a hard time imagining  
+> cases
+> where local definitions of macros are useful.
+Maybe I just need some more time to get used to it.
+
+>> 8. Named float queues. When I define a float area, I specify a queue
+>> name (similar to Galley). When I place a float, I also specify the
+>> name of float queue to which the current float is appended. I hope to
+>> use this feature to implement multi-column figure/equation, and  
+>> floats
+>> in margin.
+>
+> What is your question? Float areas already have a name. Support for
+> margin notes is planned. I just didn't get around to implementing them
+> yet.
+
+I was thinking of this:
+
+ps_new_area "float" ...... {Name := "TwoColumnFloat" | ...};
+ps_new_area "float" ...... {Name := "SingleColumnFloat" | ...};  ;;  
+for left column
+ps_new_area "float" ...... {Name := "SingleColumnFloat" | ...};  ;;  
+for right column
+...
+\floatbox{TwoColumnFloat}{ \hbox{Figure1} }
+\floatbox{SingleColumnFloat}{ \hbox{Figure2} }
+\floatbox{TwoColumnFloat}{ \hbox{Figure3} }
+\floatbox{SingleColumnFloat}{ \hbox{Figure4} }
+
+In this way, Single-column figures and double-column figures can co- 
+exist in one page, and the double-column ones have higher priority.
+----
+
+On the other hand, if I do this:
+ps_new_area "float" ...... { ...};  ;; for left column
+ps_new_area "float" ...... { ...};  ;; for right column
+ps_new_area "float" ...... { ...};  ;; double column
+
+Single column figures will occupy the best position (top of the left  
+column) first, leaving double column figures at awkward positions.
+
+
+>> I haven't read much Ant source code yet. I haven't used functional
+>> programming language before, so my code reading is slow. Writing AL
+>> scripts was a pain at first, but I think I am slowly picking up.
+>> Some of the items in the wish list may not be necessary, or better
+>> alternatives are available. Refernece.ant and manual.sty has been
+>> enormously helpful to my macro writing so far. I certainly hope to  
+>> see
+>> more examples, if possible.
+>
+> If you have any concrete suggestions of how to improve the manual I
+> would be grateful.
+
+A complete manual is a huge task for a single person, but the Ant  
+community is too small...
+
+When I mentioned Ant to my friends, there are always three reasons  
+that prevents them from investigating further:
+1. No macro package for users. That's what I started working on,  
+though it will only be a tiny one compared to LaTeX/ConTeXt.
+2. Much fewer programmers know OCaml or other functional language.  
+This makes the learning curve steeper. It requires more motivation for  
+people to take the steep learning curve. Luatex, in comparison, is  
+much easier to learn, and has a much larger community.
+A Gallery demonstrating the capabilities of Ant would help attract  
+people to learn Ant, hopefully.
+
+Right now I just want to focus on the small macro package for maths,  
+while learning more about Ant.
+
+>
+>
+>> I tried loading a Chinese TTF font in ant. Correct result was
+>> generated, but it takes two minutes or so to load the font (on core 2
+>> duo). I wonder if this would be a fundamental limitation to ant, or
+>> there is definite solutions to this problem. I don't need Chinese
+>> typesetting at this moment, but it's definitely something we need in
+>> future.
+>
+> How many glyphs did this font contain? I'm using ant with the  
+> MinionPro
+> font which has about 1500 glyphs and I didn't notice any slowdown.
+> Can you you point me to some free Chinese font where the problem  
+> occurs?
+
+I was using the Chinese font ( STSong ) coming with Mac OS X. I don't  
+have the count of glyphs, but it's certainly more than 20,000. If you  
+don't have this font I can try some GPL/APL fonts from the following  
+website:
+http://www.unifont.org/fontguide/
+
+
+----------
+Further, I was trying to implement matrix in mathmode. I realize that  
+there is no equivalents to \setbox. I can't read and set the dimension  
+of boxes either. Vertically centering a matrix seems impossible now.
+BTW, would you recommend to implement matrix with a table?
+
+Thank you very much.
+
+
+regards,
+ShenChen
+
+
+
+
+From blumensath at mathematik.tu-darmstadt.de  Mon Mar 31 11:58:09 2008
+From: blumensath at mathematik.tu-darmstadt.de (Achim Blumensath)
+Date: Mon, 31 Mar 2008 11:58:09 +0200
+Subject: [ant-devel] Conversion between characters and unicode value
+In-Reply-To: <429A56EF-56AE-4F10-8201-B62ED9ACE573@nus.edu.sg>
+References: <84E6C0FA-CAA5-4405-A3EA-55704AF5808C@nus.edu.sg>
+	<20080328121048.GB26038@mathematik.tu-darmstadt.de>
+	<67D22B4A-5B31-4831-BA96-11FA9B41FF76@nus.edu.sg>
+	<20080328155904.GF26038@mathematik.tu-darmstadt.de>
+	<9332B2E8-C83D-4367-B5B7-2BF6665A08AC@nus.edu.sg>
+	<20080331072839.GA25496@mathematik.tu-darmstadt.de>
+	<429A56EF-56AE-4F10-8201-B62ED9ACE573@nus.edu.sg>
+Message-ID: <20080331095809.GC25496@mathematik.tu-darmstadt.de>
+
+Hello,
+
+> >> 8. Named float queues. When I define a float area, I specify a
+> >> queue name (similar to Galley). When I place a float, I also
+> >> specify the name of float queue to which the current float is
+> >> appended. I hope to use this feature to implement multi-column
+> >> figure/equation, and  floats in margin.
+> >
+> > What is your question? Float areas already have a name. Support for
+> > margin notes is planned. I just didn't get around to implementing
+> > them yet.
+> 
+> I was thinking of this:
+> 
+> ps_new_area "float" ...... {Name := "TwoColumnFloat" | ...};
+> ps_new_area "float" ...... {Name := "SingleColumnFloat" | ...};  ;;  
+> for left column
+> ps_new_area "float" ...... {Name := "SingleColumnFloat" | ...};  ;;  
+> for right column
+> ...
+> \floatbox{TwoColumnFloat}{ \hbox{Figure1} }
+> \floatbox{SingleColumnFloat}{ \hbox{Figure2} }
+> \floatbox{TwoColumnFloat}{ \hbox{Figure3} }
+> \floatbox{SingleColumnFloat}{ \hbox{Figure4} }
+
+You can do
+
+  ps_new_area "float 1" ...
+  ps_new_area "float 2" ...
+
+and
+
+  \floatbox{float 1}{...}
+  \floatbox{float 2}{...}
+
+> Right now I just want to focus on the small macro package for maths,  
+> while learning more about Ant.
+
+I'm looking forward to seeing your package.
+
+> Further, I was trying to implement matrix in mathmode. I realize that  
+> there is no equivalents to \setbox. I can't read and set the dimension  
+> of boxes either. Vertically centering a matrix seems impossible now.
+
+Perhaps I have to add some commands to do this. Did you try to add the
+matrix as \mathord? If I remember correctly that should do vertical
+centering.
+
+> BTW, would you recommend to implement matrix with a table?
+
+Yes, tables are meant for all array-like typesetting.
+
+Achim
+-- 
+________________________________________________________________________
+                                                              | \_____/ |
+   Achim Blumensath                                          \O/ \___/\ |
+   TU Darmstadt                                              =o=  \ /\ \|
+   www.mathematik.tu-darmstadt.de/~blumensath                /"\   o----|
+____________________________________________________________________\___|
+-------------- next part --------------
+A non-text attachment was scrubbed...
+Name: not available
+Type: application/pgp-signature
+Size: 240 bytes
+Desc: not available
+URL: <https://lists.berlios.de/pipermail/ant-devel/attachments/20080331/4c984dc0/attachment.pgp>
+
+From shenchen at nus.edu.sg  Mon Mar 31 15:45:02 2008
+From: shenchen at nus.edu.sg (Shen Chen)
+Date: Mon, 31 Mar 2008 21:45:02 +0800
+Subject: [ant-devel] Conversion between characters and unicode value
+In-Reply-To: <20080331095809.GC25496@mathematik.tu-darmstadt.de>
+References: <84E6C0FA-CAA5-4405-A3EA-55704AF5808C@nus.edu.sg>
+	<20080328121048.GB26038@mathematik.tu-darmstadt.de>
+	<67D22B4A-5B31-4831-BA96-11FA9B41FF76@nus.edu.sg>
+	<20080328155904.GF26038@mathematik.tu-darmstadt.de>
+	<9332B2E8-C83D-4367-B5B7-2BF6665A08AC@nus.edu.sg>
+	<20080331072839.GA25496@mathematik.tu-darmstadt.de>
+	<429A56EF-56AE-4F10-8201-B62ED9ACE573@nus.edu.sg>
+	<20080331095809.GC25496@mathematik.tu-darmstadt.de>
+Message-ID: <4CD09AF1-ACD8-4C27-90C3-2F625B41D0F0@nus.edu.sg>
+
+>> Further, I was trying to implement matrix in mathmode. I realize that
+>> there is no equivalents to \setbox. I can't read and set the  
+>> dimension
+>> of boxes either. Vertically centering a matrix seems impossible now.
+>
+> Perhaps I have to add some commands to do this. Did you try to add the
+> matrix as \mathord? If I remember correctly that should do vertical
+> centering.
+
+I tried the following code with \mathord \mathop \mathopen etc, with  
+no luck.
+
+$  xx \mathop{\begintable
+                   \newtableentry a \newtablerow
+                   \newtableentry b \newtablerow
+                   \newtableentry c \newtablerow
+                \endtable}
+$
+
+In source code I saw the function center_on_axis being called by  
+make_delimiter and make_operator, not for math ordinary.
+
+For the moment I use \raise to do the adjustments (manually).
+
+I saw the page_command used in reference.ant, and think it's very  
+powerful. I wonder whether the same idea can be used for boxes: I  
+specify a callback function to an hbox, which raise/lower this hbox  
+according to its height/depth once it's set.
+
+Thank you.
+
+shenchen
+
+
+

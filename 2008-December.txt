@@ -1,0 +1,1152 @@
+From blumensath at mathematik.tu-darmstadt.de  Mon Dec  1 10:19:56 2008
+From: blumensath at mathematik.tu-darmstadt.de (Achim Blumensath)
+Date: Mon, 1 Dec 2008 10:19:56 +0100
+Subject: [ant-devel] Esperanto hyphenation
+In-Reply-To: <20081130021100.GA24914@crud.crud.mn.org>
+References: <20081130021100.GA24914@crud.crud.mn.org>
+Message-ID: <20081201091956.GC5010@mathematik.tu-darmstadt.de>
+
+Hello,
+
+Barry Schwartz wrote:
+> A couple of years ago I adapted to ant the Esperanto hyphenation
+> patterns for TeX. I don't know how copyright and licensing affect
+> inclusion in ant, though the patterns could be provided in separate
+> packaging.
+> 
+> I've posted them here:
+> 
+> http://home.comcast.net/~crudfactory/esperanto.hyphen
+> http://home.comcast.net/~crudfactory/esperanto.hyphen.m4
+
+Thanks. It would be easier if you could release the files as public
+domain, but I probably also can add them to ant as is.
+
+Achim
+-- 
+________________________________________________________________________
+                                                              | \_____/ |
+   Achim Blumensath                                          \O/ \___/\ |
+   TU Darmstadt                                              =o=  \ /\ \|
+   www.mathematik.tu-darmstadt.de/~blumensath                /"\   o----|
+____________________________________________________________________\___|
+-------------- next part --------------
+A non-text attachment was scrubbed...
+Name: signature.asc
+Type: application/pgp-signature
+Size: 189 bytes
+Desc: Digital signature
+URL: <https://lists.berlios.de/pipermail/ant-devel/attachments/20081201/748389a1/attachment.pgp>
+
+From Barry.SCHWARTZ at chemoelectric.org  Mon Dec  1 19:09:38 2008
+From: Barry.SCHWARTZ at chemoelectric.org (Barry Schwartz)
+Date: Mon, 1 Dec 2008 12:09:38 -0600
+Subject: [ant-devel] Esperanto hyphenation
+In-Reply-To: <20081201091956.GC5010@mathematik.tu-darmstadt.de>
+References: <20081130021100.GA24914@crud.crud.mn.org>
+	<20081201091956.GC5010@mathematik.tu-darmstadt.de>
+Message-ID: <20081201180938.GA1799@crud.crud.mn.org>
+
+Achim Blumensath <blumensath at mathematik.tu-darmstadt.de> skribis:
+> Thanks. It would be easier if you could release the files as public
+> domain, but I probably also can add them to ant as is.
+
+I'd be happy to but it's someone else's copyright, with a LaTeX-style
+license.
+
+
+
+From m.bana at ucl.ac.uk  Sat Dec  6 20:20:58 2008
+From: m.bana at ucl.ac.uk (Mohamed O Bana)
+Date: Sat, 6 Dec 2008 19:20:58 -0000 (GMT)
+Subject: [ant-devel] Building on Ubuntu 8.10 intrepid
+Message-ID: <59198.87.194.191.26.1228591258.squirrel@www.squirrelmail.ucl.ac.uk>
+
+Hi,
+
+Has anyone managed to build ANT on Ubuntu 8.10 intrepid.  I'm running into
+freetype problems.  I'd really appreciate if someone could just post how
+they got it working.
+
+
+
+From chemoelectric at chemoelectric.org  Sat Dec  6 21:15:59 2008
+From: chemoelectric at chemoelectric.org (Barry Schwartz)
+Date: Sat, 6 Dec 2008 14:15:59 -0600
+Subject: [ant-devel] Building on Ubuntu 8.10 intrepid
+In-Reply-To: <59198.87.194.191.26.1228591258.squirrel@www.squirrelmail.ucl.ac.uk>
+References: <59198.87.194.191.26.1228591258.squirrel@www.squirrelmail.ucl.ac.uk>
+Message-ID: <20081206201559.GA18135@crud.crud.mn.org>
+
+Mohamed O Bana <m.bana at ucl.ac.uk> skribis:
+> Has anyone managed to build ANT on Ubuntu 8.10 intrepid.  I'm running into
+> freetype problems.  I'd really appreciate if someone could just post how
+> they got it working.
+
+You could try this patch, although I believe the latest CVS has this
+fixed.
+
+
+--- ant.ORIG/Runtime/OMakefile	2008-06-12 00:56:10.000000000 +0000
++++ ant/Runtime/OMakefile	2008-06-12 02:48:23.000000000 +0000
+@@ -66,6 +66,7 @@
+ 	$(OCAMLC) -c $(KPATHSEA_CFLAGS) $(SELFAUTO_FLAGS) -o $@ $^
+ 	mv kpathsea-stubs.o $@  # BUG: ocaml creates the object file in the current directory
+ 
++CFLAGS += $(FREETYPE_FLAGS)
+ freetype-stubs.o: freetype-stubs.c
+ 	$(OCAMLC) -c $(FREETYPE_FLAGS) -o $@ $^
+ 	mv freetype-stubs.o $@  # BUG: ocaml creates the object file in the current directory
+
+
+From blumensath at mathematik.tu-darmstadt.de  Mon Dec  8 10:09:10 2008
+From: blumensath at mathematik.tu-darmstadt.de (Achim Blumensath)
+Date: Mon, 8 Dec 2008 10:09:10 +0100
+Subject: [ant-devel] Building on Ubuntu 8.10 intrepid
+In-Reply-To: <59198.87.194.191.26.1228591258.squirrel@www.squirrelmail.ucl.ac.uk>
+References: <59198.87.194.191.26.1228591258.squirrel@www.squirrelmail.ucl.ac.uk>
+Message-ID: <20081208090910.GB30257@mathematik.tu-darmstadt.de>
+
+Hello,
+
+> Has anyone managed to build ANT on Ubuntu 8.10 intrepid.  I'm running
+> into freetype problems.  I'd really appreciate if someone could just
+> post how they got it working.
+
+I'm afraid I cannot help you without seeing the error messages you get.
+Did you install the freetype development package (if there is such a
+thing)?
+
+Achim
+-- 
+________________________________________________________________________
+                                                              | \_____/ |
+   Achim Blumensath                                          \O/ \___/\ |
+   TU Darmstadt                                              =o=  \ /\ \|
+   www.mathematik.tu-darmstadt.de/~blumensath                /"\   o----|
+____________________________________________________________________\___|
+-------------- next part --------------
+A non-text attachment was scrubbed...
+Name: signature.asc
+Type: application/pgp-signature
+Size: 189 bytes
+Desc: Digital signature
+URL: <https://lists.berlios.de/pipermail/ant-devel/attachments/20081208/0a318b40/attachment.pgp>
+
+From m.bana at ucl.ac.uk  Mon Dec  8 15:01:55 2008
+From: m.bana at ucl.ac.uk (Mohamed O Bana)
+Date: Mon, 8 Dec 2008 14:01:55 -0000 (GMT)
+Subject: [ant-devel] Building on Ubuntu 8.10 intrepid
+In-Reply-To: <20081208090910.GB30257@mathematik.tu-darmstadt.de>
+References: <59198.87.194.191.26.1228591258.squirrel@www.squirrelmail.ucl.ac.uk>
+	<20081208090910.GB30257@mathematik.tu-darmstadt.de>
+Message-ID: <59999.87.194.191.26.1228744915.squirrel@www.squirrelmail.ucl.ac.uk>
+
+I can't even get ant-support-0.8.tar.bz2 to compile.  Note: I didn't
+prefix the command with sudo.
+
+Output: http://pastebin.com/m30ca6f0d
+
+$ ./make.sh > file 2>&1
+
+conversions.c:68: warning: ignoring #pragma inline
+conversions.c:92: warning: ignoring #pragma inline
+conversions.c:121: error: expected &#8216;=&#8217;, &#8216;,&#8217;,
+&#8216;;&#8217;, &#8216;asm&#8217; or &#8216;__attribute__&#8217; before
+&#8216;*&#8217; token
+conversions.c:126: error: expected &#8216;=&#8217;, &#8216;,&#8217;,
+&#8216;;&#8217;, &#8216;asm&#8217; or &#8216;__attribute__&#8217; before
+&#8216;Mode_val&#8217;
+conversions.c: In function &#8216;alloc_mpfr&#8217;:
+conversions.c:134: error: &#8216;mpfr_t&#8217; undeclared (first use in
+this function)
+conversions.c:134: error: (Each undeclared identifier is reported only once
+conversions.c:134: error: for each function it appears in.)
+conversions.c: In function &#8216;alloc_init_mpfr&#8217;:
+conversions.c:142: warning: implicit declaration of function
+&#8216;mpfr_init2&#8217;
+conversions.c:142: warning: implicit declaration of function
+&#8216;mpfr_val&#8217;
+conversions.c:142: error: invalid type argument of &#8216;unary *&#8217;
+(have &#8216;int&#8217;)
+make: *** [mlgmp_z.o] Error 1
+
+
+
+
+> Hello,
+>
+>> Has anyone managed to build ANT on Ubuntu 8.10 intrepid.  I'm running
+>> into freetype problems.  I'd really appreciate if someone could just
+>> post how they got it working.
+>
+> I'm afraid I cannot help you without seeing the error messages you get.
+> Did you install the freetype development package (if there is such a
+> thing)?
+>
+> Achim
+> --
+> ________________________________________________________________________
+>                                                               | \_____/ |
+>    Achim Blumensath                                          \O/ \___/\ |
+>    TU Darmstadt                                              =o=  \ /\ \|
+>    www.mathematik.tu-darmstadt.de/~blumensath                /"\   o----|
+> ____________________________________________________________________\___|
+> _______________________________________________
+> ant-devel mailing list
+> ant-devel at lists.berlios.de
+> https://lists.berlios.de/mailman/listinfo/ant-devel
+>
+
+
+
+
+From Barry.SCHWARTZ at chemoelectric.org  Tue Dec  9 06:08:34 2008
+From: Barry.SCHWARTZ at chemoelectric.org (Barry.SCHWARTZ at chemoelectric.org)
+Date: Mon, 8 Dec 2008 23:08:34 -0600
+Subject: [ant-devel] Patches for ocaml 3.11.0
+Message-ID: <20081209050834.GA22431@crud.crud.mn.org>
+
+
+I had to make the attached little changes to ant and omake for Ocaml
+3.11.0 (on Gentoo AMD64).
+
+The ant change is just an OMakefile change in how to link the
+preprocessor.
+
+I believe the omake change is already included in the SVN version, and
+requires actual code change, due to a tightening up of the language.
+
+-------------- next part --------------
+--- ant.ORIG/PreProc/OMakefile	2008-11-14 16:23:11.000000000 +0000
++++ ant/PreProc/OMakefile	2008-12-09 04:53:19.000000000 +0000
+@@ -5,7 +5,7 @@
+ OCAMLFLAGS       += -pp "$(CAMLP4)" -I $(MLCPPLIB)
+ OCAMLDEPFLAGS    += -pp "$(CAMLP4)" -I $(MLCPPLIB)
+ OCAML_LINK_FLAGS += -linkall -I $(MLCPPLIB)
+-OCAML_OTHER_LIBS = camlp4lib
++OCAML_OTHER_LIBS = dynlink camlp4lib
+ 
+ if $(not $(NATIVE_CAMLP4))
+   BYTE_ENABLED = true
+-------------- next part --------------
+--- src/exec/omake_exec.ml.ORIG	2008-12-09 03:49:47.000000000 +0000
++++ src/exec/omake_exec.ml	2008-12-09 03:49:58.000000000 +0000
+@@ -46,8 +46,6 @@
+ open Omake_options
+ open Omake_command_type
+ 
+-external sync : unit -> unit = "caml_sync"
+-
+ module Exec =
+ struct
+    (*
+
+From blumensath at mathematik.tu-darmstadt.de  Tue Dec  9 08:05:27 2008
+From: blumensath at mathematik.tu-darmstadt.de (Achim Blumensath)
+Date: Tue, 9 Dec 2008 08:05:27 +0100
+Subject: [ant-devel] Building on Ubuntu 8.10 intrepid
+In-Reply-To: <59999.87.194.191.26.1228744915.squirrel@www.squirrelmail.ucl.ac.uk>
+References: <59198.87.194.191.26.1228591258.squirrel@www.squirrelmail.ucl.ac.uk>
+	<20081208090910.GB30257@mathematik.tu-darmstadt.de>
+	<59999.87.194.191.26.1228744915.squirrel@www.squirrelmail.ucl.ac.uk>
+Message-ID: <20081209070527.GA14841@mathematik.tu-darmstadt.de>
+
+Hello,
+
+Mohamed O Bana wrote:
+> I can't even get ant-support-0.8.tar.bz2 to compile.
+> prefix the command with sudo.
+> 
+> Output: http://pastebin.com/m30ca6f0d
+> 
+> $ ./make.sh > file 2>&1
+> 
+> conversions.c:68: warning: ignoring #pragma inline
+> conversions.c:92: warning: ignoring #pragma inline
+> conversions.c:121: error: expected &#8216;=&#8217;, &#8216;,&#8217;,
+> &#8216;;&#8217;, &#8216;asm&#8217; or &#8216;__attribute__&#8217; before
+> &#8216;*&#8217; token
+> conversions.c:126: error: expected &#8216;=&#8217;, &#8216;,&#8217;,
+> &#8216;;&#8217;, &#8216;asm&#8217; or &#8216;__attribute__&#8217; before
+> &#8216;Mode_val&#8217;
+> conversions.c: In function &#8216;alloc_mpfr&#8217;:
+> conversions.c:134: error: &#8216;mpfr_t&#8217; undeclared (first use in
+> this function)
+> conversions.c:134: error: (Each undeclared identifier is reported only once
+> conversions.c:134: error: for each function it appears in.)
+> conversions.c: In function &#8216;alloc_init_mpfr&#8217;:
+> conversions.c:142: warning: implicit declaration of function
+> &#8216;mpfr_init2&#8217;
+> conversions.c:142: warning: implicit declaration of function
+> &#8216;mpfr_val&#8217;
+> conversions.c:142: error: invalid type argument of &#8216;unary *&#8217;
+> (have &#8216;int&#8217;)
+> make: *** [mlgmp_z.o] Error 1
+
+Looks like you don't have the mpfr library installed.
+
+Achim
+-- 
+________________________________________________________________________
+                                                              | \_____/ |
+   Achim Blumensath                                          \O/ \___/\ |
+   TU Darmstadt                                              =o=  \ /\ \|
+   www.mathematik.tu-darmstadt.de/~blumensath                /"\   o----|
+____________________________________________________________________\___|
+-------------- next part --------------
+A non-text attachment was scrubbed...
+Name: signature.asc
+Type: application/pgp-signature
+Size: 189 bytes
+Desc: Digital signature
+URL: <https://lists.berlios.de/pipermail/ant-devel/attachments/20081209/e0e419ff/attachment.pgp>
+
+From m.bana at ucl.ac.uk  Wed Dec 10 19:02:37 2008
+From: m.bana at ucl.ac.uk (Mohamed Bana)
+Date: Wed, 10 Dec 2008 18:02:37 +0000
+Subject: [ant-devel] Building on Ubuntu 8.10 intrepid
+In-Reply-To: <20081209070527.GA14841@mathematik.tu-darmstadt.de>
+References: <59198.87.194.191.26.1228591258.squirrel@www.squirrelmail.ucl.ac.uk>	<20081208090910.GB30257@mathematik.tu-darmstadt.de>	<59999.87.194.191.26.1228744915.squirrel@www.squirrelmail.ucl.ac.uk>
+	<20081209070527.GA14841@mathematik.tu-darmstadt.de>
+Message-ID: <4940043D.2020008@ucl.ac.uk>
+
+Thanks, that worked.  But, now
+
+$ omake NUM_LIB=Gmp
+omake: Symbol `FamErrlist' has different size in shared object, consider 
+re-linking
+*** omake: reading OMakefiles
+*** omake: finished reading OMakefiles (0.11 sec)
+- build Tools zlib-stubs.o
++ ocamlc -c -o zlib-stubs.o zlib-stubs.c
+zlib-stubs.c: In function ?zlib_compress?:
+zlib-stubs.c:189: warning: pointer targets in passing argument 1 of 
+?compress? differ in signedness
+zlib-stubs.c:189: warning: pointer targets in passing argument 3 of 
+?compress? differ in signedness
+zlib-stubs.c: In function ?zlib_compress2?:
+zlib-stubs.c:200: warning: pointer targets in passing argument 1 of 
+?compress2? differ in signedness
+zlib-stubs.c:200: warning: pointer targets in passing argument 3 of 
+?compress2? differ in signedness
+zlib-stubs.c: In function ?zlib_uncompress?:
+zlib-stubs.c:211: warning: pointer targets in passing argument 1 of 
+?uncompress? differ in signedness
+zlib-stubs.c:211: warning: pointer targets in passing argument 3 of 
+?uncompress? differ in signedness
+zlib-stubs.c: In function ?zlib_adler32?:
+zlib-stubs.c:221: warning: pointer targets in passing argument 2 of 
+?adler32? differ in signedness
+zlib-stubs.c: In function ?zlib_crc32?:
+zlib-stubs.c:228: warning: pointer targets in passing argument 2 of 
+?crc32? differ in signedness
+- build Tools 
+XString.o                                                       
++ ocamlopt -w Aes -warn-error P -rectypes -I ../Tools -I ../lib -pp 
+../PreProc/camlp4opt -I . -c XString.ml
+<W> Grammar extension: in [expr] some rule has been masked
+- build Tools 
+IO_Base.cmi                                                     
++ ocamlc -w Aes -warn-error P -rectypes -I ../Tools -I ../lib -pp 
+../PreProc/camlp4opt -g -I . -c IO_Base.mli
+<W> Grammar extension: in [expr] some rule has been masked
+- build Tools 
+Maps.cmi                                                        
++ ocamlc -w Aes -warn-error P -rectypes -I ../Tools -I ../lib -pp 
+../PreProc/camlp4opt -g -I . -c Maps.mli
+<W> Grammar extension: in [expr] some rule has been masked
+- build Tools 
+OrderedInt.cmi                                                  
++ ocamlc -w Aes -warn-error P -rectypes -I ../Tools -I ../lib -pp 
+../PreProc/camlp4opt -g -I . -c OrderedInt.mli
+<W> Grammar extension: in [expr] some rule has been masked
+- build Tools 
+OrderedInt.o                                                    
++ ocamlopt -w Aes -warn-error P -rectypes -I ../Tools -I ../lib -pp 
+../PreProc/camlp4opt -I . -c OrderedInt.ml
+<W> Grammar extension: in [expr] some rule has been masked
+- build Tools 
+Maps.cmx                                                        
++ ocamlopt -w Aes -warn-error P -rectypes -I ../Tools -I ../lib -pp 
+../PreProc/camlp4opt -I . -c Maps.ml
+<W> Grammar extension: in [expr] some rule has been masked
+- build Tools 
+ListBuilder.cmi                                                 
++ ocamlc -w Aes -warn-error P -rectypes -I ../Tools -I ../lib -pp 
+../PreProc/camlp4opt -g -I . -c ListBuilder.mli
+<W> Grammar extension: in [expr] some rule has been masked
+- build Tools 
+ListBuilder.cmx                                                 
++ ocamlopt -w Aes -warn-error P -rectypes -I ../Tools -I ../lib -pp 
+../PreProc/camlp4opt -I . -c ListBuilder.ml
+<W> Grammar extension: in [expr] some rule has been masked
+- build Tools 
+XList.o                                                         
++ ocamlopt -w Aes -warn-error P -rectypes -I ../Tools -I ../lib -pp 
+../PreProc/camlp4opt -I . -c XList.ml
+<W> Grammar extension: in [expr] some rule has been masked
+File "XList.ml", line 36, characters 8-10:                     ] 00309 / 
+00950
+Warning Z: unused variable xs.
+- build Tools 
+NumFloat.cmi                                                    
++ ocamlc -w Aes -warn-error P -rectypes -I ../Tools -I ../lib -pp 
+../PreProc/camlp4opt -g -I . -c NumFloat.mli
+<W> Grammar extension: in [expr] some rule has been masked
+- build Tools 
+Zlib.cmi                                                        
++ ocamlc -w Aes -warn-error P -rectypes -I ../Tools -I ../lib -pp 
+../PreProc/camlp4opt -g -I . -c Zlib.mli
+<W> Grammar extension: in [expr] some rule has been masked
+- build Tools 
+Zlib.o                                                          
++ ocamlopt -w Aes -warn-error P -rectypes -I ../Tools -I ../lib -pp 
+../PreProc/camlp4opt -I . -c Zlib.ml
+<W> Grammar extension: in [expr] some rule has been masked
+- build Tools 
+IO_Base.cmx                                                     
++ ocamlopt -w Aes -warn-error P -rectypes -I ../Tools -I ../lib -pp 
+../PreProc/camlp4opt -I . -c IO_Base.ml
+<W> Grammar extension: in [expr] some rule has been masked
+- build Tools 
+NumFloat.cmx                                                    
++ ocamlopt -w Aes -warn-error P -rectypes -I ../Tools -I ../lib -pp 
+../PreProc/camlp4opt -I . -c NumFloat.ml
+<W> Grammar extension: in [expr] some rule has been masked
+- build Tools 
+Option.cmi                                                      
++ ocamlc -w Aes -warn-error P -rectypes -I ../Tools -I ../lib -pp 
+../PreProc/camlp4opt -g -I . -c Option.mli
+<W> Grammar extension: in [expr] some rule has been masked
+- build Tools 
+Option.o                                                        
++ ocamlopt -w Aes -warn-error P -rectypes -I ../Tools -I ../lib -pp 
+../PreProc/camlp4opt -I . -c Option.ml
+<W> Grammar extension: in [expr] some rule has been masked
+- build Tools 
+XNum.cmx                                                        
++ ocamlopt -w Aes -warn-error P -rectypes -I ../Tools -I ../lib -pp 
+../PreProc/camlp4opt -I . -c XNum.ml
+<W> Grammar extension: in [expr] some rule has been masked
+- build Tools 
+LinForm.cmi                                                     
++ ocamlc -w Aes -warn-error P -rectypes -I ../Tools -I ../lib -pp 
+../PreProc/camlp4opt -g -I . -c LinForm.mli
+<W> Grammar extension: in [expr] some rule has been masked
+- build Tools 
+Constraint.cmi                                                  
++ ocamlc -w Aes -warn-error P -rectypes -I ../Tools -I ../lib -pp 
+../PreProc/camlp4opt -g -I . -c Constraint.mli
+<W> Grammar extension: in [expr] some rule has been masked
+- build Tools 
+IO.cmi                                                          
++ ocamlc -w Aes -warn-error P -rectypes -I ../Tools -I ../lib -pp 
+../PreProc/camlp4opt -g -I . -c IO.mli
+<W> Grammar extension: in [expr] some rule has been masked
+- build Tools 
+IO.o                                                            
++ ocamlopt -w Aes -warn-error P -rectypes -I ../Tools -I ../lib -pp 
+../PreProc/camlp4opt -I . -c IO.ml
+<W> Grammar extension: in [expr] some rule has been masked
+- build Tools 
+PlanePartition.cmi                                              
++ ocamlc -w Aes -warn-error P -rectypes -I ../Tools -I ../lib -pp 
+../PreProc/camlp4opt -g -I . -c PlanePartition.mli
+<W> Grammar extension: in [expr] some rule has been masked
+- build Tools 
+PlanePartition.o                                                
++ ocamlopt -w Aes -warn-error P -rectypes -I ../Tools -I ../lib -pp 
+../PreProc/camlp4opt -I . -c PlanePartition.ml
+<W> Grammar extension: in [expr] some rule has been masked
+- build Tools 
+ShortestPath.cmi                                                
++ ocamlc -w Aes -warn-error P -rectypes -I ../Tools -I ../lib -pp 
+../PreProc/camlp4opt -g -I . -c ShortestPath.mli
+<W> Grammar extension: in [expr] some rule has been masked
+- build Tools 
+ShortestPath.cmx                                                
++ ocamlopt -w Aes -warn-error P -rectypes -I ../Tools -I ../lib -pp 
+../PreProc/camlp4opt -I . -c ShortestPath.ml
+<W> Grammar extension: in [expr] some rule has been masked
+- build Tools 
+LinForm.cmx                                                     
++ ocamlopt -w Aes -warn-error P -rectypes -I ../Tools -I ../lib -pp 
+../PreProc/camlp4opt -I . -c LinForm.ml
+<W> Grammar extension: in [expr] some rule has been masked
+- build Tools 
+Constraint.cmx                                                  
++ ocamlopt -w Aes -warn-error P -rectypes -I ../Tools -I ../lib -pp 
+../PreProc/camlp4opt -I . -c Constraint.ml
+<W> Grammar extension: in [expr] some rule has been masked
+- build Unicode 
+GenUnicodeTable.cmi                                           
++ ocamlopt -w Aes -warn-error P -rectypes -I ../Tools -I ../lib -pp 
+../PreProc/camlp4opt -I . -I . -c GenUnicodeTable.ml
+<W> Grammar extension: in [expr] some rule has been masked
+- build Unicode 
+GenUnicodeTable.opt                                           
++ ocamlopt -w Aes -warn-error P -rectypes -I ../Tools -I ../lib -pp 
+../PreProc/camlp4opt -I . -I . -o GenUnicodeTable.opt unix.cmxa 
+/usr/lib/ocaml/3.10.2/camlimages/ci_core.cmxa 
+/usr/lib/ocaml/3.10.2/camlimages/ci_freetype.cmxa 
+/usr/lib/ocaml/3.10.2/camlimages/ci_gif.cmxa 
+/usr/lib/ocaml/3.10.2/camlimages/ci_jpeg.cmxa 
+/usr/lib/ocaml/3.10.2/camlimages/ci_tiff.cmxa 
+/usr/lib/ocaml/3.10.2/camlimages/ci_bmp.cmxa 
+/usr/lib/ocaml/3.10.2/camlimages/ci_ppm.cmxa 
+/usr/lib/ocaml/3.10.2/camlimages/ci_png.cmxa 
+/usr/lib/ocaml/3.10.2/camlimages/ci_xvthumb.cmxa 
+/usr/lib/ocaml/3.10.2/camlimages/ci_xpm.cmxa 
+/usr/lib/ocaml/3.10.2/camlimages/ci_ps.cmxa ../Tools/Tools.cmxa 
+GenUnicodeTable.cmx -I /usr/lib/ocaml/3.10.2/camlimages -cclib 
+-L/home/mbana/context-minimals/tex/lib -cclib -L/usr/X11/lib -cclib -lz
+usr/bin/ld: cannot find -ltiff                                  ] 00360 
+/ 00950
+collect2: ld returned 1 exit status
+Error during linking
+*** omake: 360/950 targets are up to 
+date                                     
+*** omake: failed (4.16 sec, 0/36 scans, 38/63 rules, 62/854 digests)
+*** omake: targets were not rebuilt because of 
+errors:                        
+   Unicode/GenUnicodeTable.opt
+
+
+Achim Blumensath wrote:
+> Hello,
+>
+> Mohamed O Bana wrote:
+>   
+>> I can't even get ant-support-0.8.tar.bz2 to compile.
+>> prefix the command with sudo.
+>>
+>> Output: http://pastebin.com/m30ca6f0d
+>>
+>> $ ./make.sh > file 2>&1
+>>
+>> conversions.c:68: warning: ignoring #pragma inline
+>> conversions.c:92: warning: ignoring #pragma inline
+>> conversions.c:121: error: expected &#8216;=&#8217;, &#8216;,&#8217;,
+>> &#8216;;&#8217;, &#8216;asm&#8217; or &#8216;__attribute__&#8217; before
+>> &#8216;*&#8217; token
+>> conversions.c:126: error: expected &#8216;=&#8217;, &#8216;,&#8217;,
+>> &#8216;;&#8217;, &#8216;asm&#8217; or &#8216;__attribute__&#8217; before
+>> &#8216;Mode_val&#8217;
+>> conversions.c: In function &#8216;alloc_mpfr&#8217;:
+>> conversions.c:134: error: &#8216;mpfr_t&#8217; undeclared (first use in
+>> this function)
+>> conversions.c:134: error: (Each undeclared identifier is reported only once
+>> conversions.c:134: error: for each function it appears in.)
+>> conversions.c: In function &#8216;alloc_init_mpfr&#8217;:
+>> conversions.c:142: warning: implicit declaration of function
+>> &#8216;mpfr_init2&#8217;
+>> conversions.c:142: warning: implicit declaration of function
+>> &#8216;mpfr_val&#8217;
+>> conversions.c:142: error: invalid type argument of &#8216;unary *&#8217;
+>> (have &#8216;int&#8217;)
+>> make: *** [mlgmp_z.o] Error 1
+>>     
+>
+> Looks like you don't have the mpfr library installed.
+>
+> Achim
+>   
+> ------------------------------------------------------------------------
+>
+> _______________________________________________
+> ant-devel mailing list
+> ant-devel at lists.berlios.de
+> https://lists.berlios.de/mailman/listinfo/ant-devel
+>   
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: <https://lists.berlios.de/pipermail/ant-devel/attachments/20081210/231c518e/attachment.html>
+
+From blumensath at mathematik.tu-darmstadt.de  Thu Dec 11 09:49:38 2008
+From: blumensath at mathematik.tu-darmstadt.de (Achim Blumensath)
+Date: Thu, 11 Dec 2008 09:49:38 +0100
+Subject: [ant-devel] Building on Ubuntu 8.10 intrepid
+In-Reply-To: <4940043D.2020008@ucl.ac.uk>
+References: <59198.87.194.191.26.1228591258.squirrel@www.squirrelmail.ucl.ac.uk>
+	<20081208090910.GB30257@mathematik.tu-darmstadt.de>
+	<59999.87.194.191.26.1228744915.squirrel@www.squirrelmail.ucl.ac.uk>
+	<20081209070527.GA14841@mathematik.tu-darmstadt.de>
+	<4940043D.2020008@ucl.ac.uk>
+Message-ID: <20081211084938.GA15188@mathematik.tu-darmstadt.de>
+
+Hello,
+
+Mohamed Bana wrote:
+> Thanks, that worked.  But, now
+[...]
+> usr/bin/ld: cannot find -ltiff                                  ] 00360 
+
+Apparently, you do not have libtiff installed. You can either install
+this library, or you edit ant/OMakefile and remove
+
+  -ltiff    from the definition of CAMLIMAGES_CLIBS
+  ci_tiff   from the definition of CAMLIMAGES_MLLIBS
+
+Achim
+-- 
+________________________________________________________________________
+                                                              | \_____/ |
+   Achim Blumensath                                          \O/ \___/\ |
+   TU Darmstadt                                              =o=  \ /\ \|
+   www.mathematik.tu-darmstadt.de/~blumensath                /"\   o----|
+____________________________________________________________________\___|
+-------------- next part --------------
+A non-text attachment was scrubbed...
+Name: signature.asc
+Type: application/pgp-signature
+Size: 189 bytes
+Desc: Digital signature
+URL: <https://lists.berlios.de/pipermail/ant-devel/attachments/20081211/3ce3b735/attachment.pgp>
+
+From blumensath at mathematik.tu-darmstadt.de  Tue Dec 16 09:13:22 2008
+From: blumensath at mathematik.tu-darmstadt.de (Achim Blumensath)
+Date: Tue, 16 Dec 2008 09:13:22 +0100
+Subject: [ant-devel] Patches for ocaml 3.11.0
+In-Reply-To: <20081209050834.GA22431@crud.crud.mn.org>
+References: <20081209050834.GA22431@crud.crud.mn.org>
+Message-ID: <20081216081322.GA29569@mathematik.tu-darmstadt.de>
+
+Hello,
+
+Barry.SCHWARTZ at chemoelectric.org wrote:
+> I had to make the attached little changes to ant and omake for Ocaml
+> 3.11.0 (on Gentoo AMD64).
+
+Thanks. I've added them to CVS.
+
+Achim
+-- 
+________________________________________________________________________
+                                                              | \_____/ |
+   Achim Blumensath                                          \O/ \___/\ |
+   TU Darmstadt                                              =o=  \ /\ \|
+   www.mathematik.tu-darmstadt.de/~blumensath                /"\   o----|
+____________________________________________________________________\___|
+-------------- next part --------------
+A non-text attachment was scrubbed...
+Name: signature.asc
+Type: application/pgp-signature
+Size: 189 bytes
+Desc: Digital signature
+URL: <https://lists.berlios.de/pipermail/ant-devel/attachments/20081216/3a94fb3f/attachment.pgp>
+
+From m.bana at ucl.ac.uk  Fri Dec 26 16:40:03 2008
+From: m.bana at ucl.ac.uk (Mohamed Bana)
+Date: Fri, 26 Dec 2008 15:40:03 +0000
+Subject: [ant-devel] Building on Ubuntu 8.10 intrepid
+In-Reply-To: <20081206201559.GA18135@crud.crud.mn.org>
+References: <59198.87.194.191.26.1228591258.squirrel@www.squirrelmail.ucl.ac.uk>
+	<20081206201559.GA18135@crud.crud.mn.org>
+Message-ID: <4954FAD3.80604@ucl.ac.uk>
+
+it failed again :(.  everything in the supporting archive (ant-support-0.8.tar.bz2) built with no build errors.  in case you're wondering, i have libtiff4 3.8.2-11, i.e., the one from intrepid's repo.
+
+ubuntu.patch
+
+--- Runtime/OMakefile	2008-06-12 00:56:10.000000000 +0000
++++ Runtime/OMakefile	2008-06-12 02:48:23.000000000 +0000
+@@ -66,6 +66,7 @@
+ 	$(OCAMLC) -c $(KPATHSEA_CFLAGS) $(SELFAUTO_FLAGS) -o $@ $^
+ 	mv kpathsea-stubs.o $@  # BUG: ocaml creates the object file in the current directory
+ 
++CFLAGS += $(FREETYPE_FLAGS)
+ freetype-stubs.o: freetype-stubs.c
+ 	$(OCAMLC) -c $(FREETYPE_FLAGS) -o $@ $^
+ 	mv freetype-stubs.o $@  # BUG: ocaml creates the object file in the current direct
+
+$ patch -p0 < ubuntu.patch
+patching file Runtime/OMakefile
+
+
+$ omake NUM_LIB=Gmp
+omake: Symbol `FamErrlist' has different size in shared object, consider 
+re-linking
+*** omake: reading OMakefiles
+--- Checking for ocamlfind... (FAILED - no ocamlfind found)
+--- Checking for ocamlc.opt... (FAILED - no ocamlc.opt found)
+--- Checking for ocamlc... (found /usr/bin/ocamlc)
+--- Checking for ocamlopt.opt... (FAILED - no ocamlopt.opt found)
+--- Checking for ocamlopt... (found /usr/bin/ocamlopt)
+--- Checking whether ocamlc understands the "z" warnings... (yes)
+--- Checking if ocamldep understands -modules... (yes)
+*** omake: finished reading OMakefiles (0.61 sec)
+--- Checking for gcc... (found /usr/bin/gcc)
+--- Checking for g++... (found /usr/bin/g++)
+- build Tools zlib-stubs.o
++ ocamlc -c -o zlib-stubs.o zlib-stubs.c
+zlib-stubs.c: In function ?zlib_compress?:
+zlib-stubs.c:189: warning: pointer targets in passing argument 1 of 
+?compress? differ in signedness
+zlib-stubs.c:189: warning: pointer targets in passing argument 3 of 
+?compress? differ in signedness
+zlib-stubs.c: In function ?zlib_compress2?:
+zlib-stubs.c:200: warning: pointer targets in passing argument 1 of 
+?compress2? differ in signedness
+zlib-stubs.c:200: warning: pointer targets in passing argument 3 of 
+?compress2? differ in signedness
+zlib-stubs.c: In function ?zlib_uncompress?:
+zlib-stubs.c:211: warning: pointer targets in passing argument 1 of 
+?uncompress? differ in signedness
+zlib-stubs.c:211: warning: pointer targets in passing argument 3 of 
+?uncompress? differ in signedness
+zlib-stubs.c: In function ?zlib_adler32?:
+zlib-stubs.c:221: warning: pointer targets in passing argument 2 of 
+?adler32? differ in signedness
+zlib-stubs.c: In function ?zlib_crc32?:
+zlib-stubs.c:228: warning: pointer targets in passing argument 2 of 
+?crc32? differ in signedness
+- scan Runtime freetype-stubs.o
++ gcc -I. -MM freetype-stubs.c
+freetype-stubs.c:7:10: error: #include expects "FILENAME" or <FILENAME>
+freetype-stubs.c:8:10: error: #include expects "FILENAME" or <FILENAME>
+freetype-stubs.c:9:10: error: #include expects "FILENAME" or <FILENAME>
+*** omake: 175/938 targets are up to date
+*** omake: failed (0.98 sec, 2/2 scans, 2/2 rules, 120/551 digests)
+*** omake: targets were not rebuilt because of errors:
+   <scanner Runtime/freetype-stubs.o>
+      depends on: Runtime/freetype-stubs.c
+mbana at mbana-desktop:~/ocaml/ant/ant-0.8$ omake clean
+omake: Symbol `FamErrlist' has different size in shared object, consider 
+re-linking
+*** omake: reading OMakefiles
+*** omake: finished reading OMakefiles (0.22 sec)
+*** omake: done (0.27 sec, 0/0 scans, 4/4 rules, 0/124 digests)
+mbana at mbana-desktop:~/ocaml/ant/ant-0.8$ make clean
+make: *** No rule to make target `clean'. Stop.
+mbana at mbana-desktop:~/ocaml/ant/ant-0.8$ omake NUM_LIB=Gmp
+omake: Symbol `FamErrlist' has different size in shared object, consider 
+re-linking
+*** omake: reading OMakefiles
+*** omake: finished reading OMakefiles (0.26 sec)
+- build Tools zlib-stubs.o
++ ocamlc -c -o zlib-stubs.o zlib-stubs.c
+zlib-stubs.c: In function ?zlib_compress?:
+zlib-stubs.c:189: warning: pointer targets in passing argument 1 of 
+?compress? differ in signedness
+zlib-stubs.c:189: warning: pointer targets in passing argument 3 of 
+?compress? differ in signedness
+zlib-stubs.c: In function ?zlib_compress2?:
+zlib-stubs.c:200: warning: pointer targets in passing argument 1 of 
+?compress2? differ in signedness
+zlib-stubs.c:200: warning: pointer targets in passing argument 3 of 
+?compress2? differ in signedness
+zlib-stubs.c: In function ?zlib_uncompress?:
+zlib-stubs.c:211: warning: pointer targets in passing argument 1 of 
+?uncompress? differ in signedness
+zlib-stubs.c:211: warning: pointer targets in passing argument 3 of 
+?uncompress? differ in signedness
+zlib-stubs.c: In function ?zlib_adler32?:
+zlib-stubs.c:221: warning: pointer targets in passing argument 2 of 
+?adler32? differ in signedness
+zlib-stubs.c: In function ?zlib_crc32?:
+zlib-stubs.c:228: warning: pointer targets in passing argument 2 of 
+?crc32? differ in signedness
+- scan Runtime freetype-stubs.o
++ gcc -ccopt -I/usr/include/freetype2 -I. -MM freetype-stubs.c
+gcc: unrecognized option '-ccopt'
+- scan Tools 
+scan-ocaml-IO.mli                                                
++ ocamldep -I ../Tools -I ../lib -pp ../PreProc/camlp4opt -modules IO.mli
+     | Shell.ocamldep-postproc()
+<W> Grammar extension: in [expr] some rule has been masked
+- scan Tools 
+scan-ocaml-XString.ml                                            
++ ocamldep -I ../Tools -I ../lib -pp ../PreProc/camlp4opt -modules 
+XString.ml
+     | Shell.ocamldep-postproc()
+<W> Grammar extension: in [expr] some rule has been masked
+- build Tools 
+XString.o                                                       
++ ocamlopt -w Aes -warn-error P -rectypes -I ../Tools -I ../lib -pp 
+../PreProc/camlp4opt -I . -c XString.ml
+<W> Grammar extension: in [expr] some rule has been masked
+- scan Tools 
+scan-ocaml-IO.ml                                                 
++ ocamldep -I ../Tools -I ../lib -pp ../PreProc/camlp4opt -modules IO.ml
+     | Shell.ocamldep-postproc()
+<W> Grammar extension: in [expr] some rule has been masked
+- scan Tools 
+scan-ocaml-IO_Base.mli                                           
++ ocamldep -I ../Tools -I ../lib -pp ../PreProc/camlp4opt -modules 
+IO_Base.mli
+     | Shell.ocamldep-postproc()
+<W> Grammar extension: in [expr] some rule has been masked
+- build Tools 
+IO_Base.cmi                                                     
++ ocamlc -w Aes -warn-error P -rectypes -I ../Tools -I ../lib -pp 
+../PreProc/camlp4opt -g -I . -c IO_Base.mli
+<W> Grammar extension: in [expr] some rule has been masked
+- scan Tools 
+scan-ocaml-ShortestPath.ml                                       
++ ocamldep -I ../Tools -I ../lib -pp ../PreProc/camlp4opt -modules 
+ShortestPath.ml
+     | Shell.ocamldep-postproc()
+<W> Grammar extension: in [expr] some rule has been masked
+- scan Tools 
+scan-ocaml-Maps.mli                                              
++ ocamldep -I ../Tools -I ../lib -pp ../PreProc/camlp4opt -modules Maps.mli
+     | Shell.ocamldep-postproc()
+<W> Grammar extension: in [expr] some rule has been masked
+- build Tools 
+Maps.cmi                                                        
++ ocamlc -w Aes -warn-error P -rectypes -I ../Tools -I ../lib -pp 
+../PreProc/camlp4opt -g -I . -c Maps.mli
+<W> Grammar extension: in [expr] some rule has been masked
+- scan Tools 
+scan-ocaml-PlanePartition.ml                                     
++ ocamldep -I ../Tools -I ../lib -pp ../PreProc/camlp4opt -modules 
+PlanePartition.ml
+     | Shell.ocamldep-postproc()
+<W> Grammar extension: in [expr] some rule has been masked
+- scan Tools 
+scan-ocaml-NumFloat.ml                                           
++ ocamldep -I ../Tools -I ../lib -pp ../PreProc/camlp4opt -modules 
+NumFloat.ml
+     | Shell.ocamldep-postproc()
+<W> Grammar extension: in [expr] some rule has been masked
+- scan Tools 
+scan-ocaml-Maps.ml                                               
++ ocamldep -I ../Tools -I ../lib -pp ../PreProc/camlp4opt -modules Maps.ml
+     | Shell.ocamldep-postproc()
+<W> Grammar extension: in [expr] some rule has been masked
+- scan Tools 
+scan-ocaml-OrderedInt.ml                                         
++ ocamldep -I ../Tools -I ../lib -pp ../PreProc/camlp4opt -modules 
+OrderedInt.ml
+     | Shell.ocamldep-postproc()
+<W> Grammar extension: in [expr] some rule has been masked
+- scan Tools 
+scan-ocaml-ListBuilder.ml                                        
++ ocamldep -I ../Tools -I ../lib -pp ../PreProc/camlp4opt -modules 
+ListBuilder.ml
+     | Shell.ocamldep-postproc()
+<W> Grammar extension: in [expr] some rule has been masked
+- scan Tools 
+scan-ocaml-Option.ml                                             
++ ocamldep -I ../Tools -I ../lib -pp ../PreProc/camlp4opt -modules Option.ml
+     | Shell.ocamldep-postproc()
+<W> Grammar extension: in [expr] some rule has been masked
+- scan Tools 
+scan-ocaml-OrderedInt.mli                                        
++ ocamldep -I ../Tools -I ../lib -pp ../PreProc/camlp4opt -modules 
+OrderedInt.mli
+     | Shell.ocamldep-postproc()
+<W> Grammar extension: in [expr] some rule has been masked
+- build Tools 
+OrderedInt.cmi                                                  
++ ocamlc -w Aes -warn-error P -rectypes -I ../Tools -I ../lib -pp 
+../PreProc/camlp4opt -g -I . -c OrderedInt.mli
+<W> Grammar extension: in [expr] some rule has been masked
+- build Tools 
+OrderedInt.o                                                    
++ ocamlopt -w Aes -warn-error P -rectypes -I ../Tools -I ../lib -pp 
+../PreProc/camlp4opt -I . -c OrderedInt.ml
+<W> Grammar extension: in [expr] some rule has been masked
+- build Tools 
+Maps.cmx                                                        
++ ocamlopt -w Aes -warn-error P -rectypes -I ../Tools -I ../lib -pp 
+../PreProc/camlp4opt -I . -c Maps.ml
+<W> Grammar extension: in [expr] some rule has been masked
+- scan Tools 
+scan-ocaml-ListBuilder.mli                                       
++ ocamldep -I ../Tools -I ../lib -pp ../PreProc/camlp4opt -modules 
+ListBuilder.mli
+     | Shell.ocamldep-postproc()
+<W> Grammar extension: in [expr] some rule has been masked
+- build Tools 
+ListBuilder.cmi                                                 
++ ocamlc -w Aes -warn-error P -rectypes -I ../Tools -I ../lib -pp 
+../PreProc/camlp4opt -g -I . -c ListBuilder.mli
+<W> Grammar extension: in [expr] some rule has been masked
+- build Tools 
+ListBuilder.cmx                                                 
++ ocamlopt -w Aes -warn-error P -rectypes -I ../Tools -I ../lib -pp 
+../PreProc/camlp4opt -I . -c ListBuilder.ml
+<W> Grammar extension: in [expr] some rule has been masked
+- scan Tools 
+scan-ocaml-Zlib.ml                                               
++ ocamldep -I ../Tools -I ../lib -pp ../PreProc/camlp4opt -modules Zlib.ml
+     | Shell.ocamldep-postproc()
+<W> Grammar extension: in [expr] some rule has been masked
+- scan Tools 
+scan-ocaml-ShortestPath.mli                                      
++ ocamldep -I ../Tools -I ../lib -pp ../PreProc/camlp4opt -modules 
+ShortestPath.mli
+     | Shell.ocamldep-postproc()
+<W> Grammar extension: in [expr] some rule has been masked
+- scan Tools 
+scan-ocaml-XList.ml                                              
++ ocamldep -I ../Tools -I ../lib -pp ../PreProc/camlp4opt -modules XList.ml
+     | Shell.ocamldep-postproc()
+<W> Grammar extension: in [expr] some rule has been masked
+- build Tools 
+XList.o                                                         
++ ocamlopt -w Aes -warn-error P -rectypes -I ../Tools -I ../lib -pp 
+../PreProc/camlp4opt -I . -c XList.ml
+<W> Grammar extension: in [expr] some rule has been masked
+File "XList.ml", line 36, characters 8-10:                     ] 00309 / 
+00950
+Warning Z: unused variable xs.
+- scan Tools 
+scan-ocaml-Constraint.ml                                         
++ ocamldep -I ../Tools -I ../lib -pp ../PreProc/camlp4opt -modules 
+Constraint.ml
+     | Shell.ocamldep-postproc()
+<W> Grammar extension: in [expr] some rule has been masked
+- scan Tools 
+scan-ocaml-LinForm.mli                                           
++ ocamldep -I ../Tools -I ../lib -pp ../PreProc/camlp4opt -modules 
+LinForm.mli
+     | Shell.ocamldep-postproc()
+<W> Grammar extension: in [expr] some rule has been masked
+- scan Tools 
+scan-ocaml-NumFloat.mli                                          
++ ocamldep -I ../Tools -I ../lib -pp ../PreProc/camlp4opt -modules 
+NumFloat.mli
+     | Shell.ocamldep-postproc()
+<W> Grammar extension: in [expr] some rule has been masked
+- build Tools 
+NumFloat.cmi                                                    
++ ocamlc -w Aes -warn-error P -rectypes -I ../Tools -I ../lib -pp 
+../PreProc/camlp4opt -g -I . -c NumFloat.mli
+<W> Grammar extension: in [expr] some rule has been masked
+- scan Tools 
+scan-ocaml-Constraint.mli                                        
++ ocamldep -I ../Tools -I ../lib -pp ../PreProc/camlp4opt -modules 
+Constraint.mli
+     | Shell.ocamldep-postproc()
+<W> Grammar extension: in [expr] some rule has been masked
+- scan Tools 
+scan-ocaml-Zlib.mli                                              
++ ocamldep -I ../Tools -I ../lib -pp ../PreProc/camlp4opt -modules Zlib.mli
+     | Shell.ocamldep-postproc()
+<W> Grammar extension: in [expr] some rule has been masked
+- build Tools 
+Zlib.cmi                                                        
++ ocamlc -w Aes -warn-error P -rectypes -I ../Tools -I ../lib -pp 
+../PreProc/camlp4opt -g -I . -c Zlib.mli
+<W> Grammar extension: in [expr] some rule has been masked
+- build Tools 
+Zlib.o                                                          
++ ocamlopt -w Aes -warn-error P -rectypes -I ../Tools -I ../lib -pp 
+../PreProc/camlp4opt -I . -c Zlib.ml
+<W> Grammar extension: in [expr] some rule has been masked
+- scan Tools 
+scan-ocaml-IO_Base.ml                                            
++ ocamldep -I ../Tools -I ../lib -pp ../PreProc/camlp4opt -modules 
+IO_Base.ml
+     | Shell.ocamldep-postproc()
+<W> Grammar extension: in [expr] some rule has been masked
+- build Tools 
+IO_Base.cmx                                                     
++ ocamlopt -w Aes -warn-error P -rectypes -I ../Tools -I ../lib -pp 
+../PreProc/camlp4opt -I . -c IO_Base.ml
+<W> Grammar extension: in [expr] some rule has been masked
+- build Tools 
+NumFloat.cmx                                                    
++ ocamlopt -w Aes -warn-error P -rectypes -I ../Tools -I ../lib -pp 
+../PreProc/camlp4opt -I . -c NumFloat.ml
+<W> Grammar extension: in [expr] some rule has been masked
+- scan Tools 
+scan-ocaml-Option.mli                                            
++ ocamldep -I ../Tools -I ../lib -pp ../PreProc/camlp4opt -modules 
+Option.mli
+     | Shell.ocamldep-postproc()
+<W> Grammar extension: in [expr] some rule has been masked
+- build Tools 
+Option.cmi                                                      
++ ocamlc -w Aes -warn-error P -rectypes -I ../Tools -I ../lib -pp 
+../PreProc/camlp4opt -g -I . -c Option.mli
+<W> Grammar extension: in [expr] some rule has been masked
+- build Tools 
+Option.o                                                        
++ ocamlopt -w Aes -warn-error P -rectypes -I ../Tools -I ../lib -pp 
+../PreProc/camlp4opt -I . -c Option.ml
+<W> Grammar extension: in [expr] some rule has been masked
+- scan Tools 
+scan-ocaml-PlanePartition.mli                                    
++ ocamldep -I ../Tools -I ../lib -pp ../PreProc/camlp4opt -modules 
+PlanePartition.mli
+     | Shell.ocamldep-postproc()
+<W> Grammar extension: in [expr] some rule has been masked
+- scan Tools 
+scan-ocaml-XNum.ml                                               
++ ocamldep -I ../Tools -I ../lib -pp ../PreProc/camlp4opt -modules XNum.ml
+     | Shell.ocamldep-postproc()
+<W> Grammar extension: in [expr] some rule has been masked
+- build Tools 
+XNum.cmx                                                        
++ ocamlopt -w Aes -warn-error P -rectypes -I ../Tools -I ../lib -pp 
+../PreProc/camlp4opt -I . -c XNum.ml
+<W> Grammar extension: in [expr] some rule has been masked
+- build Tools 
+LinForm.cmi                                                     
++ ocamlc -w Aes -warn-error P -rectypes -I ../Tools -I ../lib -pp 
+../PreProc/camlp4opt -g -I . -c LinForm.mli
+<W> Grammar extension: in [expr] some rule has been masked
+- build Tools 
+Constraint.cmi                                                  
++ ocamlc -w Aes -warn-error P -rectypes -I ../Tools -I ../lib -pp 
+../PreProc/camlp4opt -g -I . -c Constraint.mli
+<W> Grammar extension: in [expr] some rule has been masked
+- build Tools 
+IO.cmi                                                          
++ ocamlc -w Aes -warn-error P -rectypes -I ../Tools -I ../lib -pp 
+../PreProc/camlp4opt -g -I . -c IO.mli
+<W> Grammar extension: in [expr] some rule has been masked
+- build Tools 
+IO.o                                                            
++ ocamlopt -w Aes -warn-error P -rectypes -I ../Tools -I ../lib -pp 
+../PreProc/camlp4opt -I . -c IO.ml
+<W> Grammar extension: in [expr] some rule has been masked
+- build Tools 
+PlanePartition.cmi                                              
++ ocamlc -w Aes -warn-error P -rectypes -I ../Tools -I ../lib -pp 
+../PreProc/camlp4opt -g -I . -c PlanePartition.mli
+<W> Grammar extension: in [expr] some rule has been masked
+- build Tools 
+PlanePartition.o                                                
++ ocamlopt -w Aes -warn-error P -rectypes -I ../Tools -I ../lib -pp 
+../PreProc/camlp4opt -I . -c PlanePartition.ml
+<W> Grammar extension: in [expr] some rule has been masked
+- build Tools 
+ShortestPath.cmi                                                
++ ocamlc -w Aes -warn-error P -rectypes -I ../Tools -I ../lib -pp 
+../PreProc/camlp4opt -g -I . -c ShortestPath.mli
+<W> Grammar extension: in [expr] some rule has been masked
+- build Tools 
+ShortestPath.cmx                                                
++ ocamlopt -w Aes -warn-error P -rectypes -I ../Tools -I ../lib -pp 
+../PreProc/camlp4opt -I . -c ShortestPath.ml
+<W> Grammar extension: in [expr] some rule has been masked
+- scan Tools 
+scan-ocaml-LinForm.ml                                            
++ ocamldep -I ../Tools -I ../lib -pp ../PreProc/camlp4opt -modules 
+LinForm.ml
+     | Shell.ocamldep-postproc()
+<W> Grammar extension: in [expr] some rule has been masked
+- build Tools 
+LinForm.cmx                                                     
++ ocamlopt -w Aes -warn-error P -rectypes -I ../Tools -I ../lib -pp 
+../PreProc/camlp4opt -I . -c LinForm.ml
+<W> Grammar extension: in [expr] some rule has been masked
+- build Tools 
+Constraint.cmx                                                  
++ ocamlopt -w Aes -warn-error P -rectypes -I ../Tools -I ../lib -pp 
+../PreProc/camlp4opt -I . -c Constraint.ml
+<W> Grammar extension: in [expr] some rule has been masked
+- scan Unicode 
+scan-ocaml-SymbolTable.ml                                      
++ ocamldep -I ../Tools -I ../lib -pp ../PreProc/camlp4opt -modules 
+SymbolTable.ml
+     | Shell.ocamldep-postproc()
+<W> Grammar extension: in [expr] some rule has been masked
+- scan Unicode 
+scan-ocaml-Format.mli                                          
++ ocamldep -I ../Tools -I ../lib -pp ../PreProc/camlp4opt -modules 
+Format.mli
+     | Shell.ocamldep-postproc()
+<W> Grammar extension: in [expr] some rule has been masked
+- scan Unicode 
+scan-ocaml-UChar.ml                                            
++ ocamldep -I ../Tools -I ../lib -pp ../PreProc/camlp4opt -modules UChar.ml
+     | Shell.ocamldep-postproc()
+<W> Grammar extension: in [expr] some rule has been masked
+- scan Unicode 
+scan-ocaml-GenUnicodeTable.ml                                  
++ ocamldep -I ../Tools -I ../lib -pp ../PreProc/camlp4opt -modules 
+GenUnicodeTable.ml
+     | Shell.ocamldep-postproc()
+<W> Grammar extension: in [expr] some rule has been masked
+- build Unicode 
+GenUnicodeTable.cmi                                           
++ ocamlopt -w Aes -warn-error P -rectypes -I ../Tools -I ../lib -pp 
+../PreProc/camlp4opt -I . -I . -c GenUnicodeTable.ml
+<W> Grammar extension: in [expr] some rule has been masked
+- build Unicode 
+GenUnicodeTable.opt                                           
++ ocamlopt -w Aes -warn-error P -rectypes -I ../Tools -I ../lib -pp 
+../PreProc/camlp4opt -I . -I . -o GenUnicodeTable.opt unix.cmxa 
+/usr/lib/ocaml/3.10.2/camlimages/ci_core.cmxa 
+/usr/lib/ocaml/3.10.2/camlimages/ci_freetype.cmxa 
+/usr/lib/ocaml/3.10.2/camlimages/ci_gif.cmxa 
+/usr/lib/ocaml/3.10.2/camlimages/ci_jpeg.cmxa 
+/usr/lib/ocaml/3.10.2/camlimages/ci_tiff.cmxa 
+/usr/lib/ocaml/3.10.2/camlimages/ci_bmp.cmxa 
+/usr/lib/ocaml/3.10.2/camlimages/ci_ppm.cmxa 
+/usr/lib/ocaml/3.10.2/camlimages/ci_png.cmxa 
+/usr/lib/ocaml/3.10.2/camlimages/ci_xvthumb.cmxa 
+/usr/lib/ocaml/3.10.2/camlimages/ci_xpm.cmxa 
+/usr/lib/ocaml/3.10.2/camlimages/ci_ps.cmxa ../Tools/Tools.cmxa 
+GenUnicodeTable.cmx -I /usr/lib/ocaml/3.10.2/camlimages -cclib 
+-L/usr/local/texlive/2008/lib -cclib -L/usr/X11/lib -cclib -lz
+/usr/bin/ld: 
+[=======================                                       ] 
+00cannot find -ltiff
+collect2: ld returned 1 exit status
+Error during linking
+*** omake: 360/950 targets are up to 
+date                                     
+*** omake: failed (6.66 sec, 35/36 scans, 38/63 rules, 151/857 digests)
+*** omake: targets were not rebuilt because of 
+errors:                        
+   Unicode/GenUnicodeTable.opt
+
+
+Barry Schwartz wrote:
+> Mohamed O Bana <m.bana at ucl.ac.uk> skribis:
+>   
+>> Has anyone managed to build ANT on Ubuntu 8.10 intrepid.  I'm running into
+>> freetype problems.  I'd really appreciate if someone could just post how
+>> they got it working.
+>>     
+>
+> You could try this patch, although I believe the latest CVS has this
+> fixed.
+>
+>
+> --- ant.ORIG/Runtime/OMakefile	2008-06-12 00:56:10.000000000 +0000
+> +++ ant/Runtime/OMakefile	2008-06-12 02:48:23.000000000 +0000
+> @@ -66,6 +66,7 @@
+>  	$(OCAMLC) -c $(KPATHSEA_CFLAGS) $(SELFAUTO_FLAGS) -o $@ $^
+>  	mv kpathsea-stubs.o $@  # BUG: ocaml creates the object file in the current directory
+>  
+> +CFLAGS += $(FREETYPE_FLAGS)
+>  freetype-stubs.o: freetype-stubs.c
+>  	$(OCAMLC) -c $(FREETYPE_FLAGS) -o $@ $^
+>  	mv freetype-stubs.o $@  # BUG: ocaml creates the object file in the current directory
+> _______________________________________________
+> ant-devel mailing list
+> ant-devel at lists.berlios.de
+> https://lists.berlios.de/mailman/listinfo/ant-devel
+>   
+
+
+From chemoelectric at chemoelectric.org  Fri Dec 26 19:13:30 2008
+From: chemoelectric at chemoelectric.org (Barry Schwartz)
+Date: Fri, 26 Dec 2008 18:13:30 -0000
+Subject: [ant-devel] Building on Ubuntu 8.10 intrepid
+In-Reply-To: <4954FAD3.80604@ucl.ac.uk>
+References: <59198.87.194.191.26.1228591258.squirrel@www.squirrelmail.ucl.ac.uk>
+	<20081206201559.GA18135@crud.crud.mn.org>
+	<4954FAD3.80604@ucl.ac.uk>
+Message-ID: <20081226181321.GB30534@crud.crud.mn.org>
+
+Mohamed Bana <m.bana at ucl.ac.uk> skribis:
+> - scan Runtime freetype-stubs.o
+> + gcc -I. -MM freetype-stubs.c
+> freetype-stubs.c:7:10: error: #include expects "FILENAME" or <FILENAME>
+> freetype-stubs.c:8:10: error: #include expects "FILENAME" or <FILENAME>
+> freetype-stubs.c:9:10: error: #include expects "FILENAME" or <FILENAME>
+
+This looks like the path to /usr/include/freetype2 isn't being
+found. Do you have freetype-config in the PATH?
+
+
+

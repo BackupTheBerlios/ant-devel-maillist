@@ -1,0 +1,103 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [ant-devel] Compilation problem
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/ant-devel/2009-June/index.html" >
+   <LINK REL="made" HREF="mailto:ant-devel%40lists.berlios.de?Subject=Re%3A%20%5Bant-devel%5D%20Compilation%20problem&In-Reply-To=%3C11EABBA3-9905-47FC-BA13-FE8EFD9D4667%40gmail.com%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000114.html">
+   <LINK REL="Next"  HREF="000116.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[ant-devel] Compilation problem</H1>
+    <B>Vincent Aravantinos</B> 
+    <A HREF="mailto:ant-devel%40lists.berlios.de?Subject=Re%3A%20%5Bant-devel%5D%20Compilation%20problem&In-Reply-To=%3C11EABBA3-9905-47FC-BA13-FE8EFD9D4667%40gmail.com%3E"
+       TITLE="[ant-devel] Compilation problem">vincent.aravantinos at gmail.com
+       </A><BR>
+    <I>Fri Jun 12 15:00:44 CEST 2009</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000114.html">[ant-devel] Compilation problem
+</A></li>
+        <LI>Next message: <A HREF="000116.html">[ant-devel] Compilation problem
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#115">[ date ]</a>
+              <a href="thread.html#115">[ thread ]</a>
+              <a href="subject.html#115">[ subject ]</a>
+              <a href="author.html#115">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>
+Le 12 juin 09 &#224; 14:54, Achim Blumensath a &#233;crit :
+
+&gt;<i> Vincent Aravantinos wrote:
+</I>&gt;&gt;<i> $omake
+</I>&gt;&gt;<i> *** omake: reading OMakefiles
+</I>&gt;&gt;<i> *** omake: finished reading OMakefiles (0.26 sec)
+</I>&gt;&gt;<i> - scan Tools zlib-stubs.o
+</I>&gt;&gt;<i> + gcc -I. -MM zlib-stubs.c
+</I>&gt;&gt;<i> zlib-stubs.c:2:27: error: caml/mlvalues.h: No such file or directory
+</I>&gt;<i>
+</I>&gt;<i> Can you try adding the line
+</I>&gt;<i>
+</I>&gt;<i>  CFLAGS += -I $(OCAML_LIB_DIR)
+</I>&gt;<i>
+</I>&gt;<i> to the OMakefile in the root directory?
+</I>
+Great, this worked!
+
+However, I now have yet another error :-(
+
+$omake
+*** omake: reading OMakefiles
+*** omake: finished reading OMakefiles (0.26 sec)
+- build Images CamlImages.cmx
++ ocamlopt.opt -w Aes -warn-error P -rectypes -I ../Tools -I ../lib - 
+pp ../PreProc/camlp4opt -I . -I /opt/godi/lib/ocaml/std-lib/camlimages  
+-I . -c CamlImages.ml
+&lt;W&gt; Grammar extension: in [expr] some rule has been masked
+File &quot;CamlImages.ml&quot;, line 2, characters 17-23:
+Error: Unbound module Images
+*** omake: 205/953 targets are up to date
+*** omake: failed (0.41 sec, 0/28 scans, 1/47 rules, 0/537 digests)
+*** omake: targets were not rebuilt because of errors:
+    Images/CamlImages.cmi
+       depends on: Images/CamlImages.ml
+    Images/CamlImages.cmx
+       depends on: Images/CamlImages.ml
+    Images/CamlImages.o
+       depends on: Images/CamlImages.ml
+
+
+Vincent
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000114.html">[ant-devel] Compilation problem
+</A></li>
+	<LI>Next message: <A HREF="000116.html">[ant-devel] Compilation problem
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#115">[ date ]</a>
+              <a href="thread.html#115">[ thread ]</a>
+              <a href="subject.html#115">[ subject ]</a>
+              <a href="author.html#115">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/ant-devel">More information about the ant-devel
+mailing list</a><br>
+</body></html>

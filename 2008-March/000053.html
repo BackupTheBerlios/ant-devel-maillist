@@ -1,0 +1,154 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [ant-devel] Conversion between characters and unicode value
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/ant-devel/2008-March/index.html" >
+   <LINK REL="made" HREF="mailto:ant-devel%40lists.berlios.de?Subject=Re%3A%20%5Bant-devel%5D%20Conversion%20between%20characters%20and%20unicode%20value&In-Reply-To=%3C9332B2E8-C83D-4367-B5B7-2BF6665A08AC%40nus.edu.sg%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000052.html">
+   <LINK REL="Next"  HREF="000054.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[ant-devel] Conversion between characters and unicode value</H1>
+    <B>Shen Chen</B> 
+    <A HREF="mailto:ant-devel%40lists.berlios.de?Subject=Re%3A%20%5Bant-devel%5D%20Conversion%20between%20characters%20and%20unicode%20value&In-Reply-To=%3C9332B2E8-C83D-4367-B5B7-2BF6665A08AC%40nus.edu.sg%3E"
+       TITLE="[ant-devel] Conversion between characters and unicode value">shenchen at nus.edu.sg
+       </A><BR>
+    <I>Sat Mar 29 18:04:33 CET 2008</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000052.html">[ant-devel] Conversion between characters and unicode value
+</A></li>
+        <LI>Next message: <A HREF="000054.html">[ant-devel] Conversion between characters and unicode value
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#53">[ date ]</a>
+              <a href="thread.html#53">[ thread ]</a>
+              <a href="subject.html#53">[ subject ]</a>
+              <a href="author.html#53">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Hi Achim,
+
+I am writing a small macro library that allows me to typeset maths/ 
+physics text. Below is a wish list I currently have in mind:
+
+1. unicode &lt;-&gt; character conversion function
+
+2. ps_log_string that writes to the log file.
+
+3. kpsewhich function: I dump various maps (font encodings, etc) with  
+serialization, and certainly hope to place them in my TEXMF tree.
+
+4. \ifdef and it's ps_xxxx equivalence.
+
+5. ps_xxxx equivalents to \setparameter{} and \setmathfont{}. I can't  
+figure out how to use set_math_font which returns a function of type  
+environment. May be it should be used to construct nodes?
+
+6. helper functions to construct nodes. I saw a (commented out)  
+example of using ps_add_node.  Node.ml seem to contain most of the  
+definitions, but I am not exactly sure how to do the translation.
+
+7. I would prefer math_char definition local to the current group.  
+Actually I wonder why macros are made global.
+
+8. Named float queues. When I define a float area, I specify a queue  
+name (similar to Galley). When I place a float, I also specify the  
+name of float queue to which the current float is appended. I hope to  
+use this feature to implement multi-column figure/equation, and floats  
+in margin.
+
+I haven't read much Ant source code yet. I haven't used functional  
+programming language before, so my code reading is slow. Writing AL  
+scripts was a pain at first, but I think I am slowly picking up.
+Some of the items in the wish list may not be necessary, or better  
+alternatives are available. Refernece.ant and manual.sty has been  
+enormously helpful to my macro writing so far. I certainly hope to see  
+more examples, if possible.
+
+I tried loading a Chinese TTF font in ant. Correct result was  
+generated, but it takes two minutes or so to load the font (on core 2  
+duo). I wonder if this would be a fundamental limitation to ant, or  
+there is definite solutions to this problem. I don't need Chinese  
+typesetting at this moment, but it's definitely something we need in  
+future.
+
+Thank you very much.
+
+regards,
+shenchen
+
+On Mar 28, 2008, at 11:59 PM, Achim Blumensath wrote:
+
+&gt;<i> Hello,
+</I>&gt;<i>
+</I>&gt;&gt;<i> Since \ALcommand requires us to return a parse_state, I wonder how to
+</I>&gt;&gt;<i> generate a parse_state without actually doing anything. Currently I  
+</I>&gt;&gt;<i> am
+</I>&gt;&gt;<i> using ps_warning to this end:
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i> local begin
+</I>&gt;&gt;<i>   set_fam0 _ [] := do ps_warning &quot;done&quot; end;
+</I>&gt;&gt;<i>   set_fam0 n [x:xs] :=
+</I>&gt;&gt;<i>     do
+</I>&gt;&gt;<i>       ps_set_math_code x Ordinary 0 n 0 n;
+</I>&gt;&gt;<i>       set_fam0 (n+1) xs
+</I>&gt;&gt;<i>     end
+</I>&gt;&gt;<i> end
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i> Ugly it is... Could you advise a better code? Thank you.
+</I>&gt;<i>
+</I>&gt;<i> Just use the identity function:
+</I>&gt;<i>
+</I>&gt;<i>  set_fam0 _ [] := { ps := ps };
+</I>&gt;<i>
+</I>&gt;<i> Achim
+</I>&gt;<i> -- 
+</I>&gt;<i> ________________________________________________________________________
+</I>&gt;<i>                                                              |  
+</I>&gt;<i> \_____/ |
+</I>&gt;<i>   Achim Blumensath                                          \O/ \___/ 
+</I>&gt;<i> \ |
+</I>&gt;<i>   TU Darmstadt                                              =o=  \ / 
+</I>&gt;<i> \ \|
+</I>&gt;<i>   www.mathematik.tu-darmstadt.de/~blumensath                /&quot;\    
+</I>&gt;<i> o----|
+</I>&gt;<i> ____________________________________________________________________ 
+</I>&gt;<i> \___|
+</I>&gt;<i> _______________________________________________
+</I>&gt;<i> ant-devel mailing list
+</I>&gt;<i> <A HREF="https://lists.berlios.de/mailman/listinfo/ant-devel">ant-devel at lists.berlios.de</A>
+</I>&gt;<i> <A HREF="https://lists.berlios.de/mailman/listinfo/ant-devel">https://lists.berlios.de/mailman/listinfo/ant-devel</A>
+</I>
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000052.html">[ant-devel] Conversion between characters and unicode value
+</A></li>
+	<LI>Next message: <A HREF="000054.html">[ant-devel] Conversion between characters and unicode value
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#53">[ date ]</a>
+              <a href="thread.html#53">[ thread ]</a>
+              <a href="subject.html#53">[ subject ]</a>
+              <a href="author.html#53">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/ant-devel">More information about the ant-devel
+mailing list</a><br>
+</body></html>

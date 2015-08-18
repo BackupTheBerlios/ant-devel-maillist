@@ -1,0 +1,81 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [ant-devel] ant and Camlimages 3.0.2
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/ant-devel/2010-June/index.html" >
+   <LINK REL="made" HREF="mailto:ant-devel%40lists.berlios.de?Subject=Re%3A%20%5Bant-devel%5D%20ant%20and%20Camlimages%203.0.2&In-Reply-To=%3C20100602224117.GA28745%40crud.chemoelectric.org%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   
+   <LINK REL="Next"  HREF="000154.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[ant-devel] ant and Camlimages 3.0.2</H1>
+    <B>Barry Schwartz</B> 
+    <A HREF="mailto:ant-devel%40lists.berlios.de?Subject=Re%3A%20%5Bant-devel%5D%20ant%20and%20Camlimages%203.0.2&In-Reply-To=%3C20100602224117.GA28745%40crud.chemoelectric.org%3E"
+       TITLE="[ant-devel] ant and Camlimages 3.0.2">chemoelectric at chemoelectric.org
+       </A><BR>
+    <I>Thu Jun  3 00:41:17 CEST 2010</I>
+    <P><UL>
+        
+        <LI>Next message: <A HREF="000154.html">[ant-devel] ant and Camlimages 3.0.2
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#153">[ date ]</a>
+              <a href="thread.html#153">[ thread ]</a>
+              <a href="subject.html#153">[ subject ]</a>
+              <a href="author.html#153">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>There is a patch for compiling ant with Camlimages 3.0.2 at
+<A HREF="http://bitbucket.org/chemoelectric/ant-devel/changeset/d910212c3e11/raw/ant-devel-d910212c3e11.diff">http://bitbucket.org/chemoelectric/ant-devel/changeset/d910212c3e11/raw/ant-devel-d910212c3e11.diff</A>
+The biggest change is that there is a Bitmap module as part of
+Camlimages, so I changed Runtime.Bitmap to Runtime.BitmapBase. I don't
+know whether these particular changes ought to go into the CVS.
+
+Different distributions seem to differ on whether they include
+Camlimages 2 or Camlimages 3, so it is good to be able to use
+either. I think unpatched Camlimages 2 may have some security issues,
+but putting specially crafted trojan PNGs in your ant documents is a
+bad idea, in any case. :)
+
+Related: I'm trying to set up an ant mirror at Bitbucket, but am not
+certain that I know what I am doing. :) My account is at
+<A HREF="http://bitbucket.org/chemoelectric/">http://bitbucket.org/chemoelectric/</A>
+
+Less related: I have Exherbo Linux &quot;packages&quot; (exhereses) for ant and
+its dependencies at <A HREF="http://github.com/chemoelectric/exherbo-rubujo">http://github.com/chemoelectric/exherbo-rubujo</A>
+I'll be surprised if anyone else uses Exherbo. :) The packages could
+easily be converted to Gentoo ebuilds, however, or used as guidance on
+how to build ant manually.
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	
+	<LI>Next message: <A HREF="000154.html">[ant-devel] ant and Camlimages 3.0.2
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#153">[ date ]</a>
+              <a href="thread.html#153">[ thread ]</a>
+              <a href="subject.html#153">[ subject ]</a>
+              <a href="author.html#153">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/ant-devel">More information about the ant-devel
+mailing list</a><br>
+</body></html>

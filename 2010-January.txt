@@ -1,0 +1,999 @@
+From info at alexraasch.de  Sun Jan 17 20:46:26 2010
+From: info at alexraasch.de (Alexander Raasch)
+Date: Sun, 17 Jan 2010 20:46:26 +0100
+Subject: [ant-devel] Problem compiling ant 0.8
+Message-ID: <4B536912.8030701@alexraasch.de>
+
+Hello everyone,
+
+I tried to compile ant today after installing all the necessary tools. 
+omake runs for a couple of seconds then tells me:
+
+freetype-stubs.c:7:10: [=================================
+error: #include expects "FILENAME" or <FILENAME>
+freetype-stubs.c:8:10: error: #include expects "FILENAME" or <FILENAME>
+freetype-stubs.c:9:10: error: #include expects "FILENAME" or <FILENAME>
+*** omake: 514/938 targets are up to 
+date                                     
+*** omake: failed (1.24 sec, 1/113 scans, 0/200 rules, 0/781 digests)
+*** omake: targets were not rebuilt because of 
+errors:                        
+   <scanner Runtime/freetype-stubs.o>
+      depends on: Runtime/freetype-stubs.c
+
+
+I don't know anything about OCaml, so any help would be greatly appreciated.
+
+Alex
+
+
+From Barry.SCHWARTZ at chemoelectric.org  Sun Jan 17 21:43:57 2010
+From: Barry.SCHWARTZ at chemoelectric.org (Barry Schwartz)
+Date: Sun, 17 Jan 2010 14:43:57 -0600
+Subject: [ant-devel] Problem compiling ant 0.8
+Message-ID: <20100117204357.GA21167@crud.chemoelectric.org>
+
+Alexander Raasch <info at alexraasch.de> skribis:
+> I tried to compile ant today after installing all the necessary tools. 
+> omake runs for a couple of seconds then tells me:
+> 
+> freetype-stubs.c:7:10: [=================================
+> error: #include expects "FILENAME" or <FILENAME>
+> freetype-stubs.c:8:10: error: #include expects "FILENAME" or <FILENAME>
+> freetype-stubs.c:9:10: error: #include expects "FILENAME" or <FILENAME>
+> *** omake: 514/938 targets are up to 
+> date                                     
+> *** omake: failed (1.24 sec, 1/113 scans, 0/200 rules, 0/781 digests)
+> *** omake: targets were not rebuilt because of 
+> errors:                        
+>    <scanner Runtime/freetype-stubs.o>
+>       depends on: Runtime/freetype-stubs.c
+> 
+> 
+> I don't know anything about OCaml, so any help would be greatly appreciated.
+
+This looks like a C problem, anyway, in the way freetype headers are
+included. Do you have freetype2 set up and, if so, what version? Does
+running 'freetype-config' work?
+
+
+From info at alexraasch.de  Mon Jan 18 00:31:53 2010
+From: info at alexraasch.de (Alexander Raasch)
+Date: Mon, 18 Jan 2010 00:31:53 +0100
+Subject: [ant-devel] Problem compiling ant 0.8
+In-Reply-To: <20100117204357.GA21167@crud.chemoelectric.org>
+References: <20100117204357.GA21167@crud.chemoelectric.org>
+Message-ID: <4B539DE9.2060707@alexraasch.de>
+
+Hello Barry,
+
+thanks for the quick answer. I have installed both libfreetype and 
+libfreetype-dev. 'freetype-config --version' gives 9.20.3 and 
+'freetype-config --ftversion' gives 2.3.9.
+> This looks like a C problem, anyway, in the way freetype headers are
+> included. Do you have freetype2 set up and, if so, what version? Does
+> running 'freetype-config' work?
+> _______________________________________________
+> ant-devel mailing list
+> ant-devel at lists.berlios.de
+> https://lists.berlios.de/mailman/listinfo/ant-devel
+>
+>
+>   
+
+
+
+From info at alexraasch.de  Mon Jan 18 18:12:44 2010
+From: info at alexraasch.de (Alexander Raasch)
+Date: Mon, 18 Jan 2010 18:12:44 +0100
+Subject: [ant-devel] Problem compiling ant 0.8
+In-Reply-To: <20100117204357.GA21167@crud.chemoelectric.org>
+References: <20100117204357.GA21167@crud.chemoelectric.org>
+Message-ID: <4B54968C.9050900@alexraasch.de>
+
+Hello Barry,
+
+thanks for the quick answer. I have both libfreetype and libfreetype-dev 
+installed. 'freetype-config --version' tells me 9.20.3 and 
+'freetype-config --ftversion' gives 2.3.9.
+>
+> This looks like a C problem, anyway, in the way freetype headers are
+> included. Do you have freetype2 set up and, if so, what version? Does
+> running 'freetype-config' work?
+> _______________________________________________
+> ant-devel mailing list
+> ant-devel at lists.berlios.de
+> https://lists.berlios.de/mailman/listinfo/ant-devel
+>
+>
+>   
+
+
+
+From Barry.SCHWARTZ at chemoelectric.org  Mon Jan 18 20:43:04 2010
+From: Barry.SCHWARTZ at chemoelectric.org (Barry Schwartz)
+Date: Mon, 18 Jan 2010 13:43:04 -0600
+Subject: [ant-devel] Problem compiling ant 0.8
+In-Reply-To: <4B54968C.9050900@alexraasch.de>
+References: <20100117204357.GA21167@crud.chemoelectric.org>
+	<4B54968C.9050900@alexraasch.de>
+Message-ID: <20100118194304.GA23892@crud.chemoelectric.org>
+
+Alexander Raasch <info at alexraasch.de> skribis:
+> thanks for the quick answer. I have both libfreetype and libfreetype-dev 
+> installed. 'freetype-config --version' tells me 9.20.3 and 
+> 'freetype-config --ftversion' gives 2.3.9.
+> >
+> > This looks like a C problem, anyway, in the way freetype headers are
+> > included. Do you have freetype2 set up and, if so, what version? Does
+> > running 'freetype-config' work?
+
+What platform?
+
+And, if you are not using the CVS sources, you should probably use
+those.
+
+One thing I just noticed is that you want CamlImages version 2.x. I
+think I had it working with some OMakefile changes and recent
+CamlImages, but the build fails for me with CamlImages 3.0.2. (I'm on
+Gentoo and these things get upgraded automatically, unless I take
+special action.)
+
+
+
+
+From info at alexraasch.de  Mon Jan 18 21:44:23 2010
+From: info at alexraasch.de (Alexander Raasch)
+Date: Mon, 18 Jan 2010 21:44:23 +0100
+Subject: [ant-devel] Problem compiling ant 0.8
+In-Reply-To: <20100118194304.GA23892@crud.chemoelectric.org>
+References: <20100117204357.GA21167@crud.chemoelectric.org>	<4B54968C.9050900@alexraasch.de>
+	<20100118194304.GA23892@crud.chemoelectric.org>
+Message-ID: <4B54C827.8000000@alexraasch.de>
+
+My platform is Ubuntu 9.10.
+
+OK, I didn't use the CVS sources but I will try those next. My 
+CamlImages is only 1.3.0 so I'll update that too.
+> Alexander Raasch <info at alexraasch.de> skribis:
+>   
+>> thanks for the quick answer. I have both libfreetype and libfreetype-dev 
+>> installed. 'freetype-config --version' tells me 9.20.3 and 
+>> 'freetype-config --ftversion' gives 2.3.9.
+>>     
+>>> This looks like a C problem, anyway, in the way freetype headers are
+>>> included. Do you have freetype2 set up and, if so, what version? Does
+>>> running 'freetype-config' work?
+>>>       
+>
+> What platform?
+>
+> And, if you are not using the CVS sources, you should probably use
+> those.
+>
+> One thing I just noticed is that you want CamlImages version 2.x. I
+> think I had it working with some OMakefile changes and recent
+> CamlImages, but the build fails for me with CamlImages 3.0.2. (I'm on
+> Gentoo and these things get upgraded automatically, unless I take
+> special action.)
+>
+>
+> _______________________________________________
+> ant-devel mailing list
+> ant-devel at lists.berlios.de
+> https://lists.berlios.de/mailman/listinfo/ant-devel
+>
+>
+>   
+
+
+
+From info at alexraasch.de  Tue Jan 19 07:28:55 2010
+From: info at alexraasch.de (Alexander Raasch)
+Date: Tue, 19 Jan 2010 07:28:55 +0100
+Subject: [ant-devel] Problem compiling ant 0.8
+In-Reply-To: <20100118194304.GA23892@crud.chemoelectric.org>
+References: <20100117204357.GA21167@crud.chemoelectric.org>	<4B54968C.9050900@alexraasch.de>
+	<20100118194304.GA23892@crud.chemoelectric.org>
+Message-ID: <4B555127.3070107@alexraasch.de>
+
+So, I downloaded from CVS, I hope modulename 'ant' is correct. However, 
+I now get this error:
+
+omake: Symbol `FamErrlist' has different size in shared object, consider 
+re-linking
+*** omake: reading OMakefiles
+*** omake: finished reading OMakefiles (0.32 sec)
+*** omake: 38/66 targets are up to date
+*** omake: failed (0.34 sec, 0/0 scans, 0/0 rules, 0/114 digests)
+*** omake error:
+   File /usr/lib/omake/build/OCaml.om: line 933, characters 10-73
+   Do not know how to build "lib" required for "lib/Runtime.cmi"
+
+> Alexander Raasch <info at alexraasch.de> skribis:
+>   
+>> thanks for the quick answer. I have both libfreetype and libfreetype-dev 
+>> installed. 'freetype-config --version' tells me 9.20.3 and 
+>> 'freetype-config --ftversion' gives 2.3.9.
+>>     
+>>> This looks like a C problem, anyway, in the way freetype headers are
+>>> included. Do you have freetype2 set up and, if so, what version? Does
+>>> running 'freetype-config' work?
+>>>       
+>
+> What platform?
+>
+> And, if you are not using the CVS sources, you should probably use
+> those.
+>
+> One thing I just noticed is that you want CamlImages version 2.x. I
+> think I had it working with some OMakefile changes and recent
+> CamlImages, but the build fails for me with CamlImages 3.0.2. (I'm on
+> Gentoo and these things get upgraded automatically, unless I take
+> special action.)
+>
+>
+> _______________________________________________
+> ant-devel mailing list
+> ant-devel at lists.berlios.de
+> https://lists.berlios.de/mailman/listinfo/ant-devel
+>
+>
+>   
+
+
+
+From Barry.SCHWARTZ at chemoelectric.org  Tue Jan 19 08:06:35 2010
+From: Barry.SCHWARTZ at chemoelectric.org (Barry Schwartz)
+Date: Tue, 19 Jan 2010 01:06:35 -0600
+Subject: [ant-devel] Problem compiling ant 0.8
+In-Reply-To: <4B555127.3070107@alexraasch.de>
+References: <20100117204357.GA21167@crud.chemoelectric.org>
+	<4B54968C.9050900@alexraasch.de>
+	<20100118194304.GA23892@crud.chemoelectric.org>
+	<4B555127.3070107@alexraasch.de>
+Message-ID: <20100119070635.GA11348@crud.chemoelectric.org>
+
+Alexander Raasch <info at alexraasch.de> skribis:
+> So, I downloaded from CVS, I hope modulename 'ant' is correct. However, 
+> I now get this error:
+> 
+> omake: Symbol `FamErrlist' has different size in shared object, consider 
+> re-linking
+> *** omake: reading OMakefiles
+> *** omake: finished reading OMakefiles (0.32 sec)
+> *** omake: 38/66 targets are up to date
+> *** omake: failed (0.34 sec, 0/0 scans, 0/0 rules, 0/114 digests)
+> *** omake error:
+>    File /usr/lib/omake/build/OCaml.om: line 933, characters 10-73
+>    Do not know how to build "lib" required for "lib/Runtime.cmi"
+
+I think for that you just have to do 'mkdir lib' manually. Also at
+some point it will need to put a copy of UnicodeData.txt
+(http://unicode.org/Public/UNIDATA/UnicodeData.txt) in the 'data'
+directory.
+
+
+
+From info at alexraasch.de  Tue Jan 19 15:09:42 2010
+From: info at alexraasch.de (info at alexraasch.de)
+Date: Tue, 19 Jan 2010 15:09:42 +0100 (CET)
+Subject: [ant-devel] Problem compiling ant 0.8
+In-Reply-To: <20100119070635.GA11348@crud.chemoelectric.org>
+References: <20100117204357.GA21167@crud.chemoelectric.org><4B54968C.9050900@alexraasch.de><20100118194304.GA23892@crud.chemoelectric.org><4B555127.3070107@alexraasch.de>
+	<20100119070635.GA11348@crud.chemoelectric.org>
+Message-ID: <2985.195.179.65.67.1263910182.squirrel@webmail.artfiles.de>
+
+OK, I'll try that when I get home tonight. This all seems awfully
+complicated. Wouldn't it be possible to provide a binary distribution of
+sorts? So that the OCaml illiterate like me can try out ant more easily?
+Also, using a package manager would solve all those dependencies.
+
+> Alexander Raasch <info at alexraasch.de> skribis:
+>> So, I downloaded from CVS, I hope modulename 'ant' is correct. However,
+>> I now get this error:
+>>
+>> omake: Symbol `FamErrlist' has different size in shared object, consider
+>> re-linking
+>> *** omake: reading OMakefiles
+>> *** omake: finished reading OMakefiles (0.32 sec)
+>> *** omake: 38/66 targets are up to date
+>> *** omake: failed (0.34 sec, 0/0 scans, 0/0 rules, 0/114 digests)
+>> *** omake error:
+>>    File /usr/lib/omake/build/OCaml.om: line 933, characters 10-73
+>>    Do not know how to build "lib" required for "lib/Runtime.cmi"
+>
+> I think for that you just have to do 'mkdir lib' manually. Also at
+> some point it will need to put a copy of UnicodeData.txt
+> (http://unicode.org/Public/UNIDATA/UnicodeData.txt) in the 'data'
+> directory.
+>
+> _______________________________________________
+> ant-devel mailing list
+> ant-devel at lists.berlios.de
+> https://lists.berlios.de/mailman/listinfo/ant-devel
+>
+
+
+
+From info at alexraasch.de  Tue Jan 19 20:22:58 2010
+From: info at alexraasch.de (Alexander Raasch)
+Date: Tue, 19 Jan 2010 20:22:58 +0100
+Subject: [ant-devel] Problem compiling ant 0.8
+In-Reply-To: <20100119070635.GA11348@crud.chemoelectric.org>
+References: <20100117204357.GA21167@crud.chemoelectric.org>	<4B54968C.9050900@alexraasch.de>	<20100118194304.GA23892@crud.chemoelectric.org>	<4B555127.3070107@alexraasch.de>
+	<20100119070635.GA11348@crud.chemoelectric.org>
+Message-ID: <4B560692.5010500@alexraasch.de>
+
+OK, that helped a little. I also copied that Unicode file to 'data'. Now 
+there's still a problem with camlimages. 'omake' can't find:
+
+File "_none_", line 1, characters 0-1:
+Error: Cannot find file /usr/lib/ocaml/camlimages/ci_ps.cmxa
+*** omake: 239/945 targets are up to date
+*** omake: failed (0.52 sec, 0/39 scans, 1/75 rules, 0/517 digests)
+*** omake: targets were not rebuilt because of errors:
+   Unicode/GenUnicodeTable.opt
+
+I deinstalled camlimages 3.3.0 but Ubuntu won't let me install 
+camlimages 2.2 because it says
+
+Error: Dependency is not satisfiable: ocaml-base-3.09.2
+
+> I think for that you just have to do 'mkdir lib' manually. Also at
+> some point it will need to put a copy of UnicodeData.txt
+> (http://unicode.org/Public/UNIDATA/UnicodeData.txt) in the 'data'
+> directory.
+>
+> _______________________________________________
+> ant-devel mailing list
+> ant-devel at lists.berlios.de
+> https://lists.berlios.de/mailman/listinfo/ant-devel
+>
+>
+>   
+
+
+
+From Barry.SCHWARTZ at chemoelectric.org  Tue Jan 19 21:06:48 2010
+From: Barry.SCHWARTZ at chemoelectric.org (Barry Schwartz)
+Date: Tue, 19 Jan 2010 14:06:48 -0600
+Subject: [ant-devel] Problem compiling ant 0.8
+In-Reply-To: <4B560692.5010500@alexraasch.de>
+References: <20100117204357.GA21167@crud.chemoelectric.org>
+	<4B54968C.9050900@alexraasch.de>
+	<20100118194304.GA23892@crud.chemoelectric.org>
+	<4B555127.3070107@alexraasch.de>
+	<20100119070635.GA11348@crud.chemoelectric.org>
+	<4B560692.5010500@alexraasch.de>
+Message-ID: <20100119200648.GA18341@crud.chemoelectric.org>
+
+Alexander Raasch <info at alexraasch.de> skribis:
+> OK, that helped a little. I also copied that Unicode file to 'data'. Now 
+> there's still a problem with camlimages. 'omake' can't find:
+> 
+> File "_none_", line 1, characters 0-1:
+> Error: Cannot find file /usr/lib/ocaml/camlimages/ci_ps.cmxa
+> *** omake: 239/945 targets are up to date
+> *** omake: failed (0.52 sec, 0/39 scans, 1/75 rules, 0/517 digests)
+> *** omake: targets were not rebuilt because of errors:
+>    Unicode/GenUnicodeTable.opt
+> 
+> I deinstalled camlimages 3.3.0 but Ubuntu won't let me install 
+> camlimages 2.2 because it says
+> 
+> Error: Dependency is not satisfiable: ocaml-base-3.09.2
+
+Ugh. That looks like an old version of OCaml, too, so I don't know
+what would happen because of that. In the past, when Gentoo didn't
+support the versions of things that ant needed, I installed GODI and
+used that: http://godi.camlcity.org/
+
+The main problem is that the developer doesn't have time to work on
+ant. My own involvement is mainly that I find small bugs now and then
+because I use ant code in my own idiosyncratic experiments; having
+something that works and doesn't change much is advantageous for that.
+
+Another issue is there are no LaTeX-like macro packages in existence,
+though I can't stand LaTeX anyway. :)
+
+(I do like ConTeXt+LuaTeX, but the code is too rapidly changing for my
+use.)
+
+
+
+From info at alexraasch.de  Tue Jan 19 23:12:46 2010
+From: info at alexraasch.de (Alexander Raasch)
+Date: Tue, 19 Jan 2010 23:12:46 +0100
+Subject: [ant-devel] Problem compiling ant 0.8
+In-Reply-To: <20100119200648.GA18341@crud.chemoelectric.org>
+References: <20100117204357.GA21167@crud.chemoelectric.org>	<4B54968C.9050900@alexraasch.de>	<20100118194304.GA23892@crud.chemoelectric.org>	<4B555127.3070107@alexraasch.de>	<20100119070635.GA11348@crud.chemoelectric.org>	<4B560692.5010500@alexraasch.de>
+	<20100119200648.GA18341@crud.chemoelectric.org>
+Message-ID: <4B562E5E.2050503@alexraasch.de>
+
+Well, I kinda like LaTeX but I very much dislike the macro language and 
+the impossiblity to make your own templates/designs. (Haven't tried 
+ConTeXt or LuaTeX.) So I am really interested in using ant. Also, I want 
+to learn more about logic and functional programming so programming ant 
+seems like the next thing to do.
+
+ From the list of required libraries can you list the versions you have 
+installed, please.
+> Alexander Raasch <info at alexraasch.de> skribis:
+>   
+>> OK, that helped a little. I also copied that Unicode file to 'data'. Now 
+>> there's still a problem with camlimages. 'omake' can't find:
+>>
+>> File "_none_", line 1, characters 0-1:
+>> Error: Cannot find file /usr/lib/ocaml/camlimages/ci_ps.cmxa
+>> *** omake: 239/945 targets are up to date
+>> *** omake: failed (0.52 sec, 0/39 scans, 1/75 rules, 0/517 digests)
+>> *** omake: targets were not rebuilt because of errors:
+>>    Unicode/GenUnicodeTable.opt
+>>
+>> I deinstalled camlimages 3.3.0 but Ubuntu won't let me install 
+>> camlimages 2.2 because it says
+>>
+>> Error: Dependency is not satisfiable: ocaml-base-3.09.2
+>>     
+>
+> Ugh. That looks like an old version of OCaml, too, so I don't know
+> what would happen because of that. In the past, when Gentoo didn't
+> support the versions of things that ant needed, I installed GODI and
+> used that: http://godi.camlcity.org/
+>
+> The main problem is that the developer doesn't have time to work on
+> ant. My own involvement is mainly that I find small bugs now and then
+> because I use ant code in my own idiosyncratic experiments; having
+> something that works and doesn't change much is advantageous for that.
+>
+> Another issue is there are no LaTeX-like macro packages in existence,
+> though I can't stand LaTeX anyway. :)
+>
+> (I do like ConTeXt+LuaTeX, but the code is too rapidly changing for my
+> use.)
+>
+> _______________________________________________
+> ant-devel mailing list
+> ant-devel at lists.berlios.de
+> https://lists.berlios.de/mailman/listinfo/ant-devel
+>
+>
+>   
+
+
+
+From vincent.aravantinos at gmail.com  Tue Jan 19 23:34:16 2010
+From: vincent.aravantinos at gmail.com (Vincent Aravantinos)
+Date: Tue, 19 Jan 2010 23:34:16 +0100
+Subject: [ant-devel] Problem compiling ant 0.8
+In-Reply-To: <4B562E5E.2050503@alexraasch.de>
+References: <20100117204357.GA21167@crud.chemoelectric.org>	<4B54968C.9050900@alexraasch.de>	<20100118194304.GA23892@crud.chemoelectric.org>	<4B555127.3070107@alexraasch.de>	<20100119070635.GA11348@crud.chemoelectric.org>	<4B560692.5010500@alexraasch.de>
+	<20100119200648.GA18341@crud.chemoelectric.org>
+	<4B562E5E.2050503@alexraasch.de>
+Message-ID: <3B97814D-E2A7-4E0E-9B72-D6D46091AB9E@gmail.com>
+
+Hi,
+
+Le 19 janv. 10 ? 23:12, Alexander Raasch a ?crit :
+
+> Well, I kinda like LaTeX but I very much dislike the macro language  
+> and
+> the impossiblity to make your own templates/designs.
+
+??? I think that's very possible in LaTeX.
+How all those guys would make packages otherwise?
+Probably I didn't understood your remark.
+
+> (Haven't tried ConTeXt or LuaTeX.)
+
+I don't know LuaTeX.
+ConTeXt is indeed very changing.
+The main problem to me is not that ConTeXt changes,
+but rather than its documentation doesn't follow the changes...
+Seems much better designed than LaTeX though.
+
+> So I am really interested in using ant. Also, I want
+> to learn more about logic and functional programming so programming  
+> ant
+> seems like the next thing to do.
+
+In the same kind of idea you also have melt
+(http://melt.forge.ocamlcore.org/): the language is a mix between ocaml
+and LaTeX. Another advantage is that it is just a prepocessor that
+generates LaTeX, so that you can benefit of all the things that already
+exist for LaTeX. It is quite recent though. And I don't know if it's
+heavily maintained.
+
+V.
+
+PS: sorry for the digression...
+
+> From the list of required libraries can you list the versions you have
+> installed, please.
+>> Alexander Raasch <info at alexraasch.de> skribis:
+>>
+>>> OK, that helped a little. I also copied that Unicode file to  
+>>> 'data'. Now
+>>> there's still a problem with camlimages. 'omake' can't find:
+>>>
+>>> File "_none_", line 1, characters 0-1:
+>>> Error: Cannot find file /usr/lib/ocaml/camlimages/ci_ps.cmxa
+>>> *** omake: 239/945 targets are up to date
+>>> *** omake: failed (0.52 sec, 0/39 scans, 1/75 rules, 0/517 digests)
+>>> *** omake: targets were not rebuilt because of errors:
+>>>   Unicode/GenUnicodeTable.opt
+>>>
+>>> I deinstalled camlimages 3.3.0 but Ubuntu won't let me install
+>>> camlimages 2.2 because it says
+>>>
+>>> Error: Dependency is not satisfiable: ocaml-base-3.09.2
+>>>
+>>
+>> Ugh. That looks like an old version of OCaml, too, so I don't know
+>> what would happen because of that. In the past, when Gentoo didn't
+>> support the versions of things that ant needed, I installed GODI and
+>> used that: http://godi.camlcity.org/
+>>
+>> The main problem is that the developer doesn't have time to work on
+>> ant. My own involvement is mainly that I find small bugs now and then
+>> because I use ant code in my own idiosyncratic experiments; having
+>> something that works and doesn't change much is advantageous for  
+>> that.
+>>
+>> Another issue is there are no LaTeX-like macro packages in existence,
+>> though I can't stand LaTeX anyway. :)
+>>
+>> (I do like ConTeXt+LuaTeX, but the code is too rapidly changing for  
+>> my
+>> use.)
+
+
+
+From chemoelectric at chemoelectric.org  Wed Jan 20 00:12:40 2010
+From: chemoelectric at chemoelectric.org (Barry Schwartz)
+Date: Tue, 19 Jan 2010 17:12:40 -0600
+Subject: [ant-devel] Problem compiling ant 0.8
+In-Reply-To: <3B97814D-E2A7-4E0E-9B72-D6D46091AB9E@gmail.com>
+References: <20100117204357.GA21167@crud.chemoelectric.org>
+	<4B54968C.9050900@alexraasch.de>
+	<20100118194304.GA23892@crud.chemoelectric.org>
+	<4B555127.3070107@alexraasch.de>
+	<20100119070635.GA11348@crud.chemoelectric.org>
+	<4B560692.5010500@alexraasch.de>
+	<20100119200648.GA18341@crud.chemoelectric.org>
+	<4B562E5E.2050503@alexraasch.de>
+	<3B97814D-E2A7-4E0E-9B72-D6D46091AB9E@gmail.com>
+Message-ID: <20100119231240.GA28763@crud.chemoelectric.org>
+
+Vincent Aravantinos <vincent.aravantinos at gmail.com> skribis:
+> Le 19 janv. 10 ? 23:12, Alexander Raasch a ?crit :
+> 
+> > Well, I kinda like LaTeX but I very much dislike the macro language  
+> > and
+> > the impossiblity to make your own templates/designs.
+> 
+> ??? I think that's very possible in LaTeX.
+> How all those guys would make packages otherwise?
+
+A person lives only once; I question the wisdom of spending much of
+one's life on programming in TeX macros.
+
+
+
+From vincent.aravantinos at gmail.com  Wed Jan 20 00:17:51 2010
+From: vincent.aravantinos at gmail.com (Vincent Aravantinos)
+Date: Wed, 20 Jan 2010 00:17:51 +0100
+Subject: [ant-devel] Problem compiling ant 0.8
+In-Reply-To: <20100119231240.GA28763@crud.chemoelectric.org>
+References: <20100117204357.GA21167@crud.chemoelectric.org>
+	<4B54968C.9050900@alexraasch.de>
+	<20100118194304.GA23892@crud.chemoelectric.org>
+	<4B555127.3070107@alexraasch.de>
+	<20100119070635.GA11348@crud.chemoelectric.org>
+	<4B560692.5010500@alexraasch.de>
+	<20100119200648.GA18341@crud.chemoelectric.org>
+	<4B562E5E.2050503@alexraasch.de>
+	<3B97814D-E2A7-4E0E-9B72-D6D46091AB9E@gmail.com>
+	<20100119231240.GA28763@crud.chemoelectric.org>
+Message-ID: <9D75AED2-7981-477C-A90E-1D97E205286D@gmail.com>
+
+
+Le 20 janv. 10 ? 00:12, Barry Schwartz a ?crit :
+
+> Vincent Aravantinos <vincent.aravantinos at gmail.com> skribis:
+>> Le 19 janv. 10 ? 23:12, Alexander Raasch a ?crit :
+>>
+>>> Well, I kinda like LaTeX but I very much dislike the macro language
+>>> and
+>>> the impossiblity to make your own templates/designs.
+>>
+>> ??? I think that's very possible in LaTeX.
+>> How all those guys would make packages otherwise?
+>
+> A person lives only once; I question the wisdom of spending much of
+> one's life on programming in TeX macros.
+
+Totally agree.
+
+From Barry.SCHWARTZ at chemoelectric.org  Wed Jan 20 05:25:32 2010
+From: Barry.SCHWARTZ at chemoelectric.org (Barry Schwartz)
+Date: Tue, 19 Jan 2010 22:25:32 -0600
+Subject: [ant-devel] Problem compiling ant 0.8
+In-Reply-To: <4B562E5E.2050503@alexraasch.de>
+References: <20100117204357.GA21167@crud.chemoelectric.org>
+	<4B54968C.9050900@alexraasch.de>
+	<20100118194304.GA23892@crud.chemoelectric.org>
+	<4B555127.3070107@alexraasch.de>
+	<20100119070635.GA11348@crud.chemoelectric.org>
+	<4B560692.5010500@alexraasch.de>
+	<20100119200648.GA18341@crud.chemoelectric.org>
+	<4B562E5E.2050503@alexraasch.de>
+Message-ID: <20100120042532.GA29732@crud.chemoelectric.org>
+
+Alexander Raasch <info at alexraasch.de> skribis:
+> So I am really interested in using ant. Also, I want 
+> to learn more about logic and functional programming so programming ant 
+> seems like the next thing to do.
+
+The documentation for AL is terse and I don't have a lot of experience
+working with it. Caml itself is a remarkable language, on account of
+the type system; if I make significant changes to a working program, I
+can go forward with confidence that, if I do something wrong, most
+likely the compiler won't even compile my program.
+
+Ant is written in the "revised grammar", using a preprocessor, by the
+way. I prefer the standard grammar, mainly because there is very good
+Emacs support for it.
+
+>  From the list of required libraries can you list the versions you have 
+> installed, please.
+
+The README says:
+
+ o OCaml version 3.10,
+ o OMake version 0.9.8.5-3,
+ o kpathsea version 3.2,
+ o FreeType version 2,
+ o CamlImages version 2.2,
+ o mlgmp version 0.13 (optional).
+
+What I have is (in some cases patched by Gentoo developers):
+
+  OCaml 3.11.1
+  OMake 0.9.8.5
+  kpathsea 3.5.7
+  FreeType 2.3.11
+  CamlImages 2.20
+  mlgmp 0.13
+
+You probably don't need the mlgmp support, however, and the floating
+point mode is faster.
+
+
+
+From info at alexraasch.de  Sun Jan 24 01:37:44 2010
+From: info at alexraasch.de (Alexander Raasch)
+Date: Sun, 24 Jan 2010 01:37:44 +0100
+Subject: [ant-devel] Problem compiling ant 0.8
+In-Reply-To: <20100120042532.GA29732@crud.chemoelectric.org>
+References: <20100117204357.GA21167@crud.chemoelectric.org>	<4B54968C.9050900@alexraasch.de>	<20100118194304.GA23892@crud.chemoelectric.org>	<4B555127.3070107@alexraasch.de>	<20100119070635.GA11348@crud.chemoelectric.org>	<4B560692.5010500@alexraasch.de>	<20100119200648.GA18341@crud.chemoelectric.org>	<4B562E5E.2050503@alexraasch.de>
+	<20100120042532.GA29732@crud.chemoelectric.org>
+Message-ID: <4B5B9658.1000909@alexraasch.de>
+
+Well, it's a shame, but I can't get it to work. ant seems to be quite 
+dependent on narrow compiler and library version numbers, the 
+combinations of which I am unable to convince my package manager to install.
+
+
+> Alexander Raasch <info at alexraasch.de> skribis:
+>   
+>> So I am really interested in using ant. Also, I want 
+>> to learn more about logic and functional programming so programming ant 
+>> seems like the next thing to do.
+>>     
+>
+> The documentation for AL is terse and I don't have a lot of experience
+> working with it. Caml itself is a remarkable language, on account of
+> the type system; if I make significant changes to a working program, I
+> can go forward with confidence that, if I do something wrong, most
+> likely the compiler won't even compile my program.
+>
+> Ant is written in the "revised grammar", using a preprocessor, by the
+> way. I prefer the standard grammar, mainly because there is very good
+> Emacs support for it.
+>
+>   
+>>  From the list of required libraries can you list the versions you have 
+>> installed, please.
+>>     
+>
+> The README says:
+>
+>  o OCaml version 3.10,
+>  o OMake version 0.9.8.5-3,
+>  o kpathsea version 3.2,
+>  o FreeType version 2,
+>  o CamlImages version 2.2,
+>  o mlgmp version 0.13 (optional).
+>
+> What I have is (in some cases patched by Gentoo developers):
+>
+>   OCaml 3.11.1
+>   OMake 0.9.8.5
+>   kpathsea 3.5.7
+>   FreeType 2.3.11
+>   CamlImages 2.20
+>   mlgmp 0.13
+>
+> You probably don't need the mlgmp support, however, and the floating
+> point mode is faster.
+>
+> _______________________________________________
+> ant-devel mailing list
+> ant-devel at lists.berlios.de
+> https://lists.berlios.de/mailman/listinfo/ant-devel
+>
+>
+>   
+
+
+
+From info at alexraasch.de  Sun Jan 24 01:45:11 2010
+From: info at alexraasch.de (Alexander Raasch)
+Date: Sun, 24 Jan 2010 01:45:11 +0100
+Subject: [ant-devel] Making a binary distribution
+Message-ID: <4B5B9817.2050500@alexraasch.de>
+
+Hello everyone!
+
+So, given all the difficulties I had building ant, does anyone think it 
+is feasible to create a binary distribution
+of ant?
+
+
+From Barry.SCHWARTZ at chemoelectric.org  Sun Jan 24 03:44:07 2010
+From: Barry.SCHWARTZ at chemoelectric.org (Barry Schwartz)
+Date: Sat, 23 Jan 2010 20:44:07 -0600
+Subject: [ant-devel] Making a binary distribution
+In-Reply-To: <4B5B9817.2050500@alexraasch.de>
+References: <4B5B9817.2050500@alexraasch.de>
+Message-ID: <20100124024407.GA28905@crud.chemoelectric.org>
+
+Alexander Raasch <info at alexraasch.de> skribis:
+> Hello everyone!
+> 
+> So, given all the difficulties I had building ant, does anyone think it 
+> is feasible to create a binary distribution
+> of ant?
+
+It's probably feasible for _someone_, but that wouldn't be me, :) if
+only because in this house we all use source-based Gentoo. I do keep
+the automatic binary packaging for Gentoo turned on, but the binaries
+often won?t work from one computer to the next; they are for fast
+re-installation on the machine where they were made.
+
+The libraries and things I have installed, except for CamlImages since
+I downgraded, probably are close to the current versions of things,
+because I am adventurous and use Gentoo?s ?testing? settings for
+almost everything. That may be part of the problem, if you are using
+stable packages.
+
+You might need a patch or something. I think omake needed patching to
+work with newer versions of OCaml, for instance. Oftentimes there are
+good patches in the Debian packages repository. Also there is GODI,
+though I found its use tedious at best. Or I could make available what
+patches are in the Gentoo repository, if that?s the problem.
+
+
+From info at alexraasch.de  Sun Jan 24 17:20:04 2010
+From: info at alexraasch.de (Alexander Raasch)
+Date: Sun, 24 Jan 2010 17:20:04 +0100
+Subject: [ant-devel] Heureka!
+In-Reply-To: <20100124024407.GA28905@crud.chemoelectric.org>
+References: <4B5B9817.2050500@alexraasch.de>
+	<20100124024407.GA28905@crud.chemoelectric.org>
+Message-ID: <4B5C7334.2040909@alexraasch.de>
+
+So I finally got to compile ant. Here's roughly what I did:
+
+Download a source package of camlimages-2.2, install some of its 
+dependencies like libxpm, libgif, ungif. I had to edit one of camlimages 
+files manually because it contained a bug (in tiff/tiffread.c comment 
+out lines 31-34). I compiled and installed it then omake ran without 
+errors on ant.
+
+I was also able to build minimal, newspaper and glyph-table in the 
+"Examples" directories. However, when trying to build "manual.ant" I get 
+a segmentation fault after a second or so.
+
+
+Another question: Is there a standard distribution of OCaml (such as 
+Sun's JDK for Java) and can anyone recommend learning resources, 
+preferrably a complete introductory book? What IDE do you use?
+
+
+
+Greetings
+Alex
+
+
+From vincent.aravantinos at gmail.com  Sun Jan 24 17:33:09 2010
+From: vincent.aravantinos at gmail.com (Vincent Aravantinos)
+Date: Sun, 24 Jan 2010 17:33:09 +0100
+Subject: [ant-devel] Heureka!
+In-Reply-To: <4B5C7334.2040909@alexraasch.de>
+References: <4B5B9817.2050500@alexraasch.de>
+	<20100124024407.GA28905@crud.chemoelectric.org>
+	<4B5C7334.2040909@alexraasch.de>
+Message-ID: <8B43CDCC-5560-4887-96FB-982D6AC5DDFF@gmail.com>
+
+Hi,
+
+Le 24 janv. 10 ? 17:20, Alexander Raasch a ?crit :
+
+> Another question: Is there a standard distribution of OCaml (such as
+> Sun's JDK for Java)
+
+I don't know what is JDK, you get a standard library with OCaml
+but it's far from complete.
+Many other projects exist, the more complete/recent/maintained is
+Ocaml Batteries (http://batteries.forge.ocamlcore.org/), however
+it is still an ongoing project.
+You also have Jane Street Core:
+http://ocaml.janestcapital.com/?q=node/13
+For more details, you should probably ask on the caml list.
+
+> and can anyone recommend learning resources,
+> preferrably a complete introductory book?
+
+http://caml.inria.fr/resources/doc/index.en.html
+
+> What IDE do you use?
+
+A quite complete review of all the possibilities:
+http://caml.inria.fr/pub/ml-archives/caml-list/2010/01/dd006b47d7caaacbb1a2427ddbcd16b1.en.html
+
+For all further questions on Ocaml, there is a nice mailing list  
+dedicated to beginners :
+http://tech.groups.yahoo.com/group/ocaml_beginners/
+
+Cheers,
+V.
+
+From Barry.SCHWARTZ at chemoelectric.org  Mon Jan 25 00:33:27 2010
+From: Barry.SCHWARTZ at chemoelectric.org (Barry Schwartz)
+Date: Sun, 24 Jan 2010 17:33:27 -0600
+Subject: [ant-devel] Heureka!
+In-Reply-To: <4B5C7334.2040909@alexraasch.de>
+References: <4B5B9817.2050500@alexraasch.de>
+	<20100124024407.GA28905@crud.chemoelectric.org>
+	<4B5C7334.2040909@alexraasch.de>
+Message-ID: <20100124233327.GA24937@crud.chemoelectric.org>
+
+Alexander Raasch <info at alexraasch.de> skribis:
+> I was also able to build minimal, newspaper and glyph-table in the 
+> "Examples" directories. However, when trying to build "manual.ant" I get 
+> a segmentation fault after a second or so.
+
+Try making the changes in those sources to use Latin Modern/Computer
+Modern in place of Minion/MnSymbol.
+
+> Another question: Is there a standard distribution of OCaml (such as 
+> Sun's JDK for Java) and can anyone recommend learning resources, 
+> preferrably a complete introductory book? What IDE do you use?
+
+I use Emacs and a terminal. :) In Emacs I use tuareg mode, but it
+won?t work with the Revised Syntax in which ant is written.
+
+The closest thing to a standard distribution that I know of is GODI,
+which I have in fact used: http://godi.camlcity.org/godi/index.html
+I would probably use it if I were on a binary Linux distribution
+rather than Gentoo.
+
+
+
+From info at alexraasch.de  Tue Jan 26 00:32:17 2010
+From: info at alexraasch.de (Alexander Raasch)
+Date: Tue, 26 Jan 2010 00:32:17 +0100
+Subject: [ant-devel] Heureka!
+In-Reply-To: <20100124233327.GA24937@crud.chemoelectric.org>
+References: <4B5B9817.2050500@alexraasch.de>	<20100124024407.GA28905@crud.chemoelectric.org>	<4B5C7334.2040909@alexraasch.de>
+	<20100124233327.GA24937@crud.chemoelectric.org>
+Message-ID: <4B5E2A01.8020709@alexraasch.de>
+
+Barry Schwartz wrote:
+> Alexander Raasch <info at alexraasch.de> skribis:
+>   
+>> I was also able to build minimal, newspaper and glyph-table in the 
+>> "Examples" directories. However, when trying to build "manual.ant" I get 
+>> a segmentation fault after a second or so.
+>>     
+>
+> Try making the changes in those sources to use Latin Modern/Computer
+> Modern in place of Minion/MnSymbol.
+>   
+I did! I commented out the three lines that set up Minion, as instructed 
+in manual.ant. The other examples work quite well though.
+>   
+>> Another question: Is there a standard distribution of OCaml (such as 
+>> Sun's JDK for Java) and can anyone recommend learning resources, 
+>> preferrably a complete introductory book? What IDE do you use?
+>>     
+>
+> I use Emacs and a terminal. :) In Emacs I use tuareg mode, but it
+> won?t work with the Revised Syntax in which ant is written.
+>
+> The closest thing to a standard distribution that I know of is GODI,
+> which I have in fact used: http://godi.camlcity.org/godi/index.html
+> I would probably use it if I were on a binary Linux distribution
+> rather than Gentoo.
+>
+> _______________________________________________
+> ant-devel mailing list
+> ant-devel at lists.berlios.de
+> https://lists.berlios.de/mailman/listinfo/ant-devel
+>   
+
+
+
+From info at alexraasch.de  Tue Jan 26 00:35:39 2010
+From: info at alexraasch.de (Alexander Raasch)
+Date: Tue, 26 Jan 2010 00:35:39 +0100
+Subject: [ant-devel] Experience with ant for productive use
+Message-ID: <4B5E2ACB.60303@alexraasch.de>
+
+So, another question for you ant users :-)
+
+Have you been using ant for productive (everyday) use, and if so, what 
+are your experiences with it? Or is it just a hobby toy to play around?
+
+
+From Barry.SCHWARTZ at chemoelectric.org  Tue Jan 26 01:29:01 2010
+From: Barry.SCHWARTZ at chemoelectric.org (Barry Schwartz)
+Date: Mon, 25 Jan 2010 18:29:01 -0600
+Subject: [ant-devel] Experience with ant for productive use
+In-Reply-To: <4B5E2ACB.60303@alexraasch.de>
+References: <4B5E2ACB.60303@alexraasch.de>
+Message-ID: <20100126002901.GA6833@crud.chemoelectric.org>
+
+Alexander Raasch <info at alexraasch.de> skribis:
+> Have you been using ant for productive (everyday) use, and if so, what 
+> are your experiences with it? Or is it just a hobby toy to play around?
+
+Just hobby for me.
+
+
+From Barry.SCHWARTZ at chemoelectric.org  Tue Jan 26 01:39:05 2010
+From: Barry.SCHWARTZ at chemoelectric.org (Barry Schwartz)
+Date: Mon, 25 Jan 2010 18:39:05 -0600
+Subject: [ant-devel] Heureka!
+In-Reply-To: <4B5E2A01.8020709@alexraasch.de>
+References: <4B5B9817.2050500@alexraasch.de>
+	<20100124024407.GA28905@crud.chemoelectric.org>
+	<4B5C7334.2040909@alexraasch.de>
+	<20100124233327.GA24937@crud.chemoelectric.org>
+	<4B5E2A01.8020709@alexraasch.de>
+Message-ID: <20100126003905.GA6885@crud.chemoelectric.org>
+
+Alexander Raasch <info at alexraasch.de> skribis:
+> Barry Schwartz wrote:
+> > Alexander Raasch <info at alexraasch.de> skribis:
+> >   
+> >> I was also able to build minimal, newspaper and glyph-table in the 
+> >> "Examples" directories. However, when trying to build "manual.ant" I get 
+> >> a segmentation fault after a second or so.
+> >>     
+> >
+> > Try making the changes in those sources to use Latin Modern/Computer
+> > Modern in place of Minion/MnSymbol.
+> >   
+> I did! I commented out the three lines that set up Minion, as instructed 
+> in manual.ant. The other examples work quite well though.
+
+Well, I have noticed that such crashing can happen if there is an
+incompatible db file in the directory, so you could try deleting any
+file named *.gdb or something similar.
+
+
+

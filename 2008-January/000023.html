@@ -1,0 +1,95 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [ant-devel] Problem in compiling ant-0.8
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/ant-devel/2008-January/index.html" >
+   <LINK REL="made" HREF="mailto:ant-devel%40lists.berlios.de?Subject=Re%3A%20%5Bant-devel%5D%20Problem%20in%20compiling%20ant-0.8&In-Reply-To=%3CC3A1715D.11483%25ShenChen%40nus.edu.sg%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000022.html">
+   <LINK REL="Next"  HREF="000024.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[ant-devel] Problem in compiling ant-0.8</H1>
+    <B>Shen Chen</B> 
+    <A HREF="mailto:ant-devel%40lists.berlios.de?Subject=Re%3A%20%5Bant-devel%5D%20Problem%20in%20compiling%20ant-0.8&In-Reply-To=%3CC3A1715D.11483%25ShenChen%40nus.edu.sg%3E"
+       TITLE="[ant-devel] Problem in compiling ant-0.8">ShenChen at nus.edu.sg
+       </A><BR>
+    <I>Wed Jan  2 09:50:37 CET 2008</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000022.html">[ant-devel] Problem in compiling ant-0.8
+</A></li>
+        <LI>Next message: <A HREF="000024.html">[ant-devel] Problem in compiling ant-0.8
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#23">[ date ]</a>
+              <a href="thread.html#23">[ thread ]</a>
+              <a href="subject.html#23">[ subject ]</a>
+              <a href="author.html#23">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Hello Achim,
+
+Yes the build fails here.
+I am new to ocaml, and there is one thing I found puzzling. Suppose I run in
+PreProc/ 
+==============
+$ ocamlc pa_Num.ml 
+File &quot;pa_Num.ml&quot;, line 1, characters 11-12:
+Syntax error
+==============
+
+The first line &quot;open Camlp4;&quot; which generate the error mesage, ends with a
+single &quot;;&quot;. I suppose a &quot;;;&quot; is normally used here in ocaml? Thank you very
+much. 
+
+Regards,
+shenchen
+
+On 1/2/08 4:28 PM, &quot;Achim Blumensath&quot;
+&lt;<A HREF="https://lists.berlios.de/mailman/listinfo/ant-devel">blumensath at mathematik.tu-darmstadt.de</A>&gt; wrote:
+
+&gt;<i> Hello,
+</I>&gt;<i> 
+</I>&gt;&gt;<i> I am using &quot;OMake 0.9.8.5 (release 3)&quot;.
+</I>&gt;<i> 
+</I>&gt;<i> And you still get the same error? I just compiled ant successfully with
+</I>&gt;<i> ocaml 3.10.0 and omake 0.9.8.5-3.
+</I>&gt;<i> 
+</I>&gt;&gt;&gt;&gt;<i> + ocamldep -modules pa_extensions.ml | Shell.ocamldep-postproc()
+</I>&gt;&gt;&gt;&gt;<i> File &quot;pa_extensions.ml&quot;, line 1, characters 11-12:
+</I>&gt;&gt;&gt;&gt;<i> Syntax error
+</I>&gt;<i> 
+</I>&gt;<i> Achim
+</I>
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000022.html">[ant-devel] Problem in compiling ant-0.8
+</A></li>
+	<LI>Next message: <A HREF="000024.html">[ant-devel] Problem in compiling ant-0.8
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#23">[ date ]</a>
+              <a href="thread.html#23">[ thread ]</a>
+              <a href="subject.html#23">[ subject ]</a>
+              <a href="author.html#23">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/ant-devel">More information about the ant-devel
+mailing list</a><br>
+</body></html>

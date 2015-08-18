@@ -1,0 +1,243 @@
+From knoepfchendreher at web.de  Wed Oct  1 14:24:32 2008
+From: knoepfchendreher at web.de (Ralf Gawlista)
+Date: Wed, 01 Oct 2008 14:24:32 +0200
+Subject: [ant-devel] More impressions...
+Message-ID: <1348057029@web.de>
+
+Hello (again),
+
+I did further tests with ant...
+
+[1.] Typesetting of mathematical formulae seems to work perfectly :)  ...but... only if one has an \include{fonts.ant} in the ant file.
+Of course, this is not a problem, but I think this should be mentioned in the manual:
+There is no warning/error message at all, if one does not include this file, but the resulting pdf shows nothing (except a little "whitespace") in this case. Therefore some remark in the manual would probably be helpful...
+
+[2.] I did not succeed in using images. I tried the \image markup with test images in png and jpeg (and even pdf) format. In case of jpeg and png, this resulted in a corrupt PDF file (error message from Adobe Acrobat which "auto-repaired" the file somehow and then showed it without the image, whilst KPDF even crashed). (In case of a pdf image, the resulting PDF had an additional blank page, without any visible sign of the image.)
+
+Anyway, thanks for your work, I like the idea of ant very much!  :)
+
+Regards, Ralf.
+
+________________________________________________________________________
+"50 erste Dates" mit Adam Sandler u. Drew Barrymore kostenlos anschauen!
+Exklusiv f?r alle WEB.DE Nutzer. http://www.blockbuster.web.de
+
+
+
+From blumensath at mathematik.tu-darmstadt.de  Wed Oct  1 14:53:02 2008
+From: blumensath at mathematik.tu-darmstadt.de (Achim Blumensath)
+Date: Wed, 1 Oct 2008 14:53:02 +0200
+Subject: [ant-devel] More impressions...
+In-Reply-To: <1348057029@web.de>
+References: <1348057029@web.de>
+Message-ID: <20081001125302.GD32344@mathematik.tu-darmstadt.de>
+
+Hello,
+
+> [1.] Typesetting of mathematical formulae seems to work perfectly :)
+> ...but... only if one has an \include{fonts.ant} in the ant file. Of
+> course, this is not a problem, but I think this should be mentioned in
+> the manual: There is no warning/error message at all, if one does not
+> include this file, but the resulting pdf shows nothing (except a
+> little "whitespace") in this case. Therefore some remark in the manual
+> would probably be helpful...
+
+ant itself does not have any default settings concerning the layout.
+Selecting fonts (and math fonts) is the responsibility of the macro
+package. Unfortunately, these macro packages are not yet finished.
+Writing a usable macro package is one of the highest priority open
+issues at the moment. Unfortunately, development of ant is currently
+suspended for lack of time on my part.
+
+> [2.] I did not succeed in using images. I tried the \image markup with
+> test images in png and jpeg (and even pdf) format. In case of jpeg and
+> png, this resulted in a corrupt PDF file (error message from Adobe
+> Acrobat which "auto-repaired" the file somehow and then showed it
+> without the image, whilst KPDF even crashed). (In case of a pdf image,
+> the resulting PDF had an additional blank page, without any visible
+> sign of the image.)
+
+Probably, there is some bug in the PDF creation routines.
+
+BTW, would you like to lend a hand with ant? I'm currently terribly
+short on time and there are many simple things that could be improved.
+Depending on ones background one could look into:
+
+o improving the documentation
+o improving the macro package
+o debugging the file format modules (font loading, PDF creation, etc.)
+
+Achim
+-- 
+________________________________________________________________________
+                                                              | \_____/ |
+   Achim Blumensath                                          \O/ \___/\ |
+   TU Darmstadt                                              =o=  \ /\ \|
+   www.mathematik.tu-darmstadt.de/~blumensath                /"\   o----|
+____________________________________________________________________\___|
+-------------- next part --------------
+A non-text attachment was scrubbed...
+Name: signature.asc
+Type: application/pgp-signature
+Size: 189 bytes
+Desc: Digital signature
+URL: <https://lists.berlios.de/pipermail/ant-devel/attachments/20081001/9fdabd87/attachment.pgp>
+
+From hanwenn at gmail.com  Fri Oct  3 16:44:00 2008
+From: hanwenn at gmail.com (Han-Wen Nienhuys)
+Date: Fri, 3 Oct 2008 11:44:00 -0300
+Subject: [ant-devel] ant-devel broken?
+In-Reply-To: <f329bf540808190903w1611ae8fn24555890bd5746ba@mail.gmail.com>
+References: <f329bf540808121929x68b1e9feue9656d101ec5d88d@mail.gmail.com>
+	<20080819095715.GE17246@mathematik.tu-darmstadt.de>
+	<f329bf540808190903w1611ae8fn24555890bd5746ba@mail.gmail.com>
+Message-ID: <f329bf540810030744g3b132687m6c68c47c07292d28@mail.gmail.com>
+
+On Tue, Aug 19, 2008 at 1:03 PM, Han-Wen Nienhuys <hanwenn at gmail.com> wrote:
+> [lilydev at haring ant]$ omake
+> *** omake: reading OMakefiles
+> *** omake: finished reading OMakefiles (1.52 sec)
+> --- Checking for gcc... (found /usr/bin/gcc)
+> --- Checking for g++... (found /usr/bin/g++)
+> - scan Runtime freetype-stubs.o
+> + gcc -I. -MM freetype-stubs.c
+> freetype-stubs.c:7:10:[====
+>          error: #include expects "FILENAME" or <FILENAME>
+> freetype-stubs.c:8:10: error: #include expects "FILENAME" or <FILENAME>
+> freetype-stubs.c:9:10: error: #include expects "FILENAME" or <FILENAME>
+
+
+Sorry for the delay - it appears that OMake is not using the
+freetype-config --cflags when generating the dependency files. I fixed
+it by adding
+
+PREFIXED_INCLUDES = $(shell freetype-config --cflags)
+
+to the omake files
+
+
+Onto the next error:
+
++ ocamlopt.opt -w Aes -warn-error P -rectypes -I ../Tools -I ../lib
+-pp ../PreProc/camlp4opt -I . -I . -o GenUnicodeTable.opt unix.cmxa
+/usr/lib/ocaml/camlimages/ci_core.cmxa
+/usr/lib/ocaml/camlimages/ci_freetype.cmxa
+/usr/lib/ocaml/camlimages/ci_gif.cmxa
+/usr/lib/ocaml/camlimages/ci_jpeg.cmxa
+/usr/lib/ocaml/camlimages/ci_tiff.cmxa
+/usr/lib/ocaml/camlimages/ci_bmp.cmxa
+/usr/lib/ocaml/camlimages/ci_ppm.cmxa
+/usr/lib/ocaml/camlimages/ci_png.cmxa
+/usr/lib/ocaml/camlimages/ci_xvthumb.cmxa
+/usr/lib/ocaml/camlimages/ci_xpm.cmxa
+/usr/lib/ocaml/camlimages/ci_ps.cmxa ../Tools/Tools.cmxa
+GenUnicodeTable.cmx -I /usr/lib/ocaml/camlimages -cclib -L//lib -cclib
+-L/usr/X11/lib -cclib -lz
+Cannot find file /usr/lib/ocaml/camlimages/ci_tiff.cmxa
+
+
+-- 
+Han-Wen Nienhuys - hanwen at xs4all.nl - http://www.xs4all.nl/~hanwen
+
+
+From hanwen at xs4all.nl  Sat Oct  4 00:26:31 2008
+From: hanwen at xs4all.nl (Han-Wen Nienhuys)
+Date: Fri, 03 Oct 2008 19:26:31 -0300
+Subject: [ant-devel] [PATCH] Fixes for Unicode/OMakefile:
+Message-ID: <48E69C17.3050209@xs4all.nl>
+
+
+Fixes for Unicode/OMakefile:
+
+- download Unicode.txt
+
+- add explicit path for GenUnicodeTable call.
+---
+ Unicode/OMakefile |   13 +++++--------
+ 1 files changed, 5 insertions(+), 8 deletions(-)
+
+diff --git a/Unicode/OMakefile b/Unicode/OMakefile
+index aa7be0f..ce158e5 100644
+--- a/Unicode/OMakefile
++++ b/Unicode/OMakefile
+@@ -36,16 +36,13 @@ section
+ 
+ OCamlLibraryCopy(Unicode-install, $(ROOT)/lib, Unicode, Unicode)
+ 
+-Tables.c: Tables.c.top Tables.c.bot GenUnicodeTable
++$(DATAFILE):
++  mkdir -p data && cd data && wget http://unicode.org/Public/UNIDATA/UnicodeData.txt 
++
++Tables.c: Tables.c.top Tables.c.bot GenUnicodeTable $(DATAFILE)
+   if $(file-exists $(DATAFILE))
+     echo "Generating unicode table ..."
+-    (cat Tables.c.top; GenUnicodeTable <$(DATAFILE); cat Tables.c.bot) >Tables.c
+-  else
+-    if $(file-exists $@)
+-      touch $@
+-    else
+-      echo "$(DATAFILE) not found. Please download it from ftp.unicode.org."; \
+-      exit 1
++    (cat Tables.c.top; ./GenUnicodeTable <$(DATAFILE); cat Tables.c.bot) >Tables.c
+ 
+ Tables.o: Tables.c
+   $(OCAMLC) -c -o $@ $^
+-- 
+1.5.5.1
+
+
+-- 
+ Han-Wen Nienhuys - hanwen at xs4all.nl - http://www.xs4all.nl/~hanwen
+
+
+From blumensath at mathematik.tu-darmstadt.de  Mon Oct  6 09:37:01 2008
+From: blumensath at mathematik.tu-darmstadt.de (Achim Blumensath)
+Date: Mon, 6 Oct 2008 09:37:01 +0200
+Subject: [ant-devel] compilation problems
+In-Reply-To: <f329bf540810030744g3b132687m6c68c47c07292d28@mail.gmail.com>
+References: <f329bf540808121929x68b1e9feue9656d101ec5d88d@mail.gmail.com>
+	<20080819095715.GE17246@mathematik.tu-darmstadt.de>
+	<f329bf540808190903w1611ae8fn24555890bd5746ba@mail.gmail.com>
+	<f329bf540810030744g3b132687m6c68c47c07292d28@mail.gmail.com>
+Message-ID: <20081006073701.GD13171@mathematik.tu-darmstadt.de>
+
+Hello,
+
+Han-Wen Nienhuys wrote:
+> it appears that OMake is not using the freetype-config --cflags when
+> generating the dependency files.
+
+I have updated the OMakefiles. But I didn't have the time yet to check
+whether it works. Could you give it a try?
+
+> Onto the next error:
+> 
+[...]
+> Cannot find file /usr/lib/ocaml/camlimages/ci_tiff.cmxa
+
+Do you have camlimages installed? Which of the image formats does your
+installation contain? Perhaps it is enough to remove the line containing
+ci_tiff.cmxa.
+
+I have also applied your other OMakefile patch. Except that I commented
+out the automatic download of the unicode data. One should be able to
+build ant without internet connection.
+
+Thanks for all the feedback.
+
+Achim
+-- 
+________________________________________________________________________
+                                                              | \_____/ |
+   Achim Blumensath                                          \O/ \___/\ |
+   TU Darmstadt                                              =o=  \ /\ \|
+   www.mathematik.tu-darmstadt.de/~blumensath                /"\   o----|
+____________________________________________________________________\___|
+-------------- next part --------------
+A non-text attachment was scrubbed...
+Name: signature.asc
+Type: application/pgp-signature
+Size: 189 bytes
+Desc: Digital signature
+URL: <https://lists.berlios.de/pipermail/ant-devel/attachments/20081006/41e52167/attachment.pgp>
+

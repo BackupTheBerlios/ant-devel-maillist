@@ -1,0 +1,134 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [ant-devel] Can't build Ant on Ubuntu Gutsy
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/ant-devel/2008-January/index.html" >
+   <LINK REL="made" HREF="mailto:ant-devel%40lists.berlios.de?Subject=Re%3A%20%5Bant-devel%5D%20Can%27t%20build%20Ant%20on%20Ubuntu%20Gutsy&In-Reply-To=%3C477E25D2.4090704%40free.fr%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000032.html">
+   <LINK REL="Next"  HREF="000034.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[ant-devel] Can't build Ant on Ubuntu Gutsy</H1>
+    <B>kib2</B> 
+    <A HREF="mailto:ant-devel%40lists.berlios.de?Subject=Re%3A%20%5Bant-devel%5D%20Can%27t%20build%20Ant%20on%20Ubuntu%20Gutsy&In-Reply-To=%3C477E25D2.4090704%40free.fr%3E"
+       TITLE="[ant-devel] Can't build Ant on Ubuntu Gutsy">kib2 at free.fr
+       </A><BR>
+    <I>Fri Jan  4 13:25:54 CET 2008</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000032.html">[ant-devel] Can't build Ant on Ubuntu Gutsy
+</A></li>
+        <LI>Next message: <A HREF="000034.html">[ant-devel] Can't build Ant on Ubuntu Gutsy
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#33">[ date ]</a>
+              <a href="thread.html#33">[ thread ]</a>
+              <a href="subject.html#33">[ subject ]</a>
+              <a href="author.html#33">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Achim Blumensath a &#233;crit :
+&gt;<i> Hello,
+</I>&gt;<i> 
+</I>&gt;&gt;&gt;&gt;&gt;<i> + gcc -I. -MM freetype-stubs.c
+</I>&gt;&gt;&gt;&gt;&gt;<i> freetype-stubs.c:7:10: erreur: #include attend &quot;NOM_DE_FICHIER&quot; ou &lt;NOM_DE_FICHIER&gt;
+</I>&gt;&gt;&gt;&gt;&gt;<i> freetype-stubs.c:8:10: erreur: #include attend &quot;NOM_DE_FICHIER&quot; ou &lt;NOM_DE_FICHIER&gt;
+</I>&gt;&gt;&gt;&gt;&gt;<i> freetype-stubs.c:9:10: erreur: #include attend &quot;NOM_DE_FICHIER&quot; ou &lt;NOM_DE_FICHIER&gt;
+</I>&gt;&gt;&gt;<i> What is your gcc version?
+</I>&gt;&gt;<i> gcc (GCC) 4.1.3 20070929 (prerelease) (Ubuntu 4.1.2-16ubuntu2)
+</I>&gt;<i> 
+</I>&gt;<i> Does gcc find the include files for freetype?
+</I>&gt;<i> 
+</I>&gt;<i> You could trie to add the line
+</I>&gt;<i> 
+</I>&gt;<i>   CFLAGS += $(FREETYPE_FLAGS)
+</I>&gt;<i> 
+</I>&gt;<i> to the file Runtime/OMakefile, before the line
+</I>&gt;<i> 
+</I>&gt;<i>   freetype-stubs.o: freetype-stubs.c
+</I>&gt;<i> 
+</I>&gt;<i> If that fails, you can replace in Runtime/freetype-stubs.c the lines
+</I>&gt;<i> 
+</I>&gt;<i>   #include FT_FREETYPE_H
+</I>&gt;<i>   #include FT_GLYPH_H
+</I>&gt;<i>   #include FT_TYPE1_TABLES_H
+</I>&gt;<i> 
+</I>&gt;<i> by
+</I>&gt;<i> 
+</I>&gt;<i>   #include &lt;freetype/freetype.h&gt;
+</I>&gt;<i>   #include &lt;freetype/ftglyph.h&gt;
+</I>&gt;<i>   #include &lt;freetype/t1tables.h&gt;
+</I>&gt;<i> 
+</I>&gt;<i> Achim
+</I>&gt;<i> 
+</I>&gt;<i> 
+</I>
+
+Thanks for the answer, I'm now running with another problem :
+
+<A HREF="https://lists.berlios.de/mailman/listinfo/ant-devel">kib at kib</A>:~/Bureau/Downloads/Ant0.8/ant-0.8$ omake
+*** omake: reading OMakefiles
+*** omake: finished reading OMakefiles (0.16 sec)
+- scan Runtime freetype-stubs.o
++ gcc -ccopt -I/usr/local/include/freetype2 -ccopt -I/usr/local/include 
+-I. -MM freetype-stubs.c
+gcc: unrecognized option '-ccopt'
+gcc: unrecognized option '-ccopt'
+- build Images CamlImages.cmi 
+
++ ocamlopt.opt -w Aes -warn-error P -rectypes -I ../Tools -I ../lib -pp 
+../PreProc/camlp4opt -I . -I /usr/local/lib/ocaml/camlimages -I . -c 
+CamlImages.ml
+&lt;W&gt; Grammar extension: in [expr] some rule has been masked
+File &quot;CamlImages.ml&quot;, line 2, characters 17-23:                ] 00247 / 
+00950
+Unbound module Images
+*** omake: 247/950 targets are up to date 
+
+*** omake: failed (0.86 sec, 1/17 scans, 2/23 rules, 2/648 digests)
+*** omake: targets were not rebuilt because of errors: 
+
+    Images/CamlImages.cmi
+       depends on: Images/CamlImages.ml
+    Images/CamlImages.cmx
+       depends on: Images/CamlImages.ml
+    Images/CamlImages.o
+       depends on: Images/CamlImages.ml
+
+Seems like a CamlImages library problem, but I don't know wich one.
+
+See you,
+
+Christophe.
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000032.html">[ant-devel] Can't build Ant on Ubuntu Gutsy
+</A></li>
+	<LI>Next message: <A HREF="000034.html">[ant-devel] Can't build Ant on Ubuntu Gutsy
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#33">[ date ]</a>
+              <a href="thread.html#33">[ thread ]</a>
+              <a href="subject.html#33">[ subject ]</a>
+              <a href="author.html#33">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/ant-devel">More information about the ant-devel
+mailing list</a><br>
+</body></html>

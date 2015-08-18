@@ -1,0 +1,690 @@
+From vincent.aravantinos at gmail.com  Fri Jun 12 12:54:16 2009
+From: vincent.aravantinos at gmail.com (Vincent Aravantinos)
+Date: Fri, 12 Jun 2009 12:54:16 +0200
+Subject: [ant-devel] Compilation problem
+Message-ID: <73ACEAEC-917E-4020-879B-23BD7DB88E09@gmail.com>
+
+(I don't know if this is the right place for my problem, correct me if  
+it's not)
+
+Hi,
+
+I am very interested in Ant but cannot manage to compile it.
+
+I get the following error message:
+
+$omake
+*** omake: reading OMakefiles
+--- Checking for ocamlfind... (found /opt/godi/bin/ocamlfind)
+--- Checking for ocamlc.opt... (found /opt/godi/bin/ocamlc.opt)
+--- Checking for ocamlopt.opt... (found /opt/godi/bin/ocamlopt.opt)
+--- Checking whether ocamlc understands the "z" warnings... (yes)
+--- Checking if ocamldep understands -modules... (yes)
+*** omake: finished reading OMakefiles (0.91 sec)
+--- Checking for gcc... (found /usr/bin/gcc)
+--- Checking for g++... (found /usr/bin/g++)
+- scan Runtime freetype-stubs.o
++ gcc -I. -MM freetype-stubs.c
+freetype-stubs.c:1:25: error: caml/memory.h: No such file or directory
+freetype-stubs.c:2:27: error: caml/mlvalues.h: No such file or directory
+freetype-stubs.c:3:25: error: caml/custom.h: No such file or directory
+freetype-stubs.c:4:23: error: caml/fail.h: No such file or directory
+freetype-stubs.c:5:24: error: caml/alloc.h: No such file or directory
+freetype-stubs.c:6:22: error: ft2build.h: No such file or directory
+freetype-stubs.c:7:10: error: #include expects "FILENAME" or <FILENAME>
+freetype-stubs.c:8:10: error: #include expects "FILENAME" or <FILENAME>
+freetype-stubs.c:9:10: error: #include expects "FILENAME" or <FILENAME>
+*** omake: 55/938 targets are up to date
+*** omake: failed (1.42 sec, 1/1 scans, 0/0 rules, 24/381 digests)
+*** omake: targets were not rebuilt because of errors:
+    <scanner Runtime/freetype-stubs.o>
+       depends on: Runtime/freetype-stubs.c
+
+I am using:
+- ant 0.8
+- godi
+- ocaml 3.11
+- OMake 0.9.8.5 (release 3)
+- Mac OSX 10.5
+
+It seems that omake uses gcc to compile the stubs which does not work  
+as caml/memory.h and others are not in /usr/lib as usual but in the  
+findlib tree.
+I guess "ocamlfind ocamlc" should be used instead of "gcc" but I have  
+no clue how to do this (I don't know OMake) and particularly how to do  
+this in a clean way.
+It does not find ft2build.h neither. "freetype-config --cflags" does  
+not seem to be transmitted to the compiler.
+
+
+Hoping I am clear enough, thanks in advance,
+--
+Vincent Aravantinos
+PhD Student - LIG - CAPP Team
+Grenoble, France
++33.6.11.23.34.72
+vincent.aravantinos at imag.fr
+http://membres-lig.imag.fr/aravantinos/
+
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: <https://lists.berlios.de/pipermail/ant-devel/attachments/20090612/40e9e87b/attachment.html>
+
+From blumensath at mathematik.tu-darmstadt.de  Fri Jun 12 14:31:13 2009
+From: blumensath at mathematik.tu-darmstadt.de (Achim Blumensath)
+Date: Fri, 12 Jun 2009 14:31:13 +0200
+Subject: [ant-devel] Compilation problem
+In-Reply-To: <73ACEAEC-917E-4020-879B-23BD7DB88E09@gmail.com>
+References: <73ACEAEC-917E-4020-879B-23BD7DB88E09@gmail.com>
+Message-ID: <20090612123113.GF2426@mathematik.tu-darmstadt.de>
+
+Hello,
+
+> I get the following error message:
+> 
+> $omake
+> - scan Runtime freetype-stubs.o
+> + gcc -I. -MM freetype-stubs.c
+> freetype-stubs.c:1:25: error: caml/memory.h: No such file or directory
+
+Which version of ant is this? If you have ant 0.8 you can give the
+current development version a try. There was a bug with the makefiles
+which is fixed in CVS.
+
+Achim
+-- 
+________________________________________________________________________
+                                                              | \_____/ |
+   Achim Blumensath                                          \O/ \___/\ |
+   TU Darmstadt                                              =o=  \ /\ \|
+   www.mathematik.tu-darmstadt.de/~blumensath                /"\   o----|
+____________________________________________________________________\___|
+-------------- next part --------------
+A non-text attachment was scrubbed...
+Name: signature.asc
+Type: application/pgp-signature
+Size: 189 bytes
+Desc: Digital signature
+URL: <https://lists.berlios.de/pipermail/ant-devel/attachments/20090612/e07fafa9/attachment.pgp>
+
+From vincent.aravantinos at gmail.com  Fri Jun 12 14:35:02 2009
+From: vincent.aravantinos at gmail.com (Vincent Aravantinos)
+Date: Fri, 12 Jun 2009 14:35:02 +0200
+Subject: [ant-devel] Compilation problem
+In-Reply-To: <20090612123113.GF2426@mathematik.tu-darmstadt.de>
+References: <73ACEAEC-917E-4020-879B-23BD7DB88E09@gmail.com>
+	<20090612123113.GF2426@mathematik.tu-darmstadt.de>
+Message-ID: <4462979B-6E39-4B64-8D37-232C0AE9E1E5@gmail.com>
+
+Hi,
+
+Le 12 juin 09 ? 14:31, Achim Blumensath a ?crit :
+
+> Which version of ant is this? If you have ant 0.8 you can give the
+> current development version a try. There was a bug with the makefiles
+> which is fixed in CVS.
+
+With the CVS version I get another error:
+
+$omake
+*** omake: reading OMakefiles
+--- Checking for ocamlfind... (found /opt/godi/bin/ocamlfind)
+--- Checking for ocamlc.opt... (found /opt/godi/bin/ocamlc.opt)
+--- Checking for ocamlopt.opt... (found /opt/godi/bin/ocamlopt.opt)
+--- Checking whether ocamlc understands the "z" warnings... (yes)
+--- Checking if ocamldep understands -modules... (yes)
+*** omake: finished reading OMakefiles (0.37 sec)
+*** omake: 38/66 targets are up to date
+*** omake: failed (0.38 sec, 0/0 scans, 0/0 rules, 23/149 digests)
+*** omake error:
+    File /opt/godi/lib/omake/build/OCaml.om: line 933, characters 10-73
+    Do not know how to build "lib" required for "lib/Runtime.cmi"
+
+Seems to be an omake error.
+
+$omake --version
+OMake 0.9.8.5 (release 3):
+	build [Fri Jun 12 09:08:19 2009]
+	on macbook-de-vincent-aravantinos.local
+
+Default library directory : /opt/godi/lib/omake
+
+Seems to be the one indicated in the README, isn't it?
+
+Cheers,
+Vincent
+
+From blumensath at mathematik.tu-darmstadt.de  Fri Jun 12 14:36:23 2009
+From: blumensath at mathematik.tu-darmstadt.de (Achim Blumensath)
+Date: Fri, 12 Jun 2009 14:36:23 +0200
+Subject: [ant-devel] Compilation problem
+In-Reply-To: <4462979B-6E39-4B64-8D37-232C0AE9E1E5@gmail.com>
+References: <73ACEAEC-917E-4020-879B-23BD7DB88E09@gmail.com>
+	<20090612123113.GF2426@mathematik.tu-darmstadt.de>
+	<4462979B-6E39-4B64-8D37-232C0AE9E1E5@gmail.com>
+Message-ID: <20090612123623.GG2426@mathematik.tu-darmstadt.de>
+
+Hello,
+
+Vincent Aravantinos wrote:
+> With the CVS version I get another error:
+> 
+> $omake
+>     File /opt/godi/lib/omake/build/OCaml.om: line 933, characters 10-73
+>     Do not know how to build "lib" required for "lib/Runtime.cmi"
+
+Just create the directory lib manually:
+
+  $ mkdir lib
+
+Achim
+-- 
+________________________________________________________________________
+                                                              | \_____/ |
+   Achim Blumensath                                          \O/ \___/\ |
+   TU Darmstadt                                              =o=  \ /\ \|
+   www.mathematik.tu-darmstadt.de/~blumensath                /"\   o----|
+____________________________________________________________________\___|
+-------------- next part --------------
+A non-text attachment was scrubbed...
+Name: signature.asc
+Type: application/pgp-signature
+Size: 189 bytes
+Desc: Digital signature
+URL: <https://lists.berlios.de/pipermail/ant-devel/attachments/20090612/f22f8d94/attachment.pgp>
+
+From vincent.aravantinos at gmail.com  Fri Jun 12 14:42:58 2009
+From: vincent.aravantinos at gmail.com (Vincent Aravantinos)
+Date: Fri, 12 Jun 2009 14:42:58 +0200
+Subject: [ant-devel] Compilation problem
+In-Reply-To: <20090612123623.GG2426@mathematik.tu-darmstadt.de>
+References: <73ACEAEC-917E-4020-879B-23BD7DB88E09@gmail.com>
+	<20090612123113.GF2426@mathematik.tu-darmstadt.de>
+	<4462979B-6E39-4B64-8D37-232C0AE9E1E5@gmail.com>
+	<20090612123623.GG2426@mathematik.tu-darmstadt.de>
+Message-ID: <9DC7476F-BBAE-4484-A9C6-49BB2A7C3535@gmail.com>
+
+
+Le 12 juin 09 ? 14:36, Achim Blumensath a ?crit :
+
+> Vincent Aravantinos wrote:
+>> With the CVS version I get another error:
+>>
+>> $omake
+>>    File /opt/godi/lib/omake/build/OCaml.om: line 933, characters  
+>> 10-73
+>>    Do not know how to build "lib" required for "lib/Runtime.cmi"
+>
+> Just create the directory lib manually:
+>  $ mkdir lib
+
+I'm quite ashamed, this was simple...
+
+Though I now have the original error back:
+
+$omake
+*** omake: reading OMakefiles
+*** omake: finished reading OMakefiles (0.26 sec)
+- scan Tools zlib-stubs.o
++ gcc -I. -MM zlib-stubs.c
+zlib-stubs.c:2:27: error: caml/mlvalues.h: No such file or directory
+zlib-stubs.c:3:25: error: caml/memory.h: No such file or directory
+zlib-stubs.c:4:24: error: caml/alloc.h: No such file or directory
+zlib-stubs.c:5:23: error: caml/fail.h: No such file or directory
+zlib-stubs.c:6:25: error: caml/custom.h: No such file or directory
+*** omake: 85/945 targets are up to date
+*** omake: failed (0.40 sec, 1/1 scans, 0/1 rules, 1/390 digests)
+*** omake: targets were not rebuilt because of errors:
+    <scanner Tools/zlib-stubs.o>
+       depends on: Tools/zlib-stubs.c
+
+It's now with zlib instead of freetype...
+
+Thanks in advance,
+Vincent
+
+From blumensath at mathematik.tu-darmstadt.de  Fri Jun 12 14:54:55 2009
+From: blumensath at mathematik.tu-darmstadt.de (Achim Blumensath)
+Date: Fri, 12 Jun 2009 14:54:55 +0200
+Subject: [ant-devel] Compilation problem
+In-Reply-To: <9DC7476F-BBAE-4484-A9C6-49BB2A7C3535@gmail.com>
+References: <73ACEAEC-917E-4020-879B-23BD7DB88E09@gmail.com>
+	<20090612123113.GF2426@mathematik.tu-darmstadt.de>
+	<4462979B-6E39-4B64-8D37-232C0AE9E1E5@gmail.com>
+	<20090612123623.GG2426@mathematik.tu-darmstadt.de>
+	<9DC7476F-BBAE-4484-A9C6-49BB2A7C3535@gmail.com>
+Message-ID: <20090612125455.GH2426@mathematik.tu-darmstadt.de>
+
+Hello,
+
+Vincent Aravantinos wrote:
+> Though I now have the original error back:
+> 
+> $omake
+> *** omake: reading OMakefiles
+> *** omake: finished reading OMakefiles (0.26 sec)
+> - scan Tools zlib-stubs.o
+> + gcc -I. -MM zlib-stubs.c
+> zlib-stubs.c:2:27: error: caml/mlvalues.h: No such file or directory
+
+Can you try adding the line
+
+  CFLAGS += -I $(OCAML_LIB_DIR)
+
+to the OMakefile in the root directory?
+
+Achim
+-- 
+________________________________________________________________________
+                                                              | \_____/ |
+   Achim Blumensath                                          \O/ \___/\ |
+   TU Darmstadt                                              =o=  \ /\ \|
+   www.mathematik.tu-darmstadt.de/~blumensath                /"\   o----|
+____________________________________________________________________\___|
+-------------- next part --------------
+A non-text attachment was scrubbed...
+Name: signature.asc
+Type: application/pgp-signature
+Size: 189 bytes
+Desc: Digital signature
+URL: <https://lists.berlios.de/pipermail/ant-devel/attachments/20090612/ad8dffab/attachment.pgp>
+
+From vincent.aravantinos at gmail.com  Fri Jun 12 15:00:44 2009
+From: vincent.aravantinos at gmail.com (Vincent Aravantinos)
+Date: Fri, 12 Jun 2009 15:00:44 +0200
+Subject: [ant-devel] Compilation problem
+In-Reply-To: <20090612125455.GH2426@mathematik.tu-darmstadt.de>
+References: <73ACEAEC-917E-4020-879B-23BD7DB88E09@gmail.com>
+	<20090612123113.GF2426@mathematik.tu-darmstadt.de>
+	<4462979B-6E39-4B64-8D37-232C0AE9E1E5@gmail.com>
+	<20090612123623.GG2426@mathematik.tu-darmstadt.de>
+	<9DC7476F-BBAE-4484-A9C6-49BB2A7C3535@gmail.com>
+	<20090612125455.GH2426@mathematik.tu-darmstadt.de>
+Message-ID: <11EABBA3-9905-47FC-BA13-FE8EFD9D4667@gmail.com>
+
+
+Le 12 juin 09 ? 14:54, Achim Blumensath a ?crit :
+
+> Vincent Aravantinos wrote:
+>> $omake
+>> *** omake: reading OMakefiles
+>> *** omake: finished reading OMakefiles (0.26 sec)
+>> - scan Tools zlib-stubs.o
+>> + gcc -I. -MM zlib-stubs.c
+>> zlib-stubs.c:2:27: error: caml/mlvalues.h: No such file or directory
+>
+> Can you try adding the line
+>
+>  CFLAGS += -I $(OCAML_LIB_DIR)
+>
+> to the OMakefile in the root directory?
+
+Great, this worked!
+
+However, I now have yet another error :-(
+
+$omake
+*** omake: reading OMakefiles
+*** omake: finished reading OMakefiles (0.26 sec)
+- build Images CamlImages.cmx
++ ocamlopt.opt -w Aes -warn-error P -rectypes -I ../Tools -I ../lib - 
+pp ../PreProc/camlp4opt -I . -I /opt/godi/lib/ocaml/std-lib/camlimages  
+-I . -c CamlImages.ml
+<W> Grammar extension: in [expr] some rule has been masked
+File "CamlImages.ml", line 2, characters 17-23:
+Error: Unbound module Images
+*** omake: 205/953 targets are up to date
+*** omake: failed (0.41 sec, 0/28 scans, 1/47 rules, 0/537 digests)
+*** omake: targets were not rebuilt because of errors:
+    Images/CamlImages.cmi
+       depends on: Images/CamlImages.ml
+    Images/CamlImages.cmx
+       depends on: Images/CamlImages.ml
+    Images/CamlImages.o
+       depends on: Images/CamlImages.ml
+
+
+Vincent
+
+From blumensath at mathematik.tu-darmstadt.de  Fri Jun 12 15:04:20 2009
+From: blumensath at mathematik.tu-darmstadt.de (Achim Blumensath)
+Date: Fri, 12 Jun 2009 15:04:20 +0200
+Subject: [ant-devel] Compilation problem
+In-Reply-To: <11EABBA3-9905-47FC-BA13-FE8EFD9D4667@gmail.com>
+References: <73ACEAEC-917E-4020-879B-23BD7DB88E09@gmail.com>
+	<20090612123113.GF2426@mathematik.tu-darmstadt.de>
+	<4462979B-6E39-4B64-8D37-232C0AE9E1E5@gmail.com>
+	<20090612123623.GG2426@mathematik.tu-darmstadt.de>
+	<9DC7476F-BBAE-4484-A9C6-49BB2A7C3535@gmail.com>
+	<20090612125455.GH2426@mathematik.tu-darmstadt.de>
+	<11EABBA3-9905-47FC-BA13-FE8EFD9D4667@gmail.com>
+Message-ID: <20090612130420.GI2426@mathematik.tu-darmstadt.de>
+
+Hello,
+
+Vincent Aravantinos wrote:
+> However, I now have yet another error :-(
+> 
+> $omake
+> *** omake: reading OMakefiles
+> *** omake: finished reading OMakefiles (0.26 sec)
+> - build Images CamlImages.cmx
+> + ocamlopt.opt -w Aes -warn-error P -rectypes -I ../Tools -I ../lib - 
+> pp ../PreProc/camlp4opt -I . -I /opt/godi/lib/ocaml/std-lib/camlimages  
+> -I . -c CamlImages.ml
+> <W> Grammar extension: in [expr] some rule has been masked
+> File "CamlImages.ml", line 2, characters 17-23:
+> Error: Unbound module Images
+
+Which version of camlimages is this?
+You seem to have camlimages installed in the directory
+
+  /opt/godi/lib/ocaml/std-lib/camlimages
+
+Does this directory contain a file called images.cmi?
+
+Achim
+-- 
+________________________________________________________________________
+                                                              | \_____/ |
+   Achim Blumensath                                          \O/ \___/\ |
+   TU Darmstadt                                              =o=  \ /\ \|
+   www.mathematik.tu-darmstadt.de/~blumensath                /"\   o----|
+____________________________________________________________________\___|
+-------------- next part --------------
+A non-text attachment was scrubbed...
+Name: signature.asc
+Type: application/pgp-signature
+Size: 189 bytes
+Desc: Digital signature
+URL: <https://lists.berlios.de/pipermail/ant-devel/attachments/20090612/1e689cb8/attachment.pgp>
+
+From vincent.aravantinos at gmail.com  Fri Jun 12 15:09:56 2009
+From: vincent.aravantinos at gmail.com (Vincent Aravantinos)
+Date: Fri, 12 Jun 2009 15:09:56 +0200
+Subject: [ant-devel] Compilation problem
+In-Reply-To: <20090612130420.GI2426@mathematik.tu-darmstadt.de>
+References: <73ACEAEC-917E-4020-879B-23BD7DB88E09@gmail.com>
+	<20090612123113.GF2426@mathematik.tu-darmstadt.de>
+	<4462979B-6E39-4B64-8D37-232C0AE9E1E5@gmail.com>
+	<20090612123623.GG2426@mathematik.tu-darmstadt.de>
+	<9DC7476F-BBAE-4484-A9C6-49BB2A7C3535@gmail.com>
+	<20090612125455.GH2426@mathematik.tu-darmstadt.de>
+	<11EABBA3-9905-47FC-BA13-FE8EFD9D4667@gmail.com>
+	<20090612130420.GI2426@mathematik.tu-darmstadt.de>
+Message-ID: <DA61C03D-03B6-46CD-98EB-3BD71285C4A8@gmail.com>
+
+
+Le 12 juin 09 ? 15:04, Achim Blumensath a ?crit :
+
+> Vincent Aravantinos wrote:
+>> However, I now have yet another error :-(
+>>
+>> $omake
+>> *** omake: reading OMakefiles
+>> *** omake: finished reading OMakefiles (0.26 sec)
+>> - build Images CamlImages.cmx
+>> + ocamlopt.opt -w Aes -warn-error P -rectypes -I ../Tools -I ../lib -
+>> pp ../PreProc/camlp4opt -I . -I /opt/godi/lib/ocaml/std-lib/ 
+>> camlimages
+>> -I . -c CamlImages.ml
+>> <W> Grammar extension: in [expr] some rule has been masked
+>> File "CamlImages.ml", line 2, characters 17-23:
+>> Error: Unbound module Images
+>
+> Which version of camlimages is this?
+> You seem to have camlimages installed in the directory
+>
+>  /opt/godi/lib/ocaml/std-lib/camlimages
+>
+> Does this directory contain a file called images.cmi?
+
+
+This directory does not exist.
+camlimages is actually installed in:
+
+   /opt/godi/lib/ocaml/pkg-lib/camlimages
+
+How did omake inferred std-lib instead of pkg-lib?
+
+V.
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: <https://lists.berlios.de/pipermail/ant-devel/attachments/20090612/9f18b633/attachment.html>
+
+From vincent.aravantinos at gmail.com  Fri Jun 12 15:11:21 2009
+From: vincent.aravantinos at gmail.com (Vincent Aravantinos)
+Date: Fri, 12 Jun 2009 15:11:21 +0200
+Subject: [ant-devel] Compilation problem
+In-Reply-To: <DA61C03D-03B6-46CD-98EB-3BD71285C4A8@gmail.com>
+References: <73ACEAEC-917E-4020-879B-23BD7DB88E09@gmail.com>
+	<20090612123113.GF2426@mathematik.tu-darmstadt.de>
+	<4462979B-6E39-4B64-8D37-232C0AE9E1E5@gmail.com>
+	<20090612123623.GG2426@mathematik.tu-darmstadt.de>
+	<9DC7476F-BBAE-4484-A9C6-49BB2A7C3535@gmail.com>
+	<20090612125455.GH2426@mathematik.tu-darmstadt.de>
+	<11EABBA3-9905-47FC-BA13-FE8EFD9D4667@gmail.com>
+	<20090612130420.GI2426@mathematik.tu-darmstadt.de>
+	<DA61C03D-03B6-46CD-98EB-3BD71285C4A8@gmail.com>
+Message-ID: <975DAC22-43B1-40C8-AF6D-3E5BBDEE2CC7@gmail.com>
+
+
+Le 12 juin 09 ? 15:09, Vincent Aravantinos a ?crit :
+
+> Le 12 juin 09 ? 15:04, Achim Blumensath a ?crit :
+>
+>> Which version of camlimages is this?
+>> You seem to have camlimages installed in the directory
+>>
+>>  /opt/godi/lib/ocaml/std-lib/camlimages
+>>
+>> Does this directory contain a file called images.cmi?
+>
+>
+> This directory does not exist.
+> camlimages is actually installed in:
+>
+>   /opt/godi/lib/ocaml/pkg-lib/camlimages
+>
+> How did omake inferred std-lib instead of pkg-lib?
+
+Note that ocamlfind query returns the good answer:
+
+$ocamlfind query camlimages
+/opt/godi/lib/ocaml/pkg-lib/camlimages
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: <https://lists.berlios.de/pipermail/ant-devel/attachments/20090612/4f2f2a9f/attachment.html>
+
+From blumensath at mathematik.tu-darmstadt.de  Fri Jun 12 15:13:01 2009
+From: blumensath at mathematik.tu-darmstadt.de (Achim Blumensath)
+Date: Fri, 12 Jun 2009 15:13:01 +0200
+Subject: [ant-devel] Compilation problem
+In-Reply-To: <DA61C03D-03B6-46CD-98EB-3BD71285C4A8@gmail.com>
+References: <73ACEAEC-917E-4020-879B-23BD7DB88E09@gmail.com>
+	<20090612123113.GF2426@mathematik.tu-darmstadt.de>
+	<4462979B-6E39-4B64-8D37-232C0AE9E1E5@gmail.com>
+	<20090612123623.GG2426@mathematik.tu-darmstadt.de>
+	<9DC7476F-BBAE-4484-A9C6-49BB2A7C3535@gmail.com>
+	<20090612125455.GH2426@mathematik.tu-darmstadt.de>
+	<11EABBA3-9905-47FC-BA13-FE8EFD9D4667@gmail.com>
+	<20090612130420.GI2426@mathematik.tu-darmstadt.de>
+	<DA61C03D-03B6-46CD-98EB-3BD71285C4A8@gmail.com>
+Message-ID: <20090612131301.GJ2426@mathematik.tu-darmstadt.de>
+
+Hello,
+
+Vincent Aravantinos wrote:
+> Le 12 juin 09 ? 15:04, Achim Blumensath a ?crit :
+> >Which version of camlimages is this?
+> >You seem to have camlimages installed in the directory
+> >
+> > /opt/godi/lib/ocaml/std-lib/camlimages
+> >
+> >Does this directory contain a file called images.cmi?
+> 
+> This directory does not exist.
+> camlimages is actually installed in:
+> 
+>   /opt/godi/lib/ocaml/pkg-lib/camlimages
+
+You need to change the line
+
+  CAMLIMAGES_DIR     = $(OCAML_LIB_DIR)/camlimages
+
+in the root OMakefile.
+
+Achim
+-- 
+________________________________________________________________________
+                                                              | \_____/ |
+   Achim Blumensath                                          \O/ \___/\ |
+   TU Darmstadt                                              =o=  \ /\ \|
+   www.mathematik.tu-darmstadt.de/~blumensath                /"\   o----|
+____________________________________________________________________\___|
+-------------- next part --------------
+A non-text attachment was scrubbed...
+Name: signature.asc
+Type: application/pgp-signature
+Size: 189 bytes
+Desc: Digital signature
+URL: <https://lists.berlios.de/pipermail/ant-devel/attachments/20090612/d1469f5a/attachment.pgp>
+
+From vincent.aravantinos at gmail.com  Fri Jun 12 15:23:14 2009
+From: vincent.aravantinos at gmail.com (Vincent Aravantinos)
+Date: Fri, 12 Jun 2009 15:23:14 +0200
+Subject: [ant-devel] Compilation problem
+In-Reply-To: <20090612131301.GJ2426@mathematik.tu-darmstadt.de>
+References: <73ACEAEC-917E-4020-879B-23BD7DB88E09@gmail.com>
+	<20090612123113.GF2426@mathematik.tu-darmstadt.de>
+	<4462979B-6E39-4B64-8D37-232C0AE9E1E5@gmail.com>
+	<20090612123623.GG2426@mathematik.tu-darmstadt.de>
+	<9DC7476F-BBAE-4484-A9C6-49BB2A7C3535@gmail.com>
+	<20090612125455.GH2426@mathematik.tu-darmstadt.de>
+	<11EABBA3-9905-47FC-BA13-FE8EFD9D4667@gmail.com>
+	<20090612130420.GI2426@mathematik.tu-darmstadt.de>
+	<DA61C03D-03B6-46CD-98EB-3BD71285C4A8@gmail.com>
+	<20090612131301.GJ2426@mathematik.tu-darmstadt.de>
+Message-ID: <89327FB0-7735-4B81-AD8B-33DC28EDABA2@gmail.com>
+
+Hello,
+
+Le 12 juin 09 ? 15:13, Achim Blumensath a ?crit :
+
+> You need to change the line
+>
+>  CAMLIMAGES_DIR     = $(OCAML_LIB_DIR)/camlimages
+>
+> in the root OMakefile.
+
+This worked.
+
+I now have this error:
+
+$omake
+*** omake: reading OMakefiles
+*** omake: finished reading OMakefiles (0.26 sec)
+- build Unicode Tables.c
++ <if ... then ... [else ...]>
+data/UnicodeData.txt not found. Please download it from ftp.unicode.org.
+*** omake: 266/953 targets are up to date
+*** omake: failed (0.40 sec, 0/44 scans, 1/90 rules, 0/577 digests)
+*** omake: targets were not rebuilt because of errors:
+    Unicode/Tables.c
+       depends on: Unicode/Tables.c.bot
+       depends on: Unicode/Tables.c.top
+
+I downloaded "UnicodeData.txt" and put it in the directory "data", but  
+it doesn't change a thing.
+Is the "data" directory the one at the root of ant?
+
+V.
+
+From blumensath at mathematik.tu-darmstadt.de  Fri Jun 12 15:27:34 2009
+From: blumensath at mathematik.tu-darmstadt.de (Achim Blumensath)
+Date: Fri, 12 Jun 2009 15:27:34 +0200
+Subject: [ant-devel] Compilation problem
+In-Reply-To: <89327FB0-7735-4B81-AD8B-33DC28EDABA2@gmail.com>
+References: <20090612123113.GF2426@mathematik.tu-darmstadt.de>
+	<4462979B-6E39-4B64-8D37-232C0AE9E1E5@gmail.com>
+	<20090612123623.GG2426@mathematik.tu-darmstadt.de>
+	<9DC7476F-BBAE-4484-A9C6-49BB2A7C3535@gmail.com>
+	<20090612125455.GH2426@mathematik.tu-darmstadt.de>
+	<11EABBA3-9905-47FC-BA13-FE8EFD9D4667@gmail.com>
+	<20090612130420.GI2426@mathematik.tu-darmstadt.de>
+	<DA61C03D-03B6-46CD-98EB-3BD71285C4A8@gmail.com>
+	<20090612131301.GJ2426@mathematik.tu-darmstadt.de>
+	<89327FB0-7735-4B81-AD8B-33DC28EDABA2@gmail.com>
+Message-ID: <20090612132734.GK2426@mathematik.tu-darmstadt.de>
+
+Hello,
+
+Vincent Aravantinos wrote:
+> I now have this error:
+> 
+> $omake
+> *** omake: reading OMakefiles
+> *** omake: finished reading OMakefiles (0.26 sec)
+> - build Unicode Tables.c
+> + <if ... then ... [else ...]>
+> data/UnicodeData.txt not found. Please download it from ftp.unicode.org.
+
+Can you try to replace
+
+  DATAFILE = data/UnicodeData.txt
+
+to
+
+  DATAFILE = $(ROOT)/data/UnicodeData.txt
+
+in Unicode/OMakefile?
+
+Achim
+-- 
+________________________________________________________________________
+                                                              | \_____/ |
+   Achim Blumensath                                          \O/ \___/\ |
+   TU Darmstadt                                              =o=  \ /\ \|
+   www.mathematik.tu-darmstadt.de/~blumensath                /"\   o----|
+____________________________________________________________________\___|
+-------------- next part --------------
+A non-text attachment was scrubbed...
+Name: signature.asc
+Type: application/pgp-signature
+Size: 189 bytes
+Desc: Digital signature
+URL: <https://lists.berlios.de/pipermail/ant-devel/attachments/20090612/04208f45/attachment.pgp>
+
+From vincent.aravantinos at gmail.com  Fri Jun 12 15:39:08 2009
+From: vincent.aravantinos at gmail.com (Vincent Aravantinos)
+Date: Fri, 12 Jun 2009 15:39:08 +0200
+Subject: [ant-devel] Compilation problem
+In-Reply-To: <20090612132734.GK2426@mathematik.tu-darmstadt.de>
+References: <20090612123113.GF2426@mathematik.tu-darmstadt.de>
+	<4462979B-6E39-4B64-8D37-232C0AE9E1E5@gmail.com>
+	<20090612123623.GG2426@mathematik.tu-darmstadt.de>
+	<9DC7476F-BBAE-4484-A9C6-49BB2A7C3535@gmail.com>
+	<20090612125455.GH2426@mathematik.tu-darmstadt.de>
+	<11EABBA3-9905-47FC-BA13-FE8EFD9D4667@gmail.com>
+	<20090612130420.GI2426@mathematik.tu-darmstadt.de>
+	<DA61C03D-03B6-46CD-98EB-3BD71285C4A8@gmail.com>
+	<20090612131301.GJ2426@mathematik.tu-darmstadt.de>
+	<89327FB0-7735-4B81-AD8B-33DC28EDABA2@gmail.com>
+	<20090612132734.GK2426@mathematik.tu-darmstadt.de>
+Message-ID: <B4445BA2-3A6C-4E64-9054-FD762A890B13@gmail.com>
+
+Le 12 juin 09 ? 15:27, Achim Blumensath a ?crit :
+
+> Can you try to replace
+>  DATAFILE = data/UnicodeData.txt
+> to
+>  DATAFILE = $(ROOT)/data/UnicodeData.txt
+> in Unicode/OMakefile?
+
+This worked and now everything compiles !
+
+In the meantime I just had to set the KPATHSEA_CFLAGS.
+
+Thanks for all!
+Vincent
+

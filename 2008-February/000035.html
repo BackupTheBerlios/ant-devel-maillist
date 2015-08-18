@@ -1,0 +1,103 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [ant-devel] compile error
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/ant-devel/2008-February/index.html" >
+   <LINK REL="made" HREF="mailto:ant-devel%40lists.berlios.de?Subject=Re%3A%20%5Bant-devel%5D%20compile%20error&In-Reply-To=%3C20080228204717.GA14252%40home.ro-che.info%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   
+   <LINK REL="Next"  HREF="000036.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[ant-devel] compile error</H1>
+    <B>Roman Cheplyaka</B> 
+    <A HREF="mailto:ant-devel%40lists.berlios.de?Subject=Re%3A%20%5Bant-devel%5D%20compile%20error&In-Reply-To=%3C20080228204717.GA14252%40home.ro-che.info%3E"
+       TITLE="[ant-devel] compile error">roma at ro-che.info
+       </A><BR>
+    <I>Thu Feb 28 21:47:17 CET 2008</I>
+    <P><UL>
+        
+        <LI>Next message: <A HREF="000036.html">[ant-devel] compile error
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#35">[ date ]</a>
+              <a href="thread.html#35">[ thread ]</a>
+              <a href="subject.html#35">[ subject ]</a>
+              <a href="author.html#35">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Hi.
+I tried to compile ant on Debian sid and got an error not yet
+discussed. I must mention that I set CAMLP4=camlp4r.opt (camlp4rf is
+absent on my system). OCaml is 3.10.1, omake is 0.9.8.5.
+
+crematorium:~/source/ant-0.8% omake
+*** omake: reading OMakefiles
+*** omake: finished reading OMakefiles (0.12 sec)
+- build Tools zlib-stubs.o
++ ocamlc.opt -c -o zlib-stubs.o zlib-stubs.c
+zlib-stubs.c: In function &#8216;zlib_compress&#8217;:
+zlib-stubs.c:189: warning: pointer targets in passing argument 1 of &#8216;compress&#8217; differ in signedness
+zlib-stubs.c:189: warning: pointer targets in passing argument 3 of &#8216;compress&#8217; differ in signedness
+zlib-stubs.c: In function &#8216;zlib_compress2&#8217;:
+zlib-stubs.c:200: warning: pointer targets in passing argument 1 of &#8216;compress2&#8217; differ in signedness
+zlib-stubs.c:200: warning: pointer targets in passing argument 3 of &#8216;compress2&#8217; differ in signedness
+zlib-stubs.c: In function &#8216;zlib_uncompress&#8217;:
+zlib-stubs.c:211: warning: pointer targets in passing argument 1 of &#8216;uncompress&#8217; differ in signedness
+zlib-stubs.c:211: warning: pointer targets in passing argument 3 of &#8216;uncompress&#8217; differ in signedness
+zlib-stubs.c: In function &#8216;zlib_adler32&#8217;:
+zlib-stubs.c:221: warning: pointer targets in passing argument 2 of &#8216;adler32&#8217; differ in signedness
+zlib-stubs.c: In function &#8216;zlib_crc32&#8217;:
+zlib-stubs.c:228: warning: pointer targets in passing argument 2 of &#8216;crc32&#8217; differ in signedness
+- scan PreProc scan-ocaml-pa_Num.ml
++ ocamldep -pp camlp4r.opt -I /usr/lib/ocaml/3.10.1/camlp4 -modules pa_Num.ml
+     | Shell.ocamldep-postproc()
+File &quot;pa_Num.ml&quot;, line 13, characters 4-10:
+Parse error: [semi] expected after [str_item] (in [str_items])
+Preprocessing error on file pa_Num.ml
+*** omake: 128/938 targets are up to date
+*** omake: failed (0.44 sec, 1/2 scans, 2/2 rules, 2/427 digests)
+*** omake: targets were not rebuilt because of errors:
+   &lt;scanner PreProc/scan-ocaml-pa_Num.ml&gt;
+      depends on: PreProc/pa_Num.ml
+
+-- 
+Roman I. Cheplyaka :: <A HREF="http://ro-che.info/">http://ro-che.info/</A>
+...being in love is totally punk rock...
+-------------- next part --------------
+A non-text attachment was scrubbed...
+Name: signature.asc
+Type: application/pgp-signature
+Size: 307 bytes
+Desc: Digital signature
+URL: &lt;<A HREF="https://lists.berlios.de/pipermail/ant-devel/attachments/20080228/8336a765/attachment.pgp">https://lists.berlios.de/pipermail/ant-devel/attachments/20080228/8336a765/attachment.pgp</A>&gt;
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	
+	<LI>Next message: <A HREF="000036.html">[ant-devel] compile error
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#35">[ date ]</a>
+              <a href="thread.html#35">[ thread ]</a>
+              <a href="subject.html#35">[ subject ]</a>
+              <a href="author.html#35">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/ant-devel">More information about the ant-devel
+mailing list</a><br>
+</body></html>

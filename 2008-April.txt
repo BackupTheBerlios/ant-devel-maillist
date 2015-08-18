@@ -1,0 +1,354 @@
+From shenchen at nus.edu.sg  Tue Apr  1 10:54:22 2008
+From: shenchen at nus.edu.sg (Shen Chen)
+Date: Tue, 1 Apr 2008 16:54:22 +0800
+Subject: [ant-devel] ALKPathsea.ml missing in CVS
+Message-ID: <A2A52DEC-706D-48CD-883A-D64783D97E6A@nus.edu.sg>
+
+Hi Achim,
+
+I am trying to compile from CVS but ALKPathsea.ml doesn't exist in CVS.
+
+regards,
+shenchen
+
+
+From blumensath at mathematik.tu-darmstadt.de  Tue Apr  1 11:12:03 2008
+From: blumensath at mathematik.tu-darmstadt.de (Achim Blumensath)
+Date: Tue, 1 Apr 2008 11:12:03 +0200
+Subject: [ant-devel] ALKPathsea.ml missing in CVS
+In-Reply-To: <A2A52DEC-706D-48CD-883A-D64783D97E6A@nus.edu.sg>
+References: <A2A52DEC-706D-48CD-883A-D64783D97E6A@nus.edu.sg>
+Message-ID: <20080401091203.GB3715@mathematik.tu-darmstadt.de>
+
+Hello,
+
+> I am trying to compile from CVS but ALKPathsea.ml doesn't exist in CVS.
+
+Oops, sorry. Please try again, it should be fixed now.
+
+Achim
+-- 
+________________________________________________________________________
+                                                              | \_____/ |
+   Achim Blumensath                                          \O/ \___/\ |
+   TU Darmstadt                                              =o=  \ /\ \|
+   www.mathematik.tu-darmstadt.de/~blumensath                /"\   o----|
+____________________________________________________________________\___|
+-------------- next part --------------
+A non-text attachment was scrubbed...
+Name: not available
+Type: application/pgp-signature
+Size: 240 bytes
+Desc: not available
+URL: <https://lists.berlios.de/pipermail/ant-devel/attachments/20080401/f3d5e293/attachment.pgp>
+
+From shenchen at nus.edu.sg  Wed Apr  2 05:34:22 2008
+From: shenchen at nus.edu.sg (Shen Chen)
+Date: Wed, 2 Apr 2008 11:34:22 +0800
+Subject: [ant-devel] bug in Dim.dim_max | table layout.
+Message-ID: <98F9FB32-D9D5-4193-A359-A1FEF4E82CFD@nus.edu.sg>
+
+Hi Achim,
+
+I was trying to figure out the table layout algorithm, but was  
+confused by the dim_max function in Dim.ml.
+
+ From Dim.ml:
+value dim_max d1 d2 = do
+{
+  if d1.d_base >/ d2.d_base then do
+  {
+    let delta = d1.d_base -/ d2.d_base;
+
+    let (st_f, st_o) = min_order (dim_stretch d1) (shift_order  
+(dim_stretch d2) (minus_num delta));
+    let (sh_f, sh_o) = min_order (dim_shrink  d1) (shift_order  
+(dim_shrink  d2) delta);
+    {
+      d_base           = d1.d_base;
+      d_stretch_factor = st_f;
+      d_stretch_order  = st_o;
+      d_shrink_factor  = sh_f;
+      d_shrink_order   = sh_o
+    }
+  }
+...
+...
+
+min_order is used for both stretch and shrink factor. I think  
+max_order should be used for stretch, isn't it? I am using the  
+following code for testing
+
+  log_string "test1:"; log_dim (dim_max
+  ({d_base=(num_of_int 1);d_stretch_factor=(num_of_int  
+1);d_stretch_order=0;d_shrink_factor=num_zero ;d_shrink_order=0})
+  ({d_base=(num_of_int 2);d_stretch_factor=(num_of_int  
+1);d_stretch_order=0;d_shrink_factor=num_zero;d_shrink_order=0})
+  ); log_string "\n";
+
+  log_string "test2:"; log_dim (dim_max
+  ({d_base=(num_of_int 2);d_stretch_factor=(num_of_int  
+1);d_stretch_order=0;d_shrink_factor=num_zero ;d_shrink_order=0})
+  ({d_base=(num_of_int 1);d_stretch_factor=(num_of_int  
+1);d_stretch_order=0;d_shrink_factor=num_zero;d_shrink_order=0})
+  ); log_string "\n";
+
+  log_string "test3:"; log_dim (dim_max
+  ({d_base=(num_of_int 1);d_stretch_factor=(num_of_int  
+2);d_stretch_order=0;d_shrink_factor=num_zero ;d_shrink_order=0})
+  ({d_base=(num_of_int 1);d_stretch_factor=(num_of_int  
+1);d_stretch_order=0;d_shrink_factor=num_zero;d_shrink_order=0})
+  ); log_string "\n";
+
+  log_string "test4:"; log_dim (dim_max
+  ({d_base=(num_of_int 1);d_stretch_factor=(num_of_int  
+1);d_stretch_order=0;d_shrink_factor=num_zero ;d_shrink_order=0})
+  ({d_base=(num_of_int 1);d_stretch_factor=(num_of_int  
+2);d_stretch_order=0;d_shrink_factor=num_zero;d_shrink_order=0})
+  ); log_string "\n";
+=====================================
+
+
+
+Currently the Table layout fits the cell width to its content.
+I am adding code to Table.ml to allow tables that spread to the galley  
+width, or a user-specified width.
+I think this layout strategy should belong to a parameter dictionary  
+named "table", where I store other table layout parameters (e.g.  
+vertical align of the table w.r.t the baseline) as well.
+Hope to hear your opinion on this before I proceed.
+
+Thank you.
+
+
+
+shenchen
+
+
+From hashhsah at hotmail.com  Tue Apr  1 19:17:07 2008
+From: hashhsah at hotmail.com (Shen Chen)
+Date: Wed, 2 Apr 2008 01:17:07 +0800
+Subject: [ant-devel] bug in Dim.dim_max ?
+Message-ID: <BAY130-DAV2826CD0E191A1C14D3DEFCFF50@phx.gbl>
+
+Hi Achim,
+
+I was trying to figure out the table layout algorithm, but was  
+confused by the dim_max function in Dim.ml.
+
+ From Dim.ml:
+value dim_max d1 d2 = do
+{
+   if d1.d_base >/ d2.d_base then do
+   {
+     let delta = d1.d_base -/ d2.d_base;
+
+     let (st_f, st_o) = min_order (dim_stretch d1) (shift_order  
+(dim_stretch d2) (minus_num delta));
+     let (sh_f, sh_o) = min_order (dim_shrink  d1) (shift_order  
+(dim_shrink  d2) delta);
+     {
+       d_base           = d1.d_base;
+       d_stretch_factor = st_f;
+       d_stretch_order  = st_o;
+       d_shrink_factor  = sh_f;
+       d_shrink_order   = sh_o
+     }
+   }
+..
+..
+
+min_order is used for both stretch and shrink factor. I think  
+max_order should be used for stretch, isn't it? I am using the  
+following code for testing
+
+   log_string "test1:"; log_dim (dim_max
+   ({d_base=(num_of_int 1);d_stretch_factor=(num_of_int  
+1);d_stretch_order=0;d_shrink_factor=num_zero ;d_shrink_order=0})
+   ({d_base=(num_of_int 2);d_stretch_factor=(num_of_int  
+1);d_stretch_order=0;d_shrink_factor=num_zero;d_shrink_order=0})
+   ); log_string "\n";
+
+   log_string "test2:"; log_dim (dim_max
+   ({d_base=(num_of_int 2);d_stretch_factor=(num_of_int  
+1);d_stretch_order=0;d_shrink_factor=num_zero ;d_shrink_order=0})
+   ({d_base=(num_of_int 1);d_stretch_factor=(num_of_int  
+1);d_stretch_order=0;d_shrink_factor=num_zero;d_shrink_order=0})
+   ); log_string "\n";
+
+   log_string "test3:"; log_dim (dim_max
+   ({d_base=(num_of_int 1);d_stretch_factor=(num_of_int  
+2);d_stretch_order=0;d_shrink_factor=num_zero ;d_shrink_order=0})
+   ({d_base=(num_of_int 1);d_stretch_factor=(num_of_int  
+1);d_stretch_order=0;d_shrink_factor=num_zero;d_shrink_order=0})
+   ); log_string "\n";
+
+   log_string "test4:"; log_dim (dim_max
+   ({d_base=(num_of_int 1);d_stretch_factor=(num_of_int  
+1);d_stretch_order=0;d_shrink_factor=num_zero ;d_shrink_order=0})
+   ({d_base=(num_of_int 1);d_stretch_factor=(num_of_int  
+2);d_stretch_order=0;d_shrink_factor=num_zero;d_shrink_order=0})
+   ); log_string "\n";
+
+Thank you.
+
+best regards,
+shenchen
+
+
+
+
+
+From blumensath at mathematik.tu-darmstadt.de  Thu Apr  3 08:53:25 2008
+From: blumensath at mathematik.tu-darmstadt.de (Achim Blumensath)
+Date: Thu, 3 Apr 2008 08:53:25 +0200
+Subject: [ant-devel] bug in Dim.dim_max | table layout.
+In-Reply-To: <98F9FB32-D9D5-4193-A359-A1FEF4E82CFD@nus.edu.sg>
+References: <98F9FB32-D9D5-4193-A359-A1FEF4E82CFD@nus.edu.sg>
+Message-ID: <20080403065325.GB19309@mathematik.tu-darmstadt.de>
+
+Hello,
+
+> I was trying to figure out the table layout algorithm, but was  
+> confused by the dim_max function in Dim.ml.
+[...]
+> min_order is used for both stretch and shrink factor. I think  
+> max_order should be used for stretch, isn't it?
+
+Actually, I'm not sure what the best choice is. The function is intended
+to be used to, say, compute the height of a row of boxes. The question
+is, if all of the boxes have stretchability, what should be the
+stretchability of the whole row. I opted to take the minimum, but
+perhaps in some cases the maximum might be preferable.
+
+> Currently the Table layout fits the cell width to its content.
+> I am adding code to Table.ml to allow tables that spread to the galley  
+> width, or a user-specified width.
+
+I haven't looked at that part of code in a long time. The ideal
+situation would be that, if all cells of the table have horizontal
+stretchability then the whole table also has stretchability.
+Then the surrounding code can choose how much to stretch the table.
+
+> I think this layout strategy should belong to a parameter dictionary  
+> named "table", where I store other table layout parameters (e.g.  
+> vertical align of the table w.r.t the baseline) as well.
+> Hope to hear your opinion on this before I proceed.
+
+What parameters do you want to add? Currently, the whole table is
+returned as a single box. I have planned for a long time to return
+instead a list of separate rows. This is needed for breaking a table
+across pages and for computing the correct vertical spacing above and
+below a table. Furthermore, the user can then choose where to align the
+table (at the first or last row).
+
+Achim
+-- 
+________________________________________________________________________
+                                                              | \_____/ |
+   Achim Blumensath                                          \O/ \___/\ |
+   TU Darmstadt                                              =o=  \ /\ \|
+   www.mathematik.tu-darmstadt.de/~blumensath                /"\   o----|
+____________________________________________________________________\___|
+-------------- next part --------------
+A non-text attachment was scrubbed...
+Name: not available
+Type: application/pgp-signature
+Size: 240 bytes
+Desc: not available
+URL: <https://lists.berlios.de/pipermail/ant-devel/attachments/20080403/f804790c/attachment.pgp>
+
+From blumensath at mathematik.tu-darmstadt.de  Mon Apr  7 08:26:31 2008
+From: blumensath at mathematik.tu-darmstadt.de (Achim Blumensath)
+Date: Mon, 7 Apr 2008 08:26:31 +0200
+Subject: [ant-devel] Conversion between characters and unicode value
+In-Reply-To: <4CD09AF1-ACD8-4C27-90C3-2F625B41D0F0@nus.edu.sg>
+References: <84E6C0FA-CAA5-4405-A3EA-55704AF5808C@nus.edu.sg>
+	<20080328121048.GB26038@mathematik.tu-darmstadt.de>
+	<67D22B4A-5B31-4831-BA96-11FA9B41FF76@nus.edu.sg>
+	<20080328155904.GF26038@mathematik.tu-darmstadt.de>
+	<9332B2E8-C83D-4367-B5B7-2BF6665A08AC@nus.edu.sg>
+	<20080331072839.GA25496@mathematik.tu-darmstadt.de>
+	<429A56EF-56AE-4F10-8201-B62ED9ACE573@nus.edu.sg>
+	<20080331095809.GC25496@mathematik.tu-darmstadt.de>
+	<4CD09AF1-ACD8-4C27-90C3-2F625B41D0F0@nus.edu.sg>
+Message-ID: <20080407062631.GA3511@mathematik.tu-darmstadt.de>
+
+Hello,
+
+Shen Chen wrote:
+> >> Vertically centering a matrix seems impossible now.
+
+I've added a \vcentre command (see the commented out example in
+manual.ant).
+
+Achim
+-- 
+________________________________________________________________________
+                                                              | \_____/ |
+   Achim Blumensath                                          \O/ \___/\ |
+   TU Darmstadt                                              =o=  \ /\ \|
+   www.mathematik.tu-darmstadt.de/~blumensath                /"\   o----|
+____________________________________________________________________\___|
+-------------- next part --------------
+A non-text attachment was scrubbed...
+Name: not available
+Type: application/pgp-signature
+Size: 240 bytes
+Desc: not available
+URL: <https://lists.berlios.de/pipermail/ant-devel/attachments/20080407/9c8b3f9b/attachment.pgp>
+
+From shenchen at nus.edu.sg  Mon Apr  7 17:27:15 2008
+From: shenchen at nus.edu.sg (Shen Chen)
+Date: Mon, 7 Apr 2008 23:27:15 +0800
+Subject: [ant-devel] Conversion between characters and unicode value
+In-Reply-To: <20080407062631.GA3511@mathematik.tu-darmstadt.de>
+References: <84E6C0FA-CAA5-4405-A3EA-55704AF5808C@nus.edu.sg>
+	<20080328121048.GB26038@mathematik.tu-darmstadt.de>
+	<67D22B4A-5B31-4831-BA96-11FA9B41FF76@nus.edu.sg>
+	<20080328155904.GF26038@mathematik.tu-darmstadt.de>
+	<9332B2E8-C83D-4367-B5B7-2BF6665A08AC@nus.edu.sg>
+	<20080331072839.GA25496@mathematik.tu-darmstadt.de>
+	<429A56EF-56AE-4F10-8201-B62ED9ACE573@nus.edu.sg>
+	<20080331095809.GC25496@mathematik.tu-darmstadt.de>
+	<4CD09AF1-ACD8-4C27-90C3-2F625B41D0F0@nus.edu.sg>
+	<20080407062631.GA3511@mathematik.tu-darmstadt.de>
+Message-ID: <9F30A2DB-72CE-44F7-8A46-5273AB93C3FA@nus.edu.sg>
+
+Hi Achim,
+
+Thank you. I am trying it out.
+
+regards,
+shenchen
+
+On Apr 7, 2008, at 2:26 PM, Achim Blumensath wrote:
+
+> Hello,
+>
+> Shen Chen wrote:
+>>>> Vertically centering a matrix seems impossible now.
+>
+> I've added a \vcentre command (see the commented out example in
+> manual.ant).
+>
+> Achim
+> --  
+> ________________________________________________________________________
+>                                                              |  
+> \_____/ |
+>   Achim Blumensath                                          \O/ \___/ 
+> \ |
+>   TU Darmstadt                                              =o=  \ / 
+> \ \|
+>   www.mathematik.tu-darmstadt.de/~blumensath                /"\    
+> o----|
+> ____________________________________________________________________ 
+> \___|
+> _______________________________________________
+> ant-devel mailing list
+> ant-devel at lists.berlios.de
+> https://lists.berlios.de/mailman/listinfo/ant-devel
+
+
+

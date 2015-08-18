@@ -1,0 +1,542 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [ant-devel] Building on Ubuntu 8.10 intrepid
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/ant-devel/2008-December/index.html" >
+   <LINK REL="made" HREF="mailto:ant-devel%40lists.berlios.de?Subject=Re%3A%20%5Bant-devel%5D%20Building%20on%20Ubuntu%208.10%20intrepid&In-Reply-To=%3C4954FAD3.80604%40ucl.ac.uk%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000087.html">
+   <LINK REL="Next"  HREF="000096.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[ant-devel] Building on Ubuntu 8.10 intrepid</H1>
+    <B>Mohamed Bana</B> 
+    <A HREF="mailto:ant-devel%40lists.berlios.de?Subject=Re%3A%20%5Bant-devel%5D%20Building%20on%20Ubuntu%208.10%20intrepid&In-Reply-To=%3C4954FAD3.80604%40ucl.ac.uk%3E"
+       TITLE="[ant-devel] Building on Ubuntu 8.10 intrepid">m.bana at ucl.ac.uk
+       </A><BR>
+    <I>Fri Dec 26 16:40:03 CET 2008</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000087.html">[ant-devel] Building on Ubuntu 8.10 intrepid
+</A></li>
+        <LI>Next message: <A HREF="000096.html">[ant-devel] Building on Ubuntu 8.10 intrepid
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#95">[ date ]</a>
+              <a href="thread.html#95">[ thread ]</a>
+              <a href="subject.html#95">[ subject ]</a>
+              <a href="author.html#95">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>it failed again :(.  everything in the supporting archive (ant-support-0.8.tar.bz2) built with no build errors.  in case you're wondering, i have libtiff4 3.8.2-11, i.e., the one from intrepid's repo.
+
+ubuntu.patch
+
+--- Runtime/OMakefile	2008-06-12 00:56:10.000000000 +0000
++++ Runtime/OMakefile	2008-06-12 02:48:23.000000000 +0000
+@@ -66,6 +66,7 @@
+ 	$(OCAMLC) -c $(KPATHSEA_CFLAGS) $(SELFAUTO_FLAGS) -o $@ $^
+ 	mv kpathsea-stubs.o $@  # BUG: ocaml creates the object file in the current directory
+ 
++CFLAGS += $(FREETYPE_FLAGS)
+ freetype-stubs.o: freetype-stubs.c
+ 	$(OCAMLC) -c $(FREETYPE_FLAGS) -o $@ $^
+ 	mv freetype-stubs.o $@  # BUG: ocaml creates the object file in the current direct
+
+$ patch -p0 &lt; ubuntu.patch
+patching file Runtime/OMakefile
+
+
+$ omake NUM_LIB=Gmp
+omake: Symbol `FamErrlist' has different size in shared object, consider 
+re-linking
+*** omake: reading OMakefiles
+--- Checking for ocamlfind... (FAILED - no ocamlfind found)
+--- Checking for ocamlc.opt... (FAILED - no ocamlc.opt found)
+--- Checking for ocamlc... (found /usr/bin/ocamlc)
+--- Checking for ocamlopt.opt... (FAILED - no ocamlopt.opt found)
+--- Checking for ocamlopt... (found /usr/bin/ocamlopt)
+--- Checking whether ocamlc understands the &quot;z&quot; warnings... (yes)
+--- Checking if ocamldep understands -modules... (yes)
+*** omake: finished reading OMakefiles (0.61 sec)
+--- Checking for gcc... (found /usr/bin/gcc)
+--- Checking for g++... (found /usr/bin/g++)
+- build Tools zlib-stubs.o
++ ocamlc -c -o zlib-stubs.o zlib-stubs.c
+zlib-stubs.c: In function &#8216;zlib_compress&#8217;:
+zlib-stubs.c:189: warning: pointer targets in passing argument 1 of 
+&#8216;compress&#8217; differ in signedness
+zlib-stubs.c:189: warning: pointer targets in passing argument 3 of 
+&#8216;compress&#8217; differ in signedness
+zlib-stubs.c: In function &#8216;zlib_compress2&#8217;:
+zlib-stubs.c:200: warning: pointer targets in passing argument 1 of 
+&#8216;compress2&#8217; differ in signedness
+zlib-stubs.c:200: warning: pointer targets in passing argument 3 of 
+&#8216;compress2&#8217; differ in signedness
+zlib-stubs.c: In function &#8216;zlib_uncompress&#8217;:
+zlib-stubs.c:211: warning: pointer targets in passing argument 1 of 
+&#8216;uncompress&#8217; differ in signedness
+zlib-stubs.c:211: warning: pointer targets in passing argument 3 of 
+&#8216;uncompress&#8217; differ in signedness
+zlib-stubs.c: In function &#8216;zlib_adler32&#8217;:
+zlib-stubs.c:221: warning: pointer targets in passing argument 2 of 
+&#8216;adler32&#8217; differ in signedness
+zlib-stubs.c: In function &#8216;zlib_crc32&#8217;:
+zlib-stubs.c:228: warning: pointer targets in passing argument 2 of 
+&#8216;crc32&#8217; differ in signedness
+- scan Runtime freetype-stubs.o
++ gcc -I. -MM freetype-stubs.c
+freetype-stubs.c:7:10: error: #include expects &quot;FILENAME&quot; or &lt;FILENAME&gt;
+freetype-stubs.c:8:10: error: #include expects &quot;FILENAME&quot; or &lt;FILENAME&gt;
+freetype-stubs.c:9:10: error: #include expects &quot;FILENAME&quot; or &lt;FILENAME&gt;
+*** omake: 175/938 targets are up to date
+*** omake: failed (0.98 sec, 2/2 scans, 2/2 rules, 120/551 digests)
+*** omake: targets were not rebuilt because of errors:
+   &lt;scanner Runtime/freetype-stubs.o&gt;
+      depends on: Runtime/freetype-stubs.c
+<A HREF="https://lists.berlios.de/mailman/listinfo/ant-devel">mbana at mbana-desktop</A>:~/ocaml/ant/ant-0.8$ omake clean
+omake: Symbol `FamErrlist' has different size in shared object, consider 
+re-linking
+*** omake: reading OMakefiles
+*** omake: finished reading OMakefiles (0.22 sec)
+*** omake: done (0.27 sec, 0/0 scans, 4/4 rules, 0/124 digests)
+<A HREF="https://lists.berlios.de/mailman/listinfo/ant-devel">mbana at mbana-desktop</A>:~/ocaml/ant/ant-0.8$ make clean
+make: *** No rule to make target `clean'. Stop.
+<A HREF="https://lists.berlios.de/mailman/listinfo/ant-devel">mbana at mbana-desktop</A>:~/ocaml/ant/ant-0.8$ omake NUM_LIB=Gmp
+omake: Symbol `FamErrlist' has different size in shared object, consider 
+re-linking
+*** omake: reading OMakefiles
+*** omake: finished reading OMakefiles (0.26 sec)
+- build Tools zlib-stubs.o
++ ocamlc -c -o zlib-stubs.o zlib-stubs.c
+zlib-stubs.c: In function &#8216;zlib_compress&#8217;:
+zlib-stubs.c:189: warning: pointer targets in passing argument 1 of 
+&#8216;compress&#8217; differ in signedness
+zlib-stubs.c:189: warning: pointer targets in passing argument 3 of 
+&#8216;compress&#8217; differ in signedness
+zlib-stubs.c: In function &#8216;zlib_compress2&#8217;:
+zlib-stubs.c:200: warning: pointer targets in passing argument 1 of 
+&#8216;compress2&#8217; differ in signedness
+zlib-stubs.c:200: warning: pointer targets in passing argument 3 of 
+&#8216;compress2&#8217; differ in signedness
+zlib-stubs.c: In function &#8216;zlib_uncompress&#8217;:
+zlib-stubs.c:211: warning: pointer targets in passing argument 1 of 
+&#8216;uncompress&#8217; differ in signedness
+zlib-stubs.c:211: warning: pointer targets in passing argument 3 of 
+&#8216;uncompress&#8217; differ in signedness
+zlib-stubs.c: In function &#8216;zlib_adler32&#8217;:
+zlib-stubs.c:221: warning: pointer targets in passing argument 2 of 
+&#8216;adler32&#8217; differ in signedness
+zlib-stubs.c: In function &#8216;zlib_crc32&#8217;:
+zlib-stubs.c:228: warning: pointer targets in passing argument 2 of 
+&#8216;crc32&#8217; differ in signedness
+- scan Runtime freetype-stubs.o
++ gcc -ccopt -I/usr/include/freetype2 -I. -MM freetype-stubs.c
+gcc: unrecognized option '-ccopt'
+- scan Tools 
+scan-ocaml-IO.mli                                                
++ ocamldep -I ../Tools -I ../lib -pp ../PreProc/camlp4opt -modules IO.mli
+     | Shell.ocamldep-postproc()
+&lt;W&gt; Grammar extension: in [expr] some rule has been masked
+- scan Tools 
+scan-ocaml-XString.ml                                            
++ ocamldep -I ../Tools -I ../lib -pp ../PreProc/camlp4opt -modules 
+XString.ml
+     | Shell.ocamldep-postproc()
+&lt;W&gt; Grammar extension: in [expr] some rule has been masked
+- build Tools 
+XString.o                                                       
++ ocamlopt -w Aes -warn-error P -rectypes -I ../Tools -I ../lib -pp 
+../PreProc/camlp4opt -I . -c XString.ml
+&lt;W&gt; Grammar extension: in [expr] some rule has been masked
+- scan Tools 
+scan-ocaml-IO.ml                                                 
++ ocamldep -I ../Tools -I ../lib -pp ../PreProc/camlp4opt -modules IO.ml
+     | Shell.ocamldep-postproc()
+&lt;W&gt; Grammar extension: in [expr] some rule has been masked
+- scan Tools 
+scan-ocaml-IO_Base.mli                                           
++ ocamldep -I ../Tools -I ../lib -pp ../PreProc/camlp4opt -modules 
+IO_Base.mli
+     | Shell.ocamldep-postproc()
+&lt;W&gt; Grammar extension: in [expr] some rule has been masked
+- build Tools 
+IO_Base.cmi                                                     
++ ocamlc -w Aes -warn-error P -rectypes -I ../Tools -I ../lib -pp 
+../PreProc/camlp4opt -g -I . -c IO_Base.mli
+&lt;W&gt; Grammar extension: in [expr] some rule has been masked
+- scan Tools 
+scan-ocaml-ShortestPath.ml                                       
++ ocamldep -I ../Tools -I ../lib -pp ../PreProc/camlp4opt -modules 
+ShortestPath.ml
+     | Shell.ocamldep-postproc()
+&lt;W&gt; Grammar extension: in [expr] some rule has been masked
+- scan Tools 
+scan-ocaml-Maps.mli                                              
++ ocamldep -I ../Tools -I ../lib -pp ../PreProc/camlp4opt -modules Maps.mli
+     | Shell.ocamldep-postproc()
+&lt;W&gt; Grammar extension: in [expr] some rule has been masked
+- build Tools 
+Maps.cmi                                                        
++ ocamlc -w Aes -warn-error P -rectypes -I ../Tools -I ../lib -pp 
+../PreProc/camlp4opt -g -I . -c Maps.mli
+&lt;W&gt; Grammar extension: in [expr] some rule has been masked
+- scan Tools 
+scan-ocaml-PlanePartition.ml                                     
++ ocamldep -I ../Tools -I ../lib -pp ../PreProc/camlp4opt -modules 
+PlanePartition.ml
+     | Shell.ocamldep-postproc()
+&lt;W&gt; Grammar extension: in [expr] some rule has been masked
+- scan Tools 
+scan-ocaml-NumFloat.ml                                           
++ ocamldep -I ../Tools -I ../lib -pp ../PreProc/camlp4opt -modules 
+NumFloat.ml
+     | Shell.ocamldep-postproc()
+&lt;W&gt; Grammar extension: in [expr] some rule has been masked
+- scan Tools 
+scan-ocaml-Maps.ml                                               
++ ocamldep -I ../Tools -I ../lib -pp ../PreProc/camlp4opt -modules Maps.ml
+     | Shell.ocamldep-postproc()
+&lt;W&gt; Grammar extension: in [expr] some rule has been masked
+- scan Tools 
+scan-ocaml-OrderedInt.ml                                         
++ ocamldep -I ../Tools -I ../lib -pp ../PreProc/camlp4opt -modules 
+OrderedInt.ml
+     | Shell.ocamldep-postproc()
+&lt;W&gt; Grammar extension: in [expr] some rule has been masked
+- scan Tools 
+scan-ocaml-ListBuilder.ml                                        
++ ocamldep -I ../Tools -I ../lib -pp ../PreProc/camlp4opt -modules 
+ListBuilder.ml
+     | Shell.ocamldep-postproc()
+&lt;W&gt; Grammar extension: in [expr] some rule has been masked
+- scan Tools 
+scan-ocaml-Option.ml                                             
++ ocamldep -I ../Tools -I ../lib -pp ../PreProc/camlp4opt -modules Option.ml
+     | Shell.ocamldep-postproc()
+&lt;W&gt; Grammar extension: in [expr] some rule has been masked
+- scan Tools 
+scan-ocaml-OrderedInt.mli                                        
++ ocamldep -I ../Tools -I ../lib -pp ../PreProc/camlp4opt -modules 
+OrderedInt.mli
+     | Shell.ocamldep-postproc()
+&lt;W&gt; Grammar extension: in [expr] some rule has been masked
+- build Tools 
+OrderedInt.cmi                                                  
++ ocamlc -w Aes -warn-error P -rectypes -I ../Tools -I ../lib -pp 
+../PreProc/camlp4opt -g -I . -c OrderedInt.mli
+&lt;W&gt; Grammar extension: in [expr] some rule has been masked
+- build Tools 
+OrderedInt.o                                                    
++ ocamlopt -w Aes -warn-error P -rectypes -I ../Tools -I ../lib -pp 
+../PreProc/camlp4opt -I . -c OrderedInt.ml
+&lt;W&gt; Grammar extension: in [expr] some rule has been masked
+- build Tools 
+Maps.cmx                                                        
++ ocamlopt -w Aes -warn-error P -rectypes -I ../Tools -I ../lib -pp 
+../PreProc/camlp4opt -I . -c Maps.ml
+&lt;W&gt; Grammar extension: in [expr] some rule has been masked
+- scan Tools 
+scan-ocaml-ListBuilder.mli                                       
++ ocamldep -I ../Tools -I ../lib -pp ../PreProc/camlp4opt -modules 
+ListBuilder.mli
+     | Shell.ocamldep-postproc()
+&lt;W&gt; Grammar extension: in [expr] some rule has been masked
+- build Tools 
+ListBuilder.cmi                                                 
++ ocamlc -w Aes -warn-error P -rectypes -I ../Tools -I ../lib -pp 
+../PreProc/camlp4opt -g -I . -c ListBuilder.mli
+&lt;W&gt; Grammar extension: in [expr] some rule has been masked
+- build Tools 
+ListBuilder.cmx                                                 
++ ocamlopt -w Aes -warn-error P -rectypes -I ../Tools -I ../lib -pp 
+../PreProc/camlp4opt -I . -c ListBuilder.ml
+&lt;W&gt; Grammar extension: in [expr] some rule has been masked
+- scan Tools 
+scan-ocaml-Zlib.ml                                               
++ ocamldep -I ../Tools -I ../lib -pp ../PreProc/camlp4opt -modules Zlib.ml
+     | Shell.ocamldep-postproc()
+&lt;W&gt; Grammar extension: in [expr] some rule has been masked
+- scan Tools 
+scan-ocaml-ShortestPath.mli                                      
++ ocamldep -I ../Tools -I ../lib -pp ../PreProc/camlp4opt -modules 
+ShortestPath.mli
+     | Shell.ocamldep-postproc()
+&lt;W&gt; Grammar extension: in [expr] some rule has been masked
+- scan Tools 
+scan-ocaml-XList.ml                                              
++ ocamldep -I ../Tools -I ../lib -pp ../PreProc/camlp4opt -modules XList.ml
+     | Shell.ocamldep-postproc()
+&lt;W&gt; Grammar extension: in [expr] some rule has been masked
+- build Tools 
+XList.o                                                         
++ ocamlopt -w Aes -warn-error P -rectypes -I ../Tools -I ../lib -pp 
+../PreProc/camlp4opt -I . -c XList.ml
+&lt;W&gt; Grammar extension: in [expr] some rule has been masked
+File &quot;XList.ml&quot;, line 36, characters 8-10:                     ] 00309 / 
+00950
+Warning Z: unused variable xs.
+- scan Tools 
+scan-ocaml-Constraint.ml                                         
++ ocamldep -I ../Tools -I ../lib -pp ../PreProc/camlp4opt -modules 
+Constraint.ml
+     | Shell.ocamldep-postproc()
+&lt;W&gt; Grammar extension: in [expr] some rule has been masked
+- scan Tools 
+scan-ocaml-LinForm.mli                                           
++ ocamldep -I ../Tools -I ../lib -pp ../PreProc/camlp4opt -modules 
+LinForm.mli
+     | Shell.ocamldep-postproc()
+&lt;W&gt; Grammar extension: in [expr] some rule has been masked
+- scan Tools 
+scan-ocaml-NumFloat.mli                                          
++ ocamldep -I ../Tools -I ../lib -pp ../PreProc/camlp4opt -modules 
+NumFloat.mli
+     | Shell.ocamldep-postproc()
+&lt;W&gt; Grammar extension: in [expr] some rule has been masked
+- build Tools 
+NumFloat.cmi                                                    
++ ocamlc -w Aes -warn-error P -rectypes -I ../Tools -I ../lib -pp 
+../PreProc/camlp4opt -g -I . -c NumFloat.mli
+&lt;W&gt; Grammar extension: in [expr] some rule has been masked
+- scan Tools 
+scan-ocaml-Constraint.mli                                        
++ ocamldep -I ../Tools -I ../lib -pp ../PreProc/camlp4opt -modules 
+Constraint.mli
+     | Shell.ocamldep-postproc()
+&lt;W&gt; Grammar extension: in [expr] some rule has been masked
+- scan Tools 
+scan-ocaml-Zlib.mli                                              
++ ocamldep -I ../Tools -I ../lib -pp ../PreProc/camlp4opt -modules Zlib.mli
+     | Shell.ocamldep-postproc()
+&lt;W&gt; Grammar extension: in [expr] some rule has been masked
+- build Tools 
+Zlib.cmi                                                        
++ ocamlc -w Aes -warn-error P -rectypes -I ../Tools -I ../lib -pp 
+../PreProc/camlp4opt -g -I . -c Zlib.mli
+&lt;W&gt; Grammar extension: in [expr] some rule has been masked
+- build Tools 
+Zlib.o                                                          
++ ocamlopt -w Aes -warn-error P -rectypes -I ../Tools -I ../lib -pp 
+../PreProc/camlp4opt -I . -c Zlib.ml
+&lt;W&gt; Grammar extension: in [expr] some rule has been masked
+- scan Tools 
+scan-ocaml-IO_Base.ml                                            
++ ocamldep -I ../Tools -I ../lib -pp ../PreProc/camlp4opt -modules 
+IO_Base.ml
+     | Shell.ocamldep-postproc()
+&lt;W&gt; Grammar extension: in [expr] some rule has been masked
+- build Tools 
+IO_Base.cmx                                                     
++ ocamlopt -w Aes -warn-error P -rectypes -I ../Tools -I ../lib -pp 
+../PreProc/camlp4opt -I . -c IO_Base.ml
+&lt;W&gt; Grammar extension: in [expr] some rule has been masked
+- build Tools 
+NumFloat.cmx                                                    
++ ocamlopt -w Aes -warn-error P -rectypes -I ../Tools -I ../lib -pp 
+../PreProc/camlp4opt -I . -c NumFloat.ml
+&lt;W&gt; Grammar extension: in [expr] some rule has been masked
+- scan Tools 
+scan-ocaml-Option.mli                                            
++ ocamldep -I ../Tools -I ../lib -pp ../PreProc/camlp4opt -modules 
+Option.mli
+     | Shell.ocamldep-postproc()
+&lt;W&gt; Grammar extension: in [expr] some rule has been masked
+- build Tools 
+Option.cmi                                                      
++ ocamlc -w Aes -warn-error P -rectypes -I ../Tools -I ../lib -pp 
+../PreProc/camlp4opt -g -I . -c Option.mli
+&lt;W&gt; Grammar extension: in [expr] some rule has been masked
+- build Tools 
+Option.o                                                        
++ ocamlopt -w Aes -warn-error P -rectypes -I ../Tools -I ../lib -pp 
+../PreProc/camlp4opt -I . -c Option.ml
+&lt;W&gt; Grammar extension: in [expr] some rule has been masked
+- scan Tools 
+scan-ocaml-PlanePartition.mli                                    
++ ocamldep -I ../Tools -I ../lib -pp ../PreProc/camlp4opt -modules 
+PlanePartition.mli
+     | Shell.ocamldep-postproc()
+&lt;W&gt; Grammar extension: in [expr] some rule has been masked
+- scan Tools 
+scan-ocaml-XNum.ml                                               
++ ocamldep -I ../Tools -I ../lib -pp ../PreProc/camlp4opt -modules XNum.ml
+     | Shell.ocamldep-postproc()
+&lt;W&gt; Grammar extension: in [expr] some rule has been masked
+- build Tools 
+XNum.cmx                                                        
++ ocamlopt -w Aes -warn-error P -rectypes -I ../Tools -I ../lib -pp 
+../PreProc/camlp4opt -I . -c XNum.ml
+&lt;W&gt; Grammar extension: in [expr] some rule has been masked
+- build Tools 
+LinForm.cmi                                                     
++ ocamlc -w Aes -warn-error P -rectypes -I ../Tools -I ../lib -pp 
+../PreProc/camlp4opt -g -I . -c LinForm.mli
+&lt;W&gt; Grammar extension: in [expr] some rule has been masked
+- build Tools 
+Constraint.cmi                                                  
++ ocamlc -w Aes -warn-error P -rectypes -I ../Tools -I ../lib -pp 
+../PreProc/camlp4opt -g -I . -c Constraint.mli
+&lt;W&gt; Grammar extension: in [expr] some rule has been masked
+- build Tools 
+IO.cmi                                                          
++ ocamlc -w Aes -warn-error P -rectypes -I ../Tools -I ../lib -pp 
+../PreProc/camlp4opt -g -I . -c IO.mli
+&lt;W&gt; Grammar extension: in [expr] some rule has been masked
+- build Tools 
+IO.o                                                            
++ ocamlopt -w Aes -warn-error P -rectypes -I ../Tools -I ../lib -pp 
+../PreProc/camlp4opt -I . -c IO.ml
+&lt;W&gt; Grammar extension: in [expr] some rule has been masked
+- build Tools 
+PlanePartition.cmi                                              
++ ocamlc -w Aes -warn-error P -rectypes -I ../Tools -I ../lib -pp 
+../PreProc/camlp4opt -g -I . -c PlanePartition.mli
+&lt;W&gt; Grammar extension: in [expr] some rule has been masked
+- build Tools 
+PlanePartition.o                                                
++ ocamlopt -w Aes -warn-error P -rectypes -I ../Tools -I ../lib -pp 
+../PreProc/camlp4opt -I . -c PlanePartition.ml
+&lt;W&gt; Grammar extension: in [expr] some rule has been masked
+- build Tools 
+ShortestPath.cmi                                                
++ ocamlc -w Aes -warn-error P -rectypes -I ../Tools -I ../lib -pp 
+../PreProc/camlp4opt -g -I . -c ShortestPath.mli
+&lt;W&gt; Grammar extension: in [expr] some rule has been masked
+- build Tools 
+ShortestPath.cmx                                                
++ ocamlopt -w Aes -warn-error P -rectypes -I ../Tools -I ../lib -pp 
+../PreProc/camlp4opt -I . -c ShortestPath.ml
+&lt;W&gt; Grammar extension: in [expr] some rule has been masked
+- scan Tools 
+scan-ocaml-LinForm.ml                                            
++ ocamldep -I ../Tools -I ../lib -pp ../PreProc/camlp4opt -modules 
+LinForm.ml
+     | Shell.ocamldep-postproc()
+&lt;W&gt; Grammar extension: in [expr] some rule has been masked
+- build Tools 
+LinForm.cmx                                                     
++ ocamlopt -w Aes -warn-error P -rectypes -I ../Tools -I ../lib -pp 
+../PreProc/camlp4opt -I . -c LinForm.ml
+&lt;W&gt; Grammar extension: in [expr] some rule has been masked
+- build Tools 
+Constraint.cmx                                                  
++ ocamlopt -w Aes -warn-error P -rectypes -I ../Tools -I ../lib -pp 
+../PreProc/camlp4opt -I . -c Constraint.ml
+&lt;W&gt; Grammar extension: in [expr] some rule has been masked
+- scan Unicode 
+scan-ocaml-SymbolTable.ml                                      
++ ocamldep -I ../Tools -I ../lib -pp ../PreProc/camlp4opt -modules 
+SymbolTable.ml
+     | Shell.ocamldep-postproc()
+&lt;W&gt; Grammar extension: in [expr] some rule has been masked
+- scan Unicode 
+scan-ocaml-Format.mli                                          
++ ocamldep -I ../Tools -I ../lib -pp ../PreProc/camlp4opt -modules 
+Format.mli
+     | Shell.ocamldep-postproc()
+&lt;W&gt; Grammar extension: in [expr] some rule has been masked
+- scan Unicode 
+scan-ocaml-UChar.ml                                            
++ ocamldep -I ../Tools -I ../lib -pp ../PreProc/camlp4opt -modules UChar.ml
+     | Shell.ocamldep-postproc()
+&lt;W&gt; Grammar extension: in [expr] some rule has been masked
+- scan Unicode 
+scan-ocaml-GenUnicodeTable.ml                                  
++ ocamldep -I ../Tools -I ../lib -pp ../PreProc/camlp4opt -modules 
+GenUnicodeTable.ml
+     | Shell.ocamldep-postproc()
+&lt;W&gt; Grammar extension: in [expr] some rule has been masked
+- build Unicode 
+GenUnicodeTable.cmi                                           
++ ocamlopt -w Aes -warn-error P -rectypes -I ../Tools -I ../lib -pp 
+../PreProc/camlp4opt -I . -I . -c GenUnicodeTable.ml
+&lt;W&gt; Grammar extension: in [expr] some rule has been masked
+- build Unicode 
+GenUnicodeTable.opt                                           
++ ocamlopt -w Aes -warn-error P -rectypes -I ../Tools -I ../lib -pp 
+../PreProc/camlp4opt -I . -I . -o GenUnicodeTable.opt unix.cmxa 
+/usr/lib/ocaml/3.10.2/camlimages/ci_core.cmxa 
+/usr/lib/ocaml/3.10.2/camlimages/ci_freetype.cmxa 
+/usr/lib/ocaml/3.10.2/camlimages/ci_gif.cmxa 
+/usr/lib/ocaml/3.10.2/camlimages/ci_jpeg.cmxa 
+/usr/lib/ocaml/3.10.2/camlimages/ci_tiff.cmxa 
+/usr/lib/ocaml/3.10.2/camlimages/ci_bmp.cmxa 
+/usr/lib/ocaml/3.10.2/camlimages/ci_ppm.cmxa 
+/usr/lib/ocaml/3.10.2/camlimages/ci_png.cmxa 
+/usr/lib/ocaml/3.10.2/camlimages/ci_xvthumb.cmxa 
+/usr/lib/ocaml/3.10.2/camlimages/ci_xpm.cmxa 
+/usr/lib/ocaml/3.10.2/camlimages/ci_ps.cmxa ../Tools/Tools.cmxa 
+GenUnicodeTable.cmx -I /usr/lib/ocaml/3.10.2/camlimages -cclib 
+-L/usr/local/texlive/2008/lib -cclib -L/usr/X11/lib -cclib -lz
+/usr/bin/ld: 
+[=======================                                       ] 
+00cannot find -ltiff
+collect2: ld returned 1 exit status
+Error during linking
+*** omake: 360/950 targets are up to 
+date                                     
+*** omake: failed (6.66 sec, 35/36 scans, 38/63 rules, 151/857 digests)
+*** omake: targets were not rebuilt because of 
+errors:                        
+   Unicode/GenUnicodeTable.opt
+
+
+Barry Schwartz wrote:
+&gt;<i> Mohamed O Bana &lt;<A HREF="https://lists.berlios.de/mailman/listinfo/ant-devel">m.bana at ucl.ac.uk</A>&gt; skribis:
+</I>&gt;<i>   
+</I>&gt;&gt;<i> Has anyone managed to build ANT on Ubuntu 8.10 intrepid.  I'm running into
+</I>&gt;&gt;<i> freetype problems.  I'd really appreciate if someone could just post how
+</I>&gt;&gt;<i> they got it working.
+</I>&gt;&gt;<i>     
+</I>&gt;<i>
+</I>&gt;<i> You could try this patch, although I believe the latest CVS has this
+</I>&gt;<i> fixed.
+</I>&gt;<i>
+</I>&gt;<i>
+</I>&gt;<i> --- ant.ORIG/Runtime/OMakefile	2008-06-12 00:56:10.000000000 +0000
+</I>&gt;<i> +++ ant/Runtime/OMakefile	2008-06-12 02:48:23.000000000 +0000
+</I>&gt;<i> @@ -66,6 +66,7 @@
+</I>&gt;<i>  	$(OCAMLC) -c $(KPATHSEA_CFLAGS) $(SELFAUTO_FLAGS) -o $@ $^
+</I>&gt;<i>  	mv kpathsea-stubs.o $@  # BUG: ocaml creates the object file in the current directory
+</I>&gt;<i>  
+</I>&gt;<i> +CFLAGS += $(FREETYPE_FLAGS)
+</I>&gt;<i>  freetype-stubs.o: freetype-stubs.c
+</I>&gt;<i>  	$(OCAMLC) -c $(FREETYPE_FLAGS) -o $@ $^
+</I>&gt;<i>  	mv freetype-stubs.o $@  # BUG: ocaml creates the object file in the current directory
+</I>&gt;<i> _______________________________________________
+</I>&gt;<i> ant-devel mailing list
+</I>&gt;<i> <A HREF="https://lists.berlios.de/mailman/listinfo/ant-devel">ant-devel at lists.berlios.de</A>
+</I>&gt;<i> <A HREF="https://lists.berlios.de/mailman/listinfo/ant-devel">https://lists.berlios.de/mailman/listinfo/ant-devel</A>
+</I>&gt;<i>   
+</I>
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000087.html">[ant-devel] Building on Ubuntu 8.10 intrepid
+</A></li>
+	<LI>Next message: <A HREF="000096.html">[ant-devel] Building on Ubuntu 8.10 intrepid
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#95">[ date ]</a>
+              <a href="thread.html#95">[ thread ]</a>
+              <a href="subject.html#95">[ subject ]</a>
+              <a href="author.html#95">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/ant-devel">More information about the ant-devel
+mailing list</a><br>
+</body></html>

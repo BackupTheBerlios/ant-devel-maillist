@@ -1,0 +1,113 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [ant-devel] ant-devel broken?
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/ant-devel/2008-August/index.html" >
+   <LINK REL="made" HREF="mailto:ant-devel%40lists.berlios.de?Subject=Re%3A%20%5Bant-devel%5D%20ant-devel%20broken%3F&In-Reply-To=%3Cf329bf540808190903w1611ae8fn24555890bd5746ba%40mail.gmail.com%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   
+   
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[ant-devel] ant-devel broken?</H1>
+    <B>Han-Wen Nienhuys</B> 
+    <A HREF="mailto:ant-devel%40lists.berlios.de?Subject=Re%3A%20%5Bant-devel%5D%20ant-devel%20broken%3F&In-Reply-To=%3Cf329bf540808190903w1611ae8fn24555890bd5746ba%40mail.gmail.com%3E"
+       TITLE="[ant-devel] ant-devel broken?">hanwenn at gmail.com
+       </A><BR>
+    <I>Tue Aug 19 18:03:40 CEST 2008</I>
+    <P><UL>
+        
+        
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#69">[ date ]</a>
+              <a href="thread.html#69">[ thread ]</a>
+              <a href="subject.html#69">[ subject ]</a>
+              <a href="author.html#69">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>[<A HREF="https://lists.berlios.de/mailman/listinfo/ant-devel">lilydev at haring</A> ant]$ omake
+*** omake: reading OMakefiles
+*** omake: finished reading OMakefiles (1.52 sec)
+--- Checking for gcc... (found /usr/bin/gcc)
+--- Checking for g++... (found /usr/bin/g++)
+- scan Runtime freetype-stubs.o
++ gcc -I. -MM freetype-stubs.c
+freetype-stubs.c:7:10:[====
+          error: #include expects &quot;FILENAME&quot; or &lt;FILENAME&gt;
+freetype-stubs.c:8:10: error: #include expects &quot;FILENAME&quot; or &lt;FILENAME&gt;
+freetype-stubs.c:9:10: error: #include expects &quot;FILENAME&quot; or &lt;FILENAME&gt;
+*** omake: 60/945 targets are up to date
+*** omake: failed (4.37 sec, 2/2 scans, 1/1 rules, 3/349 digests)
+*** omake: targets were not rebuilt because of errors:
+   &lt;scanner Runtime/freetype-stubs.o&gt;
+      depends on: Runtime/freetype-stubs.c
+
+this is actually an  error I can understand.  Let me look into it when
+I have time.
+
+On Tue, Aug 19, 2008 at 6:57 AM, Achim Blumensath
+&lt;<A HREF="https://lists.berlios.de/mailman/listinfo/ant-devel">blumensath at mathematik.tu-darmstadt.de</A>&gt; wrote:
+&gt;<i> Hello,
+</I>&gt;<i>
+</I>&gt;<i> concerning your original question:
+</I>&gt;<i>
+</I>&gt;&gt;<i>   File /usr/lib/omake/build/OCaml.om: line 933, characters 10-73
+</I>&gt;&gt;<i>   Do not know how to build &quot;lib&quot; required for &quot;lib/Unicode.cmi&quot;
+</I>&gt;<i>
+</I>&gt;<i> Have you tried to create the directory lib manually?
+</I>&gt;<i>
+</I>&gt;<i>  $ mkdir lib
+</I>&gt;<i>
+</I>&gt;<i> Achim
+</I>&gt;<i> --
+</I>&gt;<i> ________________________________________________________________________
+</I>&gt;<i>                                                              | \_____/ |
+</I>&gt;<i>   Achim Blumensath                                          \O/ \___/\ |
+</I>&gt;<i>   TU Darmstadt                                              =o=  \ /\ \|
+</I>&gt;<i>   www.mathematik.tu-darmstadt.de/~blumensath                /&quot;\   o----|
+</I>&gt;<i> ____________________________________________________________________\___|
+</I>&gt;<i>
+</I>&gt;<i> -----BEGIN PGP SIGNATURE-----
+</I>&gt;<i> Version: GnuPG v1.4.6 (GNU/Linux)
+</I>&gt;<i>
+</I>&gt;<i> iD8DBQFIqpj7EJmibKiR73IRAiR6AJ9Qk6Y6ElOeYZguIuqtPPB8+crKmACeMHWi
+</I>&gt;<i> YBIKVNwt1XYOt+dTjNTVwDw=
+</I>&gt;<i> =VSlC
+</I>&gt;<i> -----END PGP SIGNATURE-----
+</I>&gt;<i>
+</I>&gt;<i>
+</I>
+
+
+-- 
+Han-Wen Nienhuys - <A HREF="https://lists.berlios.de/mailman/listinfo/ant-devel">hanwen at xs4all.nl</A> - <A HREF="http://www.xs4all.nl/~hanwen">http://www.xs4all.nl/~hanwen</A>
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	
+	
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#69">[ date ]</a>
+              <a href="thread.html#69">[ thread ]</a>
+              <a href="subject.html#69">[ subject ]</a>
+              <a href="author.html#69">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/ant-devel">More information about the ant-devel
+mailing list</a><br>
+</body></html>

@@ -1,0 +1,92 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [ant-devel] Conversion between characters and unicode value
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/ant-devel/2008-March/index.html" >
+   <LINK REL="made" HREF="mailto:ant-devel%40lists.berlios.de?Subject=Re%3A%20%5Bant-devel%5D%20Conversion%20between%20characters%20and%20unicode%20value&In-Reply-To=%3C4CD09AF1-ACD8-4C27-90C3-2F625B41D0F0%40nus.edu.sg%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000056.html">
+   
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[ant-devel] Conversion between characters and unicode value</H1>
+    <B>Shen Chen</B> 
+    <A HREF="mailto:ant-devel%40lists.berlios.de?Subject=Re%3A%20%5Bant-devel%5D%20Conversion%20between%20characters%20and%20unicode%20value&In-Reply-To=%3C4CD09AF1-ACD8-4C27-90C3-2F625B41D0F0%40nus.edu.sg%3E"
+       TITLE="[ant-devel] Conversion between characters and unicode value">shenchen at nus.edu.sg
+       </A><BR>
+    <I>Mon Mar 31 15:45:02 CEST 2008</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000056.html">[ant-devel] Conversion between characters and unicode value
+</A></li>
+        
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#57">[ date ]</a>
+              <a href="thread.html#57">[ thread ]</a>
+              <a href="subject.html#57">[ subject ]</a>
+              <a href="author.html#57">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>&gt;&gt;<i> Further, I was trying to implement matrix in mathmode. I realize that
+</I>&gt;&gt;<i> there is no equivalents to \setbox. I can't read and set the  
+</I>&gt;&gt;<i> dimension
+</I>&gt;&gt;<i> of boxes either. Vertically centering a matrix seems impossible now.
+</I>&gt;<i>
+</I>&gt;<i> Perhaps I have to add some commands to do this. Did you try to add the
+</I>&gt;<i> matrix as \mathord? If I remember correctly that should do vertical
+</I>&gt;<i> centering.
+</I>
+I tried the following code with \mathord \mathop \mathopen etc, with  
+no luck.
+
+$  xx \mathop{\begintable
+                   \newtableentry a \newtablerow
+                   \newtableentry b \newtablerow
+                   \newtableentry c \newtablerow
+                \endtable}
+$
+
+In source code I saw the function center_on_axis being called by  
+make_delimiter and make_operator, not for math ordinary.
+
+For the moment I use \raise to do the adjustments (manually).
+
+I saw the page_command used in reference.ant, and think it's very  
+powerful. I wonder whether the same idea can be used for boxes: I  
+specify a callback function to an hbox, which raise/lower this hbox  
+according to its height/depth once it's set.
+
+Thank you.
+
+shenchen
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000056.html">[ant-devel] Conversion between characters and unicode value
+</A></li>
+	
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#57">[ date ]</a>
+              <a href="thread.html#57">[ thread ]</a>
+              <a href="subject.html#57">[ subject ]</a>
+              <a href="author.html#57">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/ant-devel">More information about the ant-devel
+mailing list</a><br>
+</body></html>

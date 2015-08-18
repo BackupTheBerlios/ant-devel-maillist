@@ -1,0 +1,163 @@
+From john at cs.york.ac.uk  Wed Aug 26 18:54:14 2009
+From: john at cs.york.ac.uk (John Murdie)
+Date: Wed, 26 Aug 2009 17:54:14 +0100
+Subject: [ant-devel] Building camlimages-2.2 as Ant 0.8 prerequisite
+Message-ID: <1251305654.3788.145.camel@pc118.cs.york.ac.uk>
+
+Having built Ant 0.7 some time ago, and feeling I should really get back
+to using Ant, I decided to build 0.8 - on Slackware Linux 12.1. The
+prerequisite list from the README file is:
+
+Package		Need:	I have:
+OCaml		3.10	3.10.2
+OMake		0.9.8.1	0.9.8.5
+kpathsea	3.2	3.5.7
+FreeType	2	2.3.5
+CamlImages	2.2	  -
+mlgmp (opt)	0.13	  -
+
+I hoped that the slight variations in version number of the things I did
+have were not important, but saw I was missing CamlImages. So, I set off
+to build version 2.2. I saw:
+
+> ...
+> ?ocamlc.opt  -ccopt "-I.. -g -O2" -c tiffread.c 
+> tiffread.c:24:1: warning: "int16" redefined
+> In file included from /usr/lib/ocaml/caml/mlvalues.h:20,
+>                  from tiffread.c:16:
+> /usr/lib/ocaml/caml/compatibility.h:312:1: warning: this is the
+> location of the previous definition
+> tiffread.c:25:1: warning: "uint16" redefined
+> /usr/lib/ocaml/caml/compatibility.h:313:1: warning: this is the
+> location of the previous definition
+> tiffread.c: In function ?open_tiff_file_for_read?:
+> tiffread.c:54: error: ?uint16? undeclared (first use in this function)
+> tiffread.c:54: error: (Each undeclared identifier is reported only
+> once
+> tiffread.c:54: error: for each function it appears in.)
+> tiffread.c:54: error: expected ?;? before ?imagesample?
+> tiffread.c:55: error: expected ?;? before ?imagebits?
+> tiffread.c:58: error: expected ?;? before ?runit?
+> tiffread.c:60: error: expected ?;? before ?photometric?
+> tiffread.c:64: error: ?imagebits? undeclared (first use in this
+> function)
+> tiffread.c:65: error: ?imagesample? undeclared (first use in this
+> function)
+> tiffread.c:66: error: ?runit? undeclared (first use in this function)
+> tiffread.c:69: error: ?photometric? undeclared (first use in this
+> function)
+> make[1]: *** [tiffread.o] Error 2
+
+I googled for this error, and found some mention of it but no ideal
+solution. This, the latest version of CamlImages, dates from as long ago
+as 2004.
+
+An ad hoc fix was to edit camlimages/tiff/tiffread.c:
+
+31,34c31,34
+< #undef int16
+< #undef uint16
+< #undef int32
+< #undef uint32
+---
+> /*#undef int16	*/
+> /*#undef uint16 */
+> /*#undef int32	*/
+> /*#undef uint32	*/
+
+and then try the make again, but then I got:
+
+> ...
+> ?ocamlc.opt  -I ../corelib
+> -I /usr/local/pkg/lablgtk-2.12.0-i686-1/lib/lablgtk2 -c ximage.mli
+> File "ximage.mli", line 40, characters 16-31:
+> Unbound type constructor Gdk.drawable
+> make[1]: *** [ximage.cmi] Error 2
+
+We have lablgtk version 2.12.0, if that needs to be known.
+
+I'm surprised that this problem hasn't been reported to the Ant mailing
+list before now - I've read through the titles of the mails, and can't
+see any such report.
+
+I'll press on tomorrow, but any idea how to get camlimages installed as
+a prerequisite for Ant 0.8?
+
+John A. Murdie
+Department of Computer Science
+University of York
+UK
+
+
+From Barry.Schwartz at chemoelectric.org  Thu Aug 27 04:12:03 2009
+From: Barry.Schwartz at chemoelectric.org (Barry Schwartz)
+Date: Wed, 26 Aug 2009 21:12:03 -0500
+Subject: [ant-devel] Building camlimages-2.2 as Ant 0.8 prerequisite
+In-Reply-To: <1251305654.3788.145.camel@pc118.cs.york.ac.uk>
+References: <1251305654.3788.145.camel@pc118.cs.york.ac.uk>
+Message-ID: <20090827021203.GA18430@crud.chemoelectric.org>
+
+John Murdie <john at cs.york.ac.uk> skribis:
+> Having built Ant 0.7 some time ago, and feeling I should really get back
+> to using Ant, I decided to build 0.8 - on Slackware Linux 12.1. The
+> prerequisite list from the README file is:
+> 
+> Package               Need:   I have:
+> OCaml         3.10    3.10.2
+> OMake         0.9.8.1 0.9.8.5
+> kpathsea      3.2     3.5.7
+> FreeType      2       2.3.5
+> CamlImages    2.2       -
+> mlgmp (opt)   0.13      -
+
+The current version of camlimages is 3.0.1:
+http://gallium.inria.fr/camlimages/
+
+That is what is installed on my Gentoo system, but I haven't yet tried
+building ant with it.
+
+
+From john at cs.york.ac.uk  Thu Aug 27 15:43:41 2009
+From: john at cs.york.ac.uk (John Murdie)
+Date: Thu, 27 Aug 2009 14:43:41 +0100
+Subject: [ant-devel] Building camlimages-2.2 as Ant 0.8 prerequisite
+Message-ID: <1251380621.4012.56.camel@pc118.cs.york.ac.uk>
+
+Barry Schwartz Barry.Schwartz at chemoelectric.org  wrote:
+> The current version of camlimages is 3.0.1:
+> http://gallium.inria.fr/camlimages/
+> 
+> That is what is installed on my Gentoo system, but I haven't yet tried
+> building ant with it.
+
+Thanks, Barry - I'd bookmarked http://pauillac.inria.fr/camlimages/ -
+which is still there, not updated since October 2004, and which still
+has 2.2 current! It would appear that the problem I raised here was a
+known bug at the time, that has long been fixed.
+
+I'll install that and then try Ant 0.8.
+
+John A. Murdie
+
+
+From Barry.Schwartz at chemoelectric.org  Fri Aug 28 00:05:21 2009
+From: Barry.Schwartz at chemoelectric.org (Barry Schwartz)
+Date: Thu, 27 Aug 2009 17:05:21 -0500
+Subject: [ant-devel] Building camlimages-2.2 as Ant 0.8 prerequisite
+In-Reply-To: <1251380621.4012.56.camel@pc118.cs.york.ac.uk>
+References: <1251380621.4012.56.camel@pc118.cs.york.ac.uk>
+Message-ID: <20090827220521.GA15615@crud.chemoelectric.org>
+
+John Murdie <john at cs.york.ac.uk> skribis:
+> Thanks, Barry - I'd bookmarked http://pauillac.inria.fr/camlimages/ -
+> which is still there, not updated since October 2004, and which still
+> has 2.2 current! It would appear that the problem I raised here was a
+> known bug at the time, that has long been fixed.
+
+Not wanting to keep track of versions myself is a major reason why I
+switched from Slackware to Gentoo about five years ago. Instead of
+packages, it's got a big database of software with instructions on how
+to compile it. :)
+
+
+

@@ -1,0 +1,91 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [ant-devel] Solution for the 'hanging'/freezing during	compilation(!?) :)
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/ant-devel/2008-September/index.html" >
+   <LINK REL="made" HREF="mailto:ant-devel%40lists.berlios.de?Subject=Re%3A%20%5Bant-devel%5D%20Solution%20for%20the%20%27hanging%27/freezing%20during%0A%09compilation%28%21%3F%29%20%3A%29&In-Reply-To=%3C1336842610%40web.de%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000075.html">
+   <LINK REL="Next"  HREF="000077.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[ant-devel] Solution for the 'hanging'/freezing during	compilation(!?) :)</H1>
+    <B>Ralf Gawlista</B> 
+    <A HREF="mailto:ant-devel%40lists.berlios.de?Subject=Re%3A%20%5Bant-devel%5D%20Solution%20for%20the%20%27hanging%27/freezing%20during%0A%09compilation%28%21%3F%29%20%3A%29&In-Reply-To=%3C1336842610%40web.de%3E"
+       TITLE="[ant-devel] Solution for the 'hanging'/freezing during	compilation(!?) :)">knoepfchendreher at web.de
+       </A><BR>
+    <I>Tue Sep 23 09:49:44 CEST 2008</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000075.html">[ant-devel] First impressions / 2 problems(?)
+</A></li>
+        <LI>Next message: <A HREF="000077.html">[ant-devel] Solution for the 'hanging'/freezing during	compilation(!?) :)
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#76">[ date ]</a>
+              <a href="thread.html#76">[ thread ]</a>
+              <a href="subject.html#76">[ subject ]</a>
+              <a href="author.html#76">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Hello,
+
+o.k., this is almost too trivial to mention, but...
+
+Remember, how I told you that compiling ant &quot;freezes&quot; during the generation of hyphenation tables...?
+...and that it all worked well if I manually enter the command 
+
+./Util/GenHyphTable ./data/hyphen/... 
+
+Well, of course, when entering the command manually, I used bash-completion. (Probably all people do!?)
+And therefore I did not notice the difference in one character:
+
+In OMakefile, there is written:
+
+HYPHEN_PATTERNS[] = british us deutsch-traditional deutsch-new francais
+
+But the contents of directory hyphen is:
+
+british.hyphen us.hyphen deutsch-alt.hyphen deutsch-neu.hyphen francais.hyphen
+
+I did not care of the traditional German patterns, but included the new German pattern, et voil&#224;, suddenly the command was looking for a deutsch-new, but there is none (instead there is a deutsch-neu. WAAAAAAAAAAAAAAAAAAAAAAAAAAAH...  ;)
+
+Yes, I did the test, I corrected the filenames in the OMakefile, did an &quot;omake distclean&quot; and re-started the compile, and this time everything worked well, and it took only a few minutes.
+
+Regards, Ralf.
+
+____________________________________________________________________
+Psssst! Schon vom neuen WEB.DE MultiMessenger geh&#246;rt? 
+Der kann`s mit allen: <A HREF="http://www.produkte.web.de/messenger/?did=3123">http://www.produkte.web.de/messenger/?did=3123</A>
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000075.html">[ant-devel] First impressions / 2 problems(?)
+</A></li>
+	<LI>Next message: <A HREF="000077.html">[ant-devel] Solution for the 'hanging'/freezing during	compilation(!?) :)
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#76">[ date ]</a>
+              <a href="thread.html#76">[ thread ]</a>
+              <a href="subject.html#76">[ subject ]</a>
+              <a href="author.html#76">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/ant-devel">More information about the ant-devel
+mailing list</a><br>
+</body></html>
